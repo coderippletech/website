@@ -292,52 +292,26 @@
       .surface-chrome.term-chrome span::after { animation: none; }
     }
 
-    /* ---- early access form (house contact-form pattern, emerald) ---- */
-    .ea-wrap { max-width: 620px; margin: 0 auto; }
-    .ea-card {
+    /* ---- cloud launch card ---- */
+    .launch-wrap { max-width: 720px; margin: 0 auto; }
+    .launch-card {
       background: var(--card); border: 1px solid var(--card-border);
-      border-radius: 18px; padding: 30px;
+      border-radius: 18px; padding: 34px; text-align: center;
     }
-    .field { margin-bottom: 18px; }
-    .field label { display: block; font-size: 13.5px; font-weight: 600; margin-bottom: 7px; }
-    .field label .opt { font-weight: 400; color: var(--muted); font-size: 12px; }
-    .field input, .field select, .field textarea {
-      width: 100%; font: inherit; font-size: 14.5px; color: var(--text);
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 10px; padding: 11px 14px;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease;
-      -webkit-appearance: none; appearance: none;
+    .launch-card h3 { font-size: 23px; margin-bottom: 10px; }
+    .launch-card p {
+      max-width: 560px; margin: 0 auto; color: var(--muted);
+      font-size: 14.5px; line-height: 1.7;
     }
-    .field select {
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238b98ab' stroke-width='1.8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-      background-repeat: no-repeat; background-position: right 14px center; padding-right: 38px;
-      color-scheme: dark;
+    .launch-actions {
+      display: flex; justify-content: center; flex-wrap: wrap;
+      gap: 10px; margin-top: 22px;
     }
-    .field select option { background-color: #0d131d; color: #e8edf4; }
-    .field textarea { min-height: 88px; resize: vertical; }
-    .field input::placeholder, .field textarea::placeholder { color: rgba(139, 152, 171, 0.6); }
-    .field input:focus, .field select:focus, .field textarea:focus {
-      outline: none; border-color: rgba(52, 211, 153, 0.55);
-      box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.14);
+    .launch-note {
+      display: flex; justify-content: center; flex-wrap: wrap; gap: 8px 18px;
+      margin-top: 22px; font-size: 12.5px; color: var(--muted);
     }
-    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-    @media (max-width: 560px) { .field-row { grid-template-columns: 1fr; } }
-    .ea-send { width: 100%; justify-content: center; font-size: 15px; padding: 13px 22px; cursor: pointer; border: 0; }
-    .ea-send[disabled] { opacity: 0.6; cursor: default; }
-    .form-note { font-size: 12.5px; color: var(--muted); text-align: center; margin-top: 14px; }
-    .form-error { display: none; margin-top: 14px; font-size: 13.5px; color: #fca5a5; text-align: center; }
-    .form-error a { color: #fecaca; }
-    .sent { display: none; text-align: center; padding: 46px 20px; animation: sentIn 0.45s ease both; }
-    @keyframes sentIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
-    .sent-ring {
-      width: 64px; height: 64px; margin: 0 auto 18px; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      background: rgba(52, 211, 153, 0.12); border: 1px solid rgba(52, 211, 153, 0.4);
-    }
-    .sent-ring svg { width: 28px; height: 28px; }
-    .sent h3 { font-size: 22px; margin-bottom: 8px; }
-    .sent p { color: var(--muted); font-size: 14.5px; }
+    .launch-note span::before { content: "✓"; color: var(--accent); margin-right: 6px; font-weight: 700; }
 
     /* ---- pricing ---- */
     .plans { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; max-width: 980px; margin: 0 auto; }
@@ -393,7 +367,7 @@
       <a href="#features">Features</a>
       <a href="#how">How it works</a>
       <a href="#pricing">Pricing</a>
-      <a class="btn btn-em" href="#early-access"><span class="cta-full">Get early access</span><span class="cta-short">Early access</span></a>
+      <a class="btn btn-em" href="https://cloud.coderippletech.com/" rel="noopener"><span class="cta-full">Open RippleRoot Cloud</span><span class="cta-short">Open Cloud</span></a>
     </div>
   </nav>
 
@@ -406,7 +380,7 @@
     still burns an afternoon. RippleRoot syncs your projects, env contracts, and encrypted
     secrets to any machine with one command.</p>
     <div class="hero-ctas">
-      <a class="btn btn-em" href="#early-access">Get early access</a>
+      <a class="btn btn-em" href="https://cloud.coderippletech.com/" rel="noopener">Start free with Google</a>
       <a class="btn btn-ghost" href="#how">See how it works →</a>
     </div>
     <div class="hero-note">Local-first · Works offline · Free for 3 seats · Self-host or cloud</div>
@@ -566,7 +540,7 @@
             <li>Self-host with your own Postgres</li>
             <li>Community support</li>
           </ul>
-          <a class="btn btn-ghost" href="#early-access">Get early access</a>
+          <a class="btn btn-ghost" href="https://cloud.coderippletech.com/" rel="noopener">Start free</a>
         </div>
         <div class="plan team reveal">
           <h3>Team</h3>
@@ -578,7 +552,7 @@
             <li>Credential rotation automation</li>
             <li>Priority support</li>
           </ul>
-          <a class="btn btn-em" href="#early-access">Get early access</a>
+          <a class="btn btn-em" href="https://cloud.coderippletech.com/" rel="noopener">Start with Google</a>
         </div>
         <div class="plan reveal">
           <h3>Enterprise</h3>
@@ -594,49 +568,23 @@
       </div>
     </section>
 
-    <section class="section" id="early-access">
+    <section class="section" id="get-started">
       <div class="section-head reveal">
         <h2>Your next machine sets itself up.</h2>
-        <p>Join the early access list and be first in when RippleRoot ships.</p>
+        <p>Sign in with Google, create your workspace automatically, and start free.</p>
       </div>
-      <div class="ea-wrap reveal">
-        <div class="ea-card">
-          <form id="ea-form" novalidate>
-            <input type="text" name="website" style="display:none" tabindex="-1" autocomplete="off">
-            <div class="field-row">
-              <div class="field">
-                <label for="ea-name">Name</label>
-                <input id="ea-name" name="name" type="text" placeholder="Your name" autocomplete="name">
-              </div>
-              <div class="field">
-                <label for="ea-email">Email</label>
-                <input id="ea-email" name="email" type="email" placeholder="you@example.com" required autocomplete="email">
-              </div>
-            </div>
-            <div class="field">
-              <label for="ea-team">Team size</label>
-              <select id="ea-team" name="team">
-                <option>Just me</option>
-                <option>2–10</option>
-                <option>11–50</option>
-                <option>50+</option>
-              </select>
-            </div>
-            <div class="field">
-              <label for="ea-notes">Anything we should know? <span class="opt">optional</span></label>
-              <textarea id="ea-notes" name="notes" placeholder="Your stack, how many machines you juggle, self-host or cloud…"></textarea>
-            </div>
-            <button class="btn btn-em ea-send" type="submit">Request early access</button>
-            <p class="form-error" id="ea-error">Something went wrong. Email us instead at
-              <a href="mailto:support@coderippletech.com">support@coderippletech.com</a>.</p>
-            <p class="form-note">No spam — one email when your spot opens.</p>
-          </form>
-          <div class="sent" id="ea-sent">
-            <div class="sent-ring">
-              <svg viewBox="0 0 24 24" fill="none"><path d="M4 12.5l5 5L20 6.5" stroke="#34d399" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </div>
-            <h3>You're on the list</h3>
-            <p>Thanks — we'll email you the moment your early access opens.</p>
+      <div class="launch-wrap reveal">
+        <div class="launch-card">
+          <h3>RippleRoot Cloud is ready</h3>
+          <p>Your Google sign-in creates a personal workspace automatically. The free plan includes up to three seats, and billing stays optional until your team grows.</p>
+          <div class="launch-actions">
+            <a class="btn btn-em" href="https://cloud.coderippletech.com/" rel="noopener">Continue to RippleRoot Cloud</a>
+            <a class="btn btn-ghost" href="mailto:support@coderippletech.com?subject=RippleRoot%20support">Ask a question</a>
+          </div>
+          <div class="launch-note" aria-label="RippleRoot Cloud assurances">
+            <span>Google PKCE sign-in</span>
+            <span>Free for 3 seats</span>
+            <span>No card required</span>
           </div>
         </div>
       </div>
@@ -682,40 +630,6 @@
     }), { threshold: 0.12 });
     document.querySelectorAll(".reveal").forEach(el => io.observe(el));
 
-    const eaForm = document.getElementById("ea-form");
-    eaForm.addEventListener("submit", async (ev) => {
-      ev.preventDefault();
-      const err = document.getElementById("ea-error");
-      err.style.display = "none";
-      const email = eaForm.email.value.trim();
-      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
-        eaForm.email.focus();
-        return;
-      }
-      const btn = eaForm.querySelector(".ea-send");
-      btn.disabled = true; btn.textContent = "Sending…";
-      try {
-        const res = await fetch("https://amicable-cormorant-95.convex.site/early-access", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            product: "RippleRoot",
-            name: eaForm.name.value.trim(),
-            email,
-            team: eaForm.team.value,
-            notes: eaForm.notes.value.trim(),
-            website: eaForm.website.value
-          })
-        });
-        const body = await res.json();
-        if (!res.ok || body.ok !== true) throw new Error(body.error || String(res.status));
-        eaForm.style.display = "none";
-        document.getElementById("ea-sent").style.display = "block";
-      } catch {
-        err.style.display = "block";
-        btn.disabled = false; btn.textContent = "Request early access";
-      }
-    });
   </script>
 </body>
 </html>
