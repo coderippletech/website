@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy — RippleRoot</title>
+  <meta name="description" content="How CodeRipple Tech handles account, workspace, device, billing, and Google sign-in data when you use RippleRoot.">
+  <link rel="icon" type="image/png" href="/assets/rippleroot-logo.png">
+  <link rel="stylesheet" href="/site.css?v=14">
+  <style>
+    :root {
+      --accent: #34d399;
+      --accent-soft: rgba(52, 211, 153, 0.14);
+    }
+    .btn-rippleroot {
+      background: linear-gradient(120deg, #34d399, #5eead4);
+      color: #042016;
+      border-color: transparent;
+      font-weight: 700;
+    }
+  </style>
+  <link rel="canonical" href="https://coderippletech.com/rippleroot/privacy/">
+  <meta name="theme-color" content="#0a0e14">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="CodeRipple Tech">
+  <meta property="og:url" content="https://coderippletech.com/rippleroot/privacy/">
+  <meta property="og:title" content="Privacy Policy — RippleRoot">
+  <meta property="og:description" content="How RippleRoot handles account, workspace, device, billing, and Google sign-in data.">
+  <meta property="og:image" content="https://coderippletech.com/assets/og-home.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Privacy Policy — RippleRoot">
+  <meta name="twitter:description" content="How RippleRoot handles account, workspace, device, billing, and Google sign-in data.">
+  <meta name="twitter:image" content="https://coderippletech.com/assets/og-home.png">
+</head>
+<body>
+
+  <nav class="snav">
+    <div class="snav-brand">
+      <a class="snav-brand-main" href="/rippleroot/">
+        <img src="/assets/rippleroot-logo.png" alt="">
+        RippleRoot
+      </a>
+      <a class="snav-by" href="/">by CodeRipple Tech</a>
+    </div>
+    <div class="snav-links">
+      <a href="/rippleroot/terms/">Terms</a>
+      <a href="mailto:support@coderippletech.com?subject=RippleRoot%20privacy">Contact</a>
+      <a class="btn btn-rippleroot" href="https://cloud.coderippletech.com/" rel="noopener">Open RippleRoot Cloud</a>
+    </div>
+  </nav>
+
+  <main class="legal">
+    <h1>RippleRoot Privacy Policy</h1>
+    <p class="date">Last updated: July 24, 2026</p>
+
+    <p>This Privacy Policy explains how Coderipple Tech Ltd ("CodeRipple Tech", "we", "us", or "our") handles information when you use the RippleRoot website, hosted cloud service, desktop application, command-line tools, and related services ("RippleRoot").</p>
+
+    <h2>1. The short version</h2>
+    <p>RippleRoot is designed to keep sensitive workspace data under your control. We do not sell personal data, use it for advertising, or run third-party behavioural analytics. We collect and process only the account, workspace, device, activity, and billing information needed to provide and secure the service.</p>
+    <p>Environment secret values are encrypted on your device before hosted storage. RippleRoot stores and transfers the resulting ciphertext; it is not designed to expose plaintext secret values through its cloud, dashboard, logs, or audit APIs.</p>
+
+    <h2>2. Information we process</h2>
+    <p>Depending on the features you use, RippleRoot processes:</p>
+    <ul>
+      <li><strong>Sign-in and account data</strong> — a stable, opaque identifier derived from your Google OpenID Connect account, RippleRoot account and organisation identifiers, membership role, and session metadata. RippleRoot does not persist your Google name or email address for self-serve sign-in.</li>
+      <li><strong>Workspace and project data</strong> — workspace identifiers, project metadata, setup and environment contracts, sync manifests, file metadata, and content you explicitly choose to sync.</li>
+      <li><strong>Device data</strong> — device identifiers, optional display names, platform metadata, enrolment state, and public encryption-key metadata.</li>
+      <li><strong>Encrypted secret data</strong> — ciphertext, public recipient metadata, approval state, and short-lived lease metadata. Plaintext secret values are processed locally when you ask RippleRoot to use them.</li>
+      <li><strong>Operational and security data</strong> — metadata-only activity and audit events, job status, credential prefixes and hashes, IP and HTTP security logs retained by our infrastructure, and aggregate reliability counters.</li>
+      <li><strong>Billing data</strong> — plan, seat count, organisation identifier, and subscription status. Payment-card details are entered directly into Stripe Checkout and are not handled by RippleRoot.</li>
+      <li><strong>Support data</strong> — information you choose to send when contacting support.</li>
+    </ul>
+
+    <h2>3. Google sign-in data</h2>
+    <p>RippleRoot uses Google OpenID Connect to authenticate you. The production sign-in flow requests the <code>openid</code> scope and uses the verified Google subject identifier to create a pseudonymous RippleRoot account identifier. Google access and ID tokens are used only to complete sign-in and are not stored as account profile data.</p>
+    <p>RippleRoot's use of information received from Google APIs follows the <a href="https://developers.google.com/terms/api-services-user-data-policy" rel="noopener">Google API Services User Data Policy</a>, including its Limited Use requirements.</p>
+
+    <h2>4. Information stored on your device</h2>
+    <p>The desktop app and CLI keep local workspace state, configuration, encrypted vault material, and operational history on your machine. The desktop app uses operating-system credential storage for saved cloud access credentials.</p>
+    <p>The hosted dashboard stores interface preferences and non-secret filters in browser local storage. A hosted session token may be kept in browser session storage so it is removed when the tab session ends. RippleRoot does not use advertising cookies.</p>
+
+    <h2>5. How we use information</h2>
+    <p>We use information only to:</p>
+    <ul>
+      <li>authenticate users and enforce organisation roles and seat limits;</li>
+      <li>sync the workspace data and encrypted material you request;</li>
+      <li>operate devices, approvals, releases, and agent workflows;</li>
+      <li>process subscriptions and provide support;</li>
+      <li>prevent abuse, investigate faults, and secure the service; and</li>
+      <li>meet legal and accounting obligations.</li>
+    </ul>
+
+    <h2>6. Service providers and disclosure</h2>
+    <p>We share information only where needed to operate RippleRoot or comply with law. Relevant providers include Google for sign-in, Stripe for hosted billing, GitHub for software releases and downloads, and infrastructure, database, storage, email, and network providers that process data on our behalf.</p>
+    <p>We do not sell personal data. We do not share personal data with advertisers or data brokers.</p>
+
+    <h2>7. Retention and deletion</h2>
+    <p>We retain service data while your account or organisation is active and as needed to provide the service, maintain security and audit records, resolve disputes, and meet legal obligations. Expired and revoked credentials may be removed under the organisation's configured retention policy. Backup copies may remain for a limited recovery period before being overwritten.</p>
+    <p>To request access, correction, export, or deletion of your RippleRoot account data, email <a href="mailto:support@coderippletech.com?subject=RippleRoot%20data%20request">support@coderippletech.com</a>. We may need to verify the request before acting. Organisation owners may control memberships and revoke credentials through RippleRoot's administration tools.</p>
+
+    <h2>8. Security</h2>
+    <p>We use transport encryption, hashed bearer credentials, role-based access controls, short-lived sessions, audit records, and encrypted secret storage. No system is completely secure, so you should protect your devices and credentials and contact us promptly if you suspect unauthorised access.</p>
+
+    <h2>9. International processing</h2>
+    <p>Our providers may process information in the United Kingdom, European Economic Area, United States, or other countries where they operate. Where required, we use appropriate safeguards for international transfers.</p>
+
+    <h2>10. Your rights</h2>
+    <p>Depending on where you live, you may have rights to access, correct, erase, restrict, object to, or receive a portable copy of personal data. You may also complain to your local data-protection authority. In the United Kingdom, this is the Information Commissioner's Office.</p>
+
+    <h2>11. Children's privacy</h2>
+    <p>RippleRoot is a developer and business productivity service and is not directed to children under 16. We do not knowingly collect personal data from children under 16.</p>
+
+    <h2>12. Changes to this policy</h2>
+    <p>We may update this policy when RippleRoot or applicable requirements change. We will update the date above and provide additional notice when a change materially affects how we handle personal data.</p>
+
+    <h2>13. Contact</h2>
+    <p><strong>Coderipple Tech Ltd</strong><br>Email: <a href="mailto:support@coderippletech.com">support@coderippletech.com</a></p>
+  </main>
+
+  <footer class="sfooter">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="footer-brand-link" href="/"><img src="/assets/logo.svg" alt="">CodeRipple Tech</a>
+        <p>Small tools. Big ripples. Focused products that remove the friction from everyday software work.</p>
+      </div>
+      <div class="footer-col">
+        <h4>RippleRoot</h4>
+        <a href="/rippleroot/">Overview</a>
+        <a href="https://cloud.coderippletech.com/" rel="noopener">Cloud</a>
+        <a href="mailto:support@coderippletech.com?subject=RippleRoot%20support">Support</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="/rippleroot/terms/">RippleRoot terms</a>
+        <a href="/rippleroot/privacy/">RippleRoot privacy</a>
+        <a href="/privacy.html">Ripple Import privacy</a>
+      </div>
+    </div>
+    <div class="footer-base">
+      <span>© 2026 CodeRipple Tech Ltd</span>
+      <a href="https://github.com/negoescg" rel="noopener">GitHub</a>
+    </div>
+  </footer>
+
+</body>
+</html>

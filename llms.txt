@@ -47,6 +47,10 @@
 
 ## Key pages
 
+- [RippleRoot privacy](https://coderippletech.com/rippleroot/privacy/):
+  account, workspace, device, encrypted-secret, billing and Google sign-in
+  data handling for RippleRoot.
+- [RippleRoot terms](https://coderippletech.com/rippleroot/terms/)
 - [Ripple Import guide](https://coderippletech.com/guide): full how-to for
   imports, subitems, multi-level boards, updates and exports.
 - [Ripple Import privacy](https://coderippletech.com/privacy): the app runs

@@ -7,6 +7,7 @@ Static site, no build step. Served by Cloudflare Pages (project
 
 ```
 /                    index.html — company page, one card per product
+/rippleroot/          product page (+ /rippleroot/privacy/ and /rippleroot/terms/)
 /ripplebug/          product page (+ /ripplebug/privacy/)
 /ripple-import/      product page
 /ripple-preview/     product page (Umbraco package — CTAs go to NuGet/GitHub)
