@@ -1,2 +1,3 @@
 .wrangler
 .playwright-mcp
+.DS_Store

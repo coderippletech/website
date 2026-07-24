@@ -6,15 +6,19 @@ const ALLOWED_ORIGINS = new Set([
   "https://www.coderippletech.com",
   "http://localhost:8899",
 ]);
+const EARLY_ACCESS_PRODUCTS = new Set(["RippleRoot"]);
+const MAX_REQUEST_BYTES = 16 * 1024;
 
 function corsHeaders(origin: string | null): Record<string, string> {
-  const allowed = origin && ALLOWED_ORIGINS.has(origin) ? origin : "https://coderippletech.com";
-  return {
-    "Access-Control-Allow-Origin": allowed,
+  const headers: Record<string, string> = {
     "Access-Control-Allow-Methods": "POST, OPTIONS",
     "Access-Control-Allow-Headers": "Content-Type",
     Vary: "Origin",
   };
+  if (origin && ALLOWED_ORIGINS.has(origin)) {
+    headers["Access-Control-Allow-Origin"] = origin;
+  }
+  return headers;
 }
 
 function json(body: unknown, status: number, headers: Record<string, string>): Response {
@@ -24,34 +28,80 @@ function json(body: unknown, status: number, headers: Record<string, string>): R
   });
 }
 
-const contact = httpAction(async (_ctx, request) => {
-  const headers = corsHeaders(request.headers.get("Origin"));
+function requestOriginAllowed(origin: string | null): boolean {
+  return origin === null || ALLOWED_ORIGINS.has(origin);
+}
 
-  let body: Record<string, unknown>;
-  try {
-    body = await request.json();
-  } catch {
-    return json({ ok: false, error: "invalid json" }, 400, headers);
+async function readJsonObject(
+  request: Request,
+): Promise<{ body?: Record<string, unknown>; error?: "invalid json" | "request too large" }> {
+  const declaredLength = Number(request.headers.get("Content-Length") ?? "0");
+  if (Number.isFinite(declaredLength) && declaredLength > MAX_REQUEST_BYTES) {
+    return { error: "request too large" };
   }
+  const raw = await request.text();
+  if (raw.length > MAX_REQUEST_BYTES) {
+    return { error: "request too large" };
+  }
+  try {
+    const parsed: unknown = JSON.parse(raw);
+    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
+      return { error: "invalid json" };
+    }
+    return { body: parsed as Record<string, unknown> };
+  } catch {
+    return { error: "invalid json" };
+  }
+}
+
+function oneLine(value: unknown, maxLength: number): string {
+  return String(value ?? "")
+    .replace(/[\u0000-\u001f\u007f]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .slice(0, maxLength);
+}
+
+const contact = httpAction(async (_ctx, request) => {
+  const origin = request.headers.get("Origin");
+  const headers = corsHeaders(origin);
+  if (!requestOriginAllowed(origin)) {
+    return json({ ok: false, error: "origin not allowed" }, 403, headers);
+  }
+
+  const parsed = await readJsonObject(request);
+  if (!parsed.body) {
+    return json(
+      { ok: false, error: parsed.error },
+      parsed.error === "request too large" ? 413 : 400,
+      headers,
+    );
+  }
+  const body = parsed.body;
 
   // Honeypot: bots fill it, humans never see it. Pretend success.
   if (typeof body.website === "string" && body.website.trim() !== "") {
     return json({ ok: true }, 200, headers);
   }
 
-  const name = String(body.name ?? "").trim().slice(0, 200);
-  const email = String(body.email ?? "").trim().slice(0, 200);
-  const topic = String(body.topic ?? "Something else").trim().slice(0, 100);
+  const name = oneLine(body.name, 200);
+  const email = oneLine(body.email, 200).toLowerCase();
+  const topic = oneLine(body.topic ?? "Something else", 100);
   const message = String(body.message ?? "").trim().slice(0, 5000);
 
   if (!name || !message || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
     return json({ ok: false, error: "missing or invalid fields" }, 400, headers);
   }
 
+  const resendApiKey = process.env.RESEND_API_KEY?.trim();
+  if (!resendApiKey) {
+    console.error("resend is not configured");
+    return json({ ok: false, error: "delivery unavailable" }, 503, headers);
+  }
   const res = await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: {
-      Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
+      Authorization: `Bearer ${resendApiKey}`,
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
@@ -64,46 +114,65 @@ const contact = httpAction(async (_ctx, request) => {
   });
 
   if (!res.ok) {
-    console.error("resend failed", res.status, await res.text());
+    console.error("resend failed", res.status);
     return json({ ok: false, error: "delivery failed" }, 502, headers);
   }
 
   return json({ ok: true }, 200, headers);
 });
 
-const preflight = httpAction(async (_ctx, request) =>
-  new Response(null, { status: 204, headers: corsHeaders(request.headers.get("Origin")) })
-);
+const preflight = httpAction(async (_ctx, request) => {
+  const origin = request.headers.get("Origin");
+  const headers = corsHeaders(origin);
+  return requestOriginAllowed(origin)
+    ? new Response(null, { status: 204, headers })
+    : json({ ok: false, error: "origin not allowed" }, 403, headers);
+});
 
 const earlyAccess = httpAction(async (_ctx, request) => {
-  const headers = corsHeaders(request.headers.get("Origin"));
-
-  let body: Record<string, unknown>;
-  try {
-    body = await request.json();
-  } catch {
-    return json({ ok: false, error: "invalid json" }, 400, headers);
+  const origin = request.headers.get("Origin");
+  const headers = corsHeaders(origin);
+  if (!requestOriginAllowed(origin)) {
+    return json({ ok: false, error: "origin not allowed" }, 403, headers);
   }
+
+  const parsed = await readJsonObject(request);
+  if (!parsed.body) {
+    return json(
+      { ok: false, error: parsed.error },
+      parsed.error === "request too large" ? 413 : 400,
+      headers,
+    );
+  }
+  const body = parsed.body;
 
   // Honeypot: bots fill it, humans never see it. Pretend success.
   if (typeof body.website === "string" && body.website.trim() !== "") {
     return json({ ok: true }, 200, headers);
   }
 
-  const name = String(body.name ?? "").trim().slice(0, 200);
-  const email = String(body.email ?? "").trim().slice(0, 200);
-  const product = String(body.product ?? "RippleRoot").trim().slice(0, 100);
-  const team = String(body.team ?? "").trim().slice(0, 100);
+  const name = oneLine(body.name, 200);
+  const email = oneLine(body.email, 200).toLowerCase();
+  const product = oneLine(body.product ?? "RippleRoot", 100);
+  const team = oneLine(body.team, 100);
   const notes = String(body.notes ?? "").trim().slice(0, 5000);
 
+  if (!EARLY_ACCESS_PRODUCTS.has(product)) {
+    return json({ ok: false, error: "unknown product" }, 400, headers);
+  }
   if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
     return json({ ok: false, error: "missing or invalid fields" }, 400, headers);
   }
 
+  const resendApiKey = process.env.RESEND_API_KEY?.trim();
+  if (!resendApiKey) {
+    console.error("resend is not configured");
+    return json({ ok: false, error: "delivery unavailable" }, 503, headers);
+  }
   const res = await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: {
-      Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
+      Authorization: `Bearer ${resendApiKey}`,
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
@@ -116,7 +185,7 @@ const earlyAccess = httpAction(async (_ctx, request) => {
   });
 
   if (!res.ok) {
-    console.error("resend failed", res.status, await res.text());
+    console.error("resend failed", res.status);
     return json({ ok: false, error: "delivery failed" }, 502, headers);
   }
 

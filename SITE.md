@@ -38,6 +38,11 @@ array in the association JSON.
    JSON-LD block to the page head (copy from an existing product page).
 7. Push. The GitHub Action deploys to Cloudflare Pages automatically.
 
+Before publishing, `node scripts/validate-site.mjs` checks every static HTML
+page and sitemap entry for missing same-site assets/routes and confirms the
+marketplace-linked root files still exist. The deploy workflow stops before
+Cloudflare when that contract fails.
+
 ## Editing site.css
 
 Cloudflare Pages caches CSS in browsers for 4 hours. Every page links
