@@ -28,9 +28,9 @@
     "name": "RippleRoot",
     "url": "https://coderippletech.com/rippleroot/",
     "image": "https://coderippletech.com/assets/og-home.png",
-    "description": "Local-first dev workspace platform: sync projects, env contracts, and encrypted secrets to any machine with one command. Native Finder/Explorer/FUSE integration, MCP agent tools, SSO and seat management. Self-host or cloud.",
+    "description": "Local-first dev workspace platform: sync projects, env contracts, and encrypted secrets to any machine with one command. Native Finder/Explorer/FUSE integration, MCP agent tools, SSO and seat management. Self-host or cloud. Desktop apps for macOS, Windows, and Linux.",
     "applicationCategory": "DeveloperApplication",
-    "operatingSystem": "macOS 13 or later (Apple silicon)",
+    "operatingSystem": "macOS 13+ (Apple silicon), Windows 10+, Linux x86_64",
     "offers": {
       "@type": "Offer",
       "price": "12",
@@ -102,6 +102,26 @@
       color: #86efc9;
       max-width: 100%; overflow: hidden; text-overflow: ellipsis; vertical-align: bottom;
     }
+
+    /* ---- downloads: one row, three platforms, same weight ---- */
+    .dl-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 20px; }
+    @media (max-width: 680px) { .dl-grid { grid-template-columns: 1fr; } }
+    .dl {
+      display: flex; align-items: center; gap: 12px; padding: 14px 16px;
+      border: 1px solid var(--card-border); border-radius: 12px;
+      background: rgba(255, 255, 255, 0.03); text-decoration: none;
+      transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+    }
+    .dl:hover {
+      transform: translateY(-3px);
+      border-color: rgba(52, 211, 153, 0.5);
+      background: rgba(52, 211, 153, 0.07);
+    }
+    .dl svg { width: 20px; height: 20px; flex: none; color: var(--accent); }
+    .dl b { display: block; font-size: 14px; color: #e8eef6; line-height: 1.35; }
+    .dl span { font-size: 12px; color: var(--muted); }
+    .dl-alt { margin-top: 10px; font-size: 12.5px; color: var(--muted); text-align: center; }
+    .dl-alt a { color: #86efc9; }
 
     /* ---- animated hero demo: a workspace pushes from one machine,
            travels encrypted through the cloud, and materializes on a
@@ -381,10 +401,10 @@
     secrets to any machine with one command.</p>
     <div class="hero-ctas">
       <a class="btn btn-em" href="https://cloud.coderippletech.com/" rel="noopener">Start free with Google</a>
-      <a class="btn btn-ghost" href="https://cloud.coderippletech.com/downloads/RippleRoot-latest-aarch64.dmg" rel="noopener">Download for Mac</a>
+      <a class="btn btn-ghost" href="#get-started">Download the app</a>
       <a class="btn btn-ghost" href="#how">See how it works →</a>
     </div>
-    <div class="hero-note">macOS 13+ · Apple silicon · Notarized by Apple · Free for 3 seats</div>
+    <div class="hero-note">macOS, Windows, and Linux · Notarized on Apple silicon · Free for 3 seats</div>
 
     <div class="demo reveal in" aria-label="Animated demo: a workspace pushes from one machine, travels encrypted through the cloud, and materializes on a second machine">
       <div class="demo-machine demo-a" data-name="Your desk">
@@ -580,9 +600,23 @@
           <p>Your Google sign-in creates a personal workspace automatically. The free plan includes up to three seats, and billing stays optional until your team grows.</p>
           <div class="launch-actions">
             <a class="btn btn-em" href="https://cloud.coderippletech.com/" rel="noopener">Continue to RippleRoot Cloud</a>
-            <a class="btn btn-ghost" href="https://cloud.coderippletech.com/downloads/RippleRoot-latest-aarch64.dmg" rel="noopener">Download the Mac app</a>
             <a class="btn btn-ghost" href="mailto:support@coderippletech.com?subject=RippleRoot%20support">Ask a question</a>
           </div>
+          <div class="dl-grid">
+            <a class="dl" href="https://cloud.coderippletech.com/downloads/RippleRoot-latest-aarch64.dmg" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+              <div><b>macOS</b><span>Apple silicon · .dmg · notarized</span></div>
+            </a>
+            <a class="dl" href="https://cloud.coderippletech.com/downloads/RippleRoot-latest-x64-setup.exe" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+              <div><b>Windows</b><span>64-bit · installer</span></div>
+            </a>
+            <a class="dl" href="https://cloud.coderippletech.com/downloads/RippleRoot-latest-amd64.AppImage" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+              <div><b>Linux</b><span>x86_64 · AppImage</span></div>
+            </a>
+          </div>
+          <p class="dl-alt">Debian and Ubuntu: <a href="https://cloud.coderippletech.com/downloads/RippleRoot-latest-amd64.deb" rel="noopener">download the .deb</a>. Every build updates itself in place.</p>
           <div class="launch-note" aria-label="RippleRoot Cloud assurances">
             <span>Google PKCE sign-in</span>
             <span>Free for 3 seats</span>
