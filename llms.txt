@@ -43,7 +43,7 @@
   Block List, Rich Text and Single Block entries through the site's own Razor
   views, stylesheets and scripts, so editors see the real page while editing.
   NuGet: https://www.nuget.org/packages/RipplePreview
-  Source: https://github.com/negoescg/RipplePreview
+  Source: https://github.com/coderippletech/RipplePreview
 
 ## Key pages
 

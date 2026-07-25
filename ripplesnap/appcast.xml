@@ -18,7 +18,7 @@
         </ul>
       ]]></description>
       <enclosure
-        url="https://github.com/negoescg/ripplesnap-releases/releases/download/v1.3.3/RippleSnap.dmg"
+        url="https://github.com/coderippletech/ripplesnap-releases/releases/download/v1.3.3/RippleSnap.dmg"
         sparkle:edSignature="lkZcZjc7mq+hIyXDLdDJdwf6lLGsUDteQfiKbdTt4fQgKIM2SyND0sesWUEAaZfeMnaUY59CUr5ICiHirAoDDg=="
         length="3991145"
         type="application/octet-stream"/>
@@ -36,7 +36,7 @@
         </ul>
       ]]></description>
       <enclosure
-        url="https://github.com/negoescg/ripplesnap-releases/releases/download/v1.3.2/RippleSnap.dmg"
+        url="https://github.com/coderippletech/ripplesnap-releases/releases/download/v1.3.2/RippleSnap.dmg"
         sparkle:edSignature="bVbvFr6GOX5tp/YA8ltd+DpmEdsDjKh0Z0Y92YIskrYxM295g9ZOO+iUvH8scUXRvw+nGppn80YBLBJQ50QnCA=="
         length="3989661"
         type="application/octet-stream"/>
@@ -55,7 +55,7 @@
         </ul>
       ]]></description>
       <enclosure
-        url="https://github.com/negoescg/ripplesnap-releases/releases/download/v1.3.1/RippleSnap.dmg"
+        url="https://github.com/coderippletech/ripplesnap-releases/releases/download/v1.3.1/RippleSnap.dmg"
         sparkle:edSignature="LXKgbe5LGeuT1P/PbauzgkZs8BUPobaqA2spy/lFaJjslvpBVOWQMJvvGpUJmAxwI/MyVxIoPuMO4+JiLIGWBA=="
         length="3990301"
         type="application/octet-stream"/>
@@ -74,7 +74,7 @@
         </ul>
       ]]></description>
       <enclosure
-        url="https://github.com/negoescg/ripplesnap-releases/releases/download/v1.3.0/RippleSnap.dmg"
+        url="https://github.com/coderippletech/ripplesnap-releases/releases/download/v1.3.0/RippleSnap.dmg"
         sparkle:edSignature="wgRNaRosE/yUM/MUikTLIMNN7T7ZBefHow5esphZDe2U/ewOXFck8ROYW4VZJnWe+gsF3ZRut7nHuM1xpooYCw=="
         length="3990110"
         type="application/octet-stream"/>
