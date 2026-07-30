@@ -22,6 +22,17 @@
   Pro is a $9 one-time purchase (pay what you want) with a 14-day full trial.
   Signed and notarized by Apple.
 
+- [RippleClip](https://coderippletech.com/rippleclip/): iPhone capture inbox
+  (iOS 26+). Clipboard history, screenshot auto-import with on-device OCR
+  search, and Shape Grab (rectangle / circle / freeform lasso snips with
+  redaction and copy-text) in one searchable timeline. Capture via Action
+  Button, Back Tap, Control Center and Lock Screen controls, share sheet, or
+  a hands-free Live Monitor session. Sensitive clips auto-route to a Face ID
+  vault; password-manager copies are never stored; no servers or analytics.
+  Free forever (latest 50 clips, one board); RipplePro $14.99 one-time with
+  Family Sharing (unlimited history and boards, Live Monitor). In final
+  testing ahead of App Store release.
+
 - [Ripplebug](https://coderippletech.com/ripplebug/): Chrome and Edge extension
   for bug reporting. One click captures a screenshot, screen recording, console
   log and network log, then files a complete ticket to Azure DevOps, GitHub,

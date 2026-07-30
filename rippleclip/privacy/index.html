@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RippleClip — Privacy Policy</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" type="image/png" href="/assets/rippleclip-logo.png">
+  <link rel="stylesheet" href="/site.css?v=14">
+  <link rel="canonical" href="https://coderippletech.com/rippleclip/privacy/">
+  <meta name="theme-color" content="#0a0e14">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="CodeRipple Tech">
+  <meta property="og:url" content="https://coderippletech.com/rippleclip/privacy/">
+  <meta property="og:title" content="Privacy Policy — RippleClip">
+  <meta property="og:description" content="RippleClip stores everything on your iPhone. No servers, no accounts, no analytics.">
+  <meta property="og:image" content="https://coderippletech.com/assets/og-rippleclip.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Privacy Policy — RippleClip">
+  <meta name="twitter:description" content="RippleClip stores everything on your iPhone. No servers, no accounts, no analytics.">
+  <meta name="twitter:image" content="https://coderippletech.com/assets/og-rippleclip.png">
+</head>
+<body>
+  <nav class="snav">
+    <a href="/rippleclip/" class="snav-brand">
+      <img src="/assets/rippleclip-logo.png" alt="">
+      RippleClip
+    </a>
+    <div class="snav-links"><a href="/">CodeRipple Tech</a></div>
+  </nav>
+
+  <main class="legal">
+    <h1>RippleClip Privacy Policy</h1>
+    <p class="date">Last updated: July 30, 2026 · Applies to the RippleClip iOS app.</p>
+
+    <h2>The short version</h2>
+    <p>RippleClip has no servers. Everything you capture stays in the app's
+    storage on your iPhone. We cannot see your clips, and neither can anyone
+    else. There are no accounts, no analytics, no tracking, and no third-party
+    SDKs.</p>
+
+    <h2>What the app stores, and where</h2>
+    <ul>
+      <li><strong>Clips</strong> (text, links, images, screenshots and their
+      recognized text) are stored in a local database on your device, inside
+      RippleClip's app container. They never leave your iPhone.</li>
+      <li><strong>Vault clips</strong> are the same data, additionally gated
+      behind Face ID / Touch ID / your passcode via Apple's LocalAuthentication.
+      Biometric data itself never reaches RippleClip — Apple's system handles
+      the check and tells the app only "unlocked" or "not".</li>
+      <li><strong>Settings</strong> (capture preferences, expiry rules) live in
+      the app's local preferences.</li>
+    </ul>
+
+    <h2>What the app deliberately refuses to store</h2>
+    <ul>
+      <li>Copies marked <em>concealed</em> by password managers (the standard
+      flag 1Password, Bitwarden and others set) are skipped entirely by default.</li>
+      <li>Clips that look like passwords or tokens are routed to the Face ID
+      vault automatically, and you can turn on auto-expiry so they delete
+      themselves.</li>
+    </ul>
+
+    <h2>Permissions it asks for</h2>
+    <ul>
+      <li><strong>Paste from Other Apps</strong> — iOS asks before RippleClip
+      reads the clipboard. Setting it to Allow makes capture seamless; the read
+      still only ever happens on your device.</li>
+      <li><strong>Photo library</strong> — only if you enable screenshot
+      auto-import, and used only to read new screenshots. You can revoke it any
+      time in Settings.</li>
+      <li><strong>Face ID</strong> — only to unlock your vault.</li>
+    </ul>
+
+    <h2>Processing that happens on-device</h2>
+    <p>Text recognition (OCR), smart detection (codes, addresses, links), and
+    Apple Intelligence naming and summaries all run on your iPhone using
+    Apple's frameworks. Nothing is sent to us or to any third party.</p>
+
+    <h2>Purchases</h2>
+    <p>RipplePro is a one-time purchase processed by Apple through the App
+    Store. We receive no payment details — Apple handles the transaction and
+    tells the app only that the purchase exists.</p>
+
+    <h2>Changes and contact</h2>
+    <p>If a future feature ever changes any of the above (for example an
+    optional iCloud sync, which would use your private iCloud database that we
+    also cannot read), this policy will say so plainly before the feature
+    ships. Questions: <a href="mailto:dan.negoescu4@gmail.com">dan.negoescu4@gmail.com</a>.</p>
+  </main>
+
+  <footer class="sfooter">
+    <span>© 2026 CodeRipple Tech</span>
+    <div class="cols">
+      <a href="/">CodeRipple Tech</a>
+      <a href="/rippleclip/">RippleClip</a>
+      <a href="/contact/">Contact</a>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RippleClip — The capture inbox for iPhone</title>
+  <meta name="description" content="Clipboard history, screenshots, and shape-grabbed snips in one searchable inbox. On-device intelligence, Face ID vault, no servers. Free forever, Pro $14.99 one-time.">
+  <link rel="icon" type="image/png" href="/assets/rippleclip-logo.png">
+  <link rel="stylesheet" href="/site.css?v=14">
+  <link rel="canonical" href="https://coderippletech.com/rippleclip/">
+  <meta name="theme-color" content="#0a0e14">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="CodeRipple Tech">
+  <meta property="og:url" content="https://coderippletech.com/rippleclip/">
+  <meta property="og:title" content="RippleClip — The capture inbox for iPhone">
+  <meta property="og:description" content="Everything you copy, grab, and snip in one searchable inbox. On-device intelligence, Face ID vault, no servers. Free forever, Pro one-time.">
+  <meta property="og:image" content="https://coderippletech.com/assets/og-rippleclip.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="RippleClip — The capture inbox for iPhone">
+  <meta name="twitter:description" content="Everything you copy, grab, and snip in one searchable inbox. On-device intelligence, Face ID vault, no servers. Free forever, Pro one-time.">
+  <meta name="twitter:image" content="https://coderippletech.com/assets/og-rippleclip.png">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "RippleClip",
+    "url": "https://coderippletech.com/rippleclip/",
+    "image": "https://coderippletech.com/assets/og-rippleclip.png",
+    "description": "iPhone capture inbox: clipboard history, screenshot auto-import, shape-grab editing with OCR, Face ID vault, and on-device intelligence. Capture via Action Button, Back Tap, Control Center, and share sheet.",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "iOS 26+",
+    "offers": {
+      "@type": "Offer",
+      "price": "14.99",
+      "priceCurrency": "USD",
+      "description": "RipplePro unlock, one-time purchase with Family Sharing. Capture is free forever."
+    },
+    "author": {
+      "@type": "Organization",
+      "name": "CodeRipple Tech",
+      "url": "https://coderippletech.com/"
+    }
+  }
+  </script>
+  <style>
+    :root {
+      --accent: #3ecfc0;
+      --accent-soft: rgba(62, 207, 192, 0.14);
+    }
+    .btn-mint { background: linear-gradient(120deg, #3ecfc0, #63e0c9); color: #04231f; border-color: transparent; font-weight: 700; }
+    .btn-mint:hover { box-shadow: 0 8px 30px rgba(62, 207, 192, 0.4); }
+    .grad-mint { background: linear-gradient(92deg, #3ecfc0, #7de8d6); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    /* iPhone screenshots: a strip of device-framed shots instead of the browser mock */
+    .phone-strip { display: flex; gap: 28px; justify-content: center; flex-wrap: wrap; }
+    .phone-strip figure { margin: 0; width: min(300px, 78vw); }
+    .phone-strip img {
+      width: 100%; border-radius: 30px; display: block;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.5);
+    }
+    .phone-strip figcaption { text-align: center; font-size: 13px; color: var(--muted); margin-top: 12px; }
+    .honest { font-size: 13px; color: var(--muted); max-width: 640px; margin: 18px auto 0; text-align: center; }
+  </style>
+</head>
+<body>
+
+  <nav class="snav">
+    <div class="snav-brand">
+      <a class="snav-brand-main" href="/rippleclip/">
+        <img src="/assets/rippleclip-logo.png" alt="">
+        RippleClip
+      </a>
+      <a class="snav-by" href="/">by CodeRipple Tech</a>
+    </div>
+    <div class="snav-links">
+      <a href="#features">Features</a>
+      <a class="btn btn-mint" href="/contact/">Get launch news</a>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="orb orb-teal"></div>
+    <div class="orb orb-purple"></div>
+    <span class="eyebrow">iPhone · iOS 26</span>
+    <h1 class="display">Everything you capture,<br><span class="grad-mint">in one place.</span></h1>
+    <p class="lede">Your iPhone forgets every copy the moment you copy something else, and screenshots vanish into your camera roll.
+    RippleClip keeps copies, screenshots, and snips in one searchable inbox — captured in one gesture, stored only on your device.</p>
+    <div class="hero-ctas">
+      <a class="btn btn-mint" href="/contact/">Get notified at launch</a>
+      <a class="btn btn-ghost" href="#features">See what it does</a>
+    </div>
+    <div class="hero-note">Free forever · RipplePro $14.99 one-time · No subscriptions, no servers, no tracking</div>
+  </header>
+
+  <main class="wrap">
+
+    <section class="section" style="padding-top:12px;">
+      <div class="phone-strip reveal">
+        <figure>
+          <img src="/assets/shot-rippleclip.jpg" alt="RippleClip inbox: screenshot with OCR badge, email clip with compose action, color clip" loading="lazy">
+          <figcaption>The inbox — every capture, searchable</figcaption>
+        </figure>
+        <figure>
+          <img src="/assets/shot-rippleclip-3.jpg" alt="Capture button expanded into Paste, Shape Grab, and Live Monitor actions" loading="lazy">
+          <figcaption>One tap to capture, three ways</figcaption>
+        </figure>
+        <figure>
+          <img src="/assets/shot-rippleclip-2.jpg" alt="Shape Grab editor with freeform lasso selection over a screenshot" loading="lazy">
+          <figcaption>Shape Grab — lasso, redact, lift text</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section" id="features">
+      <div class="section-head reveal">
+        <h2>Capture in one gesture. Find it in one search.</h2>
+        <p>iOS won't let any app watch your clipboard in the background — so RippleClip nails every legal capture path instead, and makes what it captures smarter.</p>
+      </div>
+      <div class="features">
+        <div class="feature reveal">
+          <div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+          <h4>Capture from anywhere</h4>
+          <p>Action Button, Back Tap, Control Center, Lock Screen, share sheet. One gesture from any app and it's saved.</p>
+        </div>
+        <div class="feature reveal">
+          <div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 12h8M8 8h8M8 16h5"/></svg></div>
+          <h4>Screenshots, already sorted</h4>
+          <p>Take a screenshot anywhere. The moment you open RippleClip it's in your inbox, text recognized and searchable.</p>
+        </div>
+        <div class="feature reveal">
+          <div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 20c-2 0-4-1.5-4-4 0-2 1.4-3.4 3-3.9C6 9 8.5 7 11.5 7c2.6 0 4.8 1.5 5.6 3.7 2.2.2 3.9 2 3.9 4.3 0 2.5-2 5-5 5z"/></svg></div>
+          <h4>Shape Grab</h4>
+          <p>Carve exactly what you want out of any screenshot: rectangle, circle, or freeform lasso. Redact the rest, copy the text.</p>
+        </div>
+        <div class="feature reveal">
+          <div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.8L20 10l-6.1 1.2L12 17l-1.9-5.8L4 10l6.1-1.2z"/></svg></div>
+          <h4>On-device intelligence</h4>
+          <p>OTP codes surface a copy button, addresses open Maps, tables become text. Apple Intelligence names and summarizes long clips — all on your iPhone.</p>
+        </div>
+        <div class="feature reveal">
+          <div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></div>
+          <h4>Face ID vault</h4>
+          <p>Sensitive-looking clips route to a locked vault automatically. Password-manager copies are never stored at all.</p>
+        </div>
+        <div class="feature reveal">
+          <div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></div>
+          <h4>Search that actually finds it</h4>
+          <p>One search box covers text, links, code, and the words inside your screenshots. "That address from last week" is two taps away.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="split">
+        <div class="split-copy reveal">
+          <h3>Private by architecture, not by promise</h3>
+          <p>Clipboard managers have a snooping reputation. RippleClip's answer is structural: there is no server to leak to.</p>
+          <ul>
+            <li>Everything stays on your iPhone — no accounts, no analytics, no third-party SDKs</li>
+            <li>Concealed copies from password managers are refused, not stored</li>
+            <li>Auto-expiry rules and a Face ID vault for anything sensitive</li>
+          </ul>
+        </div>
+        <div class="split-copy reveal">
+          <h3>Free forever. Pro once.</h3>
+          <p>The full capture stack, Shape Grab, OCR search, and the vault are free — for good. RipplePro removes the ceilings.</p>
+          <ul>
+            <li>Free: latest 50 clips, one board, every capture path</li>
+            <li>RipplePro $14.99 one-time: unlimited history and boards, Live Monitor</li>
+            <li>Family Sharing included. Never a subscription — that's a promise.</li>
+          </ul>
+        </div>
+      </div>
+      <p class="honest">Honest limits: iOS doesn't allow true background clipboard watching for any app — RippleClip is designed around every capture path Apple does allow, and is upfront about the difference.</p>
+    </section>
+
+    <section class="section">
+      <div class="cta-band reveal">
+        <h2>Stop losing what you copy.</h2>
+        <p>RippleClip is in final testing ahead of its App Store release. Want the launch note?</p>
+        <a class="btn btn-mint" href="/contact/">Get notified</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="sfooter">
+    <span>© 2026 CodeRipple Tech</span>
+    <div class="cols">
+      <a href="/">CodeRipple Tech</a>
+      <a href="/rippleclip/privacy/">Privacy</a>
+      <a href="/contact/">Contact</a>
+    </div>
+  </footer>
+
+  <script>
+    const io = new IntersectionObserver((es) => es.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+    }), { threshold: 0.12 });
+    document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+  </script>
+</body>
+</html>
