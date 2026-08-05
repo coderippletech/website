@@ -350,6 +350,9 @@
 
     /* Ripple Merge (emerald) — card accent + mini scene */
     .product.emerald { --hairline: #10b981; }
+    /* White tile behind the mark (like Ripple Import) — works even if a stale
+       cached SVG without the baked-in tile is served. */
+    .product.emerald .product-logo { background: #fff; padding: 5px; }
     .chip-emerald:hover { border-color: rgba(16, 185, 129, 0.55); box-shadow: 0 10px 34px rgba(16, 185, 129, 0.22); }
     .btn-emerald { background: linear-gradient(120deg, #10b981, #34d399); color: #032018; border-color: transparent; font-weight: 700; }
     .btn-emerald:hover { box-shadow: 0 8px 30px rgba(16, 185, 129, 0.4); }
@@ -433,7 +436,7 @@
           <a href="/rippleclip/"><img src="/assets/rippleclip-logo.png" alt=""><div>RippleClip<small>The capture inbox for iPhone</small></div></a>
           <a href="/ripplebug/"><img src="/assets/ripplebug-logo.png" alt=""><div>Ripplebug<small>Bug reporting, captured whole</small></div></a>
           <a href="/ripple-import/"><img src="/assets/logo.svg" alt=""><div>Ripple Import<small>CSV &amp; Excel → monday.com</small></div></a>
-          <a href="/ripple-merge/"><img src="/assets/ripple-merge-logo.svg" alt=""><div>Ripple Merge<small>Mail merge for monday.com emails</small></div></a>
+          <a href="/ripple-merge/"><img src="/assets/ripple-merge-mark.svg" alt=""><div>Ripple Merge<small>Mail merge for monday.com emails</small></div></a>
           <a href="/ripple-preview/"><img src="/assets/ripple-preview-logo.svg" alt=""><div>Ripple Preview<small>Real block previews for Umbraco</small></div></a>
         </div>
       </div>
@@ -455,7 +458,7 @@
       <a class="chip chip-mint" href="/rippleclip/"><img src="assets/rippleclip-logo.png" alt="">RippleClip</a>
       <a class="chip chip-teal" href="/ripplebug/"><img src="assets/ripplebug-logo.png" alt="">Ripplebug</a>
       <a class="chip chip-purple" href="/ripple-import/"><img src="assets/logo.svg" alt="">Ripple Import</a>
-      <a class="chip chip-emerald" href="/ripple-merge/"><img src="assets/ripple-merge-logo.svg" alt="">Ripple Merge</a>
+      <a class="chip chip-emerald" href="/ripple-merge/"><img src="assets/ripple-merge-mark.svg" alt="">Ripple Merge</a>
       <a class="chip chip-sky" href="/ripple-preview/"><img src="assets/ripple-preview-logo.svg" alt="">Ripple Preview</a>
     </div>
   </header>
@@ -579,7 +582,7 @@
         </a>
 
         <a class="product emerald reveal" href="/ripple-merge/">
-          <img class="product-logo" src="assets/ripple-merge-logo.svg" alt="Ripple Merge logo">
+          <img class="product-logo" src="assets/ripple-merge-mark.svg" alt="Ripple Merge logo">
           <h3>Ripple Merge</h3>
           <div class="tag">Mail merge for monday.com emails</div>
           <p>monday's email automations can't see subitem data. Ripple Merge can: build an
