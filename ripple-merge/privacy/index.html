@@ -81,10 +81,9 @@
     <h2>3. Permissions (scopes) and why</h2>
     <ul>
       <li><code>boards:read</code> — read board structure and item/subitem values to build and
-      resolve templates.</li>
-      <li><code>boards:write</code> — write resolved content to board columns where you
-      configure it, and create linked items when you use the "Create item unless activity type
-      matches" automation action.</li>
+      resolve templates. This is the app's <strong>only</strong> scope: it never writes to your
+      boards — resolved content is returned to your workflow through the automation step's
+      output fields.</li>
     </ul>
 
     <h2>4. Third parties</h2>
