@@ -63,9 +63,11 @@ const AUTHOR = {
   sameAs: [
     "https://github.com/negoescg",
     "https://github.com/coderippletech",
+    "https://app.daily.dev/squads/rippleeffect",
   ],
   links: [
     { label: "GitHub", href: "https://github.com/negoescg" },
+    { label: "Ripple Effect on daily.dev", href: "https://app.daily.dev/squads/rippleeffect" },
     { label: "CodeRipple Tech", href: "/" },
     { label: "RSS", href: "/blog/feed.xml" },
   ],
