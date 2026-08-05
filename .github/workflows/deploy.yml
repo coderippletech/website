@@ -26,9 +26,15 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
+      # Build-time only. Nothing here reaches the browser — satori and resvg
+      # render each post's social card, and the site still ships as static HTML
+      # with no runtime dependency of any kind.
+      - name: Install build dependencies
+        run: npm ci
+
       # Regenerate the blog before validating: a post is one .md file, and the
-      # HTML, feed, sitemap block and llms.txt block are all derived from it
-      # here so authors never have to remember to run the build.
+      # HTML, feed, sitemap block, llms.txt block and social card are all
+      # derived from it here so authors never have to remember to run the build.
       - name: Build blog
         run: node scripts/build-blog.mjs
 

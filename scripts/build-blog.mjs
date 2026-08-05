@@ -24,6 +24,7 @@
 import { readFileSync, writeFileSync, readdirSync, mkdirSync, existsSync, rmSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
+import { buildOgCards } from "./build-og.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const POSTS_DIR = join(ROOT, "blog", "_posts");
@@ -87,9 +88,20 @@ function fmtDate(iso) {
   return d.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
 }
 
-/** Reading time from word count. Rounded up, floored at 1. */
-const readingTime = (text) =>
-  Math.max(1, Math.round(text.trim().split(/\s+/).length / 220));
+/**
+ * Reading time from prose word count, floored at 1 minute.
+ *
+ * Fenced code and :::demo blocks are stripped first. Nobody reads a stylesheet
+ * at 220 words a minute, and counting one is how "the bug with no spinner"
+ * claimed to be a five-minute read when its actual prose is under two — the
+ * demo's CSS and JavaScript were being counted as words.
+ */
+const readingTime = (text) => {
+  const prose = text
+    .replace(/```[\s\S]*?```/g, " ")
+    .replace(/^:::demo[\s\S]*?^:::/gm, " ");
+  return Math.max(1, Math.round(prose.trim().split(/\s+/).length / 220));
+};
 
 /* -------------------------------------------------------- front matter + md */
 
@@ -349,7 +361,11 @@ function loadPosts() {
         ...meta, topic, slug, body,
         html: markdown(body),
         minutes: readingTime(body),
-        words: body.trim().split(/\s+/).length,
+        // Prose only, same as the reading time — schema.org wordCount describes
+        // the article, not the size of the code samples in it.
+        words: body.replace(/```[\s\S]*?```/g, " ")
+                   .replace(/^:::demo[\s\S]*?^:::/gm, " ")
+                   .trim().split(/\s+/).length,
         tags: (meta.tags || "").split(",").map((t) => t.trim()).filter(Boolean),
         url: `${SITE}/blog/${slug}/`,
         draft: String(meta.draft || "").toLowerCase() === "true",
@@ -451,7 +467,7 @@ function renderPost(post, prev, next) {
     wordCount: post.words, timeRequired: `PT${post.minutes}M`,
     articleSection: t.label,
     ...(post.tags.length ? { keywords: post.tags.join(", ") } : {}),
-    image: `${SITE}/assets/${post.og || "og-home.png"}`,
+    image: `${SITE}/assets/${post.og || `og/blog-${post.slug}.png`}`,
     author: {
       "@type": "Person", name: AUTHOR.name, jobTitle: AUTHOR.role,
       description: AUTHOR.bio, url: `${SITE}/blog/`, sameAs: AUTHOR.sameAs,
@@ -515,7 +531,7 @@ function renderPost(post, prev, next) {
     title: `${post.title} — CodeRipple Tech`,
     desc: post.summary,
     url: post.url,
-    og: post.og || "og-home.png",
+    og: post.og || `og/blog-${post.slug}.png`,
     article: {
       date: post.date, updated: post.updated,
       author: post.author || AUTHOR.name, section: t.label, tags: post.tags,
@@ -669,6 +685,11 @@ try {
   written.forEach((w) => console.log("  " + w));
   console.log("  " + updateSitemap(posts));
   console.log("  " + updateLlms(posts));
+  console.log("  " + await buildOgCards(posts.map((p) => ({
+    slug: p.slug, title: p.title, topicLabel: TOPICS[p.topic].label,
+    accent: { teal: "#22d3ce", purple: "#7d66fd", sky: "#38bdf8" }[TOPICS[p.topic].accent],
+    minutes: p.minutes, date: fmtDate(p.date),
+  }))));
 } catch (err) {
   console.error("Blog build failed:", err.message);
   process.exit(1);

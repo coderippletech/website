@@ -1,0 +1,14 @@
+{
+  "name": "coderipple-site",
+  "private": true,
+  "type": "module",
+  "description": "Static site. The only build step is the blog generator; nothing here ships to the browser.",
+  "scripts": {
+    "build": "node scripts/build-blog.mjs",
+    "check": "node scripts/build-blog.mjs && node scripts/validate-site.mjs"
+  },
+  "devDependencies": {
+    "@resvg/resvg-js": "^2.6.2",
+    "satori": "^0.19.3"
+  }
+}
