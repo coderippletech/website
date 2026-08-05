@@ -42,12 +42,38 @@
     "applicationCategory": "BusinessApplication",
     "operatingSystem": "Web (monday.com)",
     "installUrl": "https://auth.monday.com/oauth2/authorize?client_id=541be882141b531d368a90be8b4ab21d&response_type=install",
-    "offers": {
-      "@type": "Offer",
-      "name": "Free",
-      "price": "0",
-      "priceCurrency": "USD"
-    },
+    "offers": [
+      {
+        "@type": "Offer",
+        "name": "Free",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      {
+        "@type": "Offer",
+        "name": "Pro",
+        "price": "10",
+        "priceCurrency": "USD",
+        "priceSpecification": {
+          "@type": "UnitPriceSpecification",
+          "price": "10",
+          "priceCurrency": "USD",
+          "unitText": "account/month"
+        }
+      },
+      {
+        "@type": "Offer",
+        "name": "Business",
+        "price": "20",
+        "priceCurrency": "USD",
+        "priceSpecification": {
+          "@type": "UnitPriceSpecification",
+          "price": "20",
+          "priceCurrency": "USD",
+          "unitText": "account/month"
+        }
+      }
+    ],
     "author": {
       "@type": "Organization",
       "name": "CodeRipple Tech",
@@ -69,6 +95,7 @@
     <div class="snav-links">
       <a href="#features">Features</a>
       <a href="#how">How it works</a>
+      <a href="#pricing">Pricing</a>
       <a href="/ripple-merge/guide/">Guide</a>
       <a class="btn btn-teal" href="https://auth.monday.com/oauth2/authorize?client_id=541be882141b531d368a90be8b4ab21d&amp;response_type=install"><span class="cta-full">Install on monday.com</span><span class="cta-short">Install</span></a>
     </div>
@@ -212,6 +239,56 @@
     </section>
 
     <!-- CTA -->
+    <!-- pricing -->
+    <section class="section" id="pricing">
+      <div class="section-head reveal">
+        <h2>Simple, transparent pricing</h2>
+        <p>Every plan has every feature. Only the send volume differs.</p>
+      </div>
+      <div class="reveal" style="text-align:center;margin-bottom:34px;">
+        <div class="billing-toggle" role="tablist" aria-label="Billing period">
+          <button type="button" class="active" data-period="monthly" role="tab" aria-selected="true">Monthly</button>
+          <button type="button" data-period="yearly" role="tab" aria-selected="false">Yearly <span class="billing-save">Save 20%</span></button>
+        </div>
+      </div>
+      <div class="pricing reveal">
+        <div class="price-card">
+          <h3>Free</h3>
+          <div class="price-amount">$0</div>
+          <div class="price-period">forever</div>
+          <ul class="price-list">
+            <li>50 resolved emails per month</li>
+            <li>All features included</li>
+            <li>Subitem data, loops &amp; totals</li>
+            <li>Plain text &amp; HTML templates</li>
+          </ul>
+        </div>
+        <div class="price-card popular">
+          <div class="price-badge">Most popular</div>
+          <h3>Pro</h3>
+          <div class="price-amount" data-monthly="$10" data-yearly="$96">$10</div>
+          <div class="price-period" data-monthly="per account / month" data-yearly="per account / year">per account / month</div>
+          <ul class="price-list">
+            <li>500 resolved emails per month</li>
+            <li>All features included</li>
+            <li>Subitem data, loops &amp; totals</li>
+            <li>Plain text &amp; HTML templates</li>
+          </ul>
+        </div>
+        <div class="price-card">
+          <h3>Business</h3>
+          <div class="price-amount" data-monthly="$20" data-yearly="$192">$20</div>
+          <div class="price-period" data-monthly="per account / month" data-yearly="per account / year">per account / month</div>
+          <ul class="price-list">
+            <li>Unlimited resolved emails</li>
+            <li>All features included</li>
+            <li>Subitem data, loops &amp; totals</li>
+            <li>Plain text &amp; HTML templates</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
     <section class="section">
       <div class="cta-band reveal">
         <h2>Stop copying subitems into emails by hand.</h2>
@@ -266,6 +343,18 @@
       if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
     }), { threshold: 0.12 });
     document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+    document.querySelectorAll(".billing-toggle button").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const period = btn.dataset.period;
+        document.querySelectorAll(".billing-toggle button").forEach((b) => {
+          b.classList.toggle("active", b === btn);
+          b.setAttribute("aria-selected", b === btn ? "true" : "false");
+        });
+        document.querySelectorAll("[data-monthly]").forEach((el) => {
+          el.textContent = el.getAttribute("data-" + period);
+        });
+      });
+    });
   </script>
 </body>
 </html>
