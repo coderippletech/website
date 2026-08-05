@@ -1,0 +1,317 @@
+/* CodeRipple Tech — Writing.
+   Extends site.css; defines no colours of its own beyond alpha tints of the
+   existing accent variables, so the blog stays inside the site's world. */
+
+/* Shelf accents reuse the product palette already defined in site.css. */
+[data-accent="teal"]   { --shelf: var(--teal);   --shelf-soft: var(--teal-soft); }
+[data-accent="purple"] { --shelf: var(--purple); --shelf-soft: var(--purple-soft); }
+[data-accent="sky"]    { --shelf: var(--sky);    --shelf-soft: var(--sky-soft); }
+
+.bp-main { max-width: 900px; margin: 0 auto; padding: clamp(44px, 6vw, 76px) clamp(20px, 4vw, 48px) clamp(64px, 8vw, 88px); }
+
+/* ---- masthead ---- */
+.bp-masthead { margin-bottom: clamp(28px, 4vw, 44px); max-width: 62ch; }
+.bp-masthead h1 {
+  font-size: clamp(2.6rem, 7vw, 4.5rem);
+  font-weight: 800; letter-spacing: -0.045em; line-height: 1.02;
+  text-wrap: balance;
+}
+.bp-masthead p { margin-top: 18px; color: var(--muted); font-size: clamp(1rem, 1.6vw, 1.15rem); max-width: 54ch; }
+
+.bp-feed {
+  display: inline-flex; align-items: center; gap: 7px; margin-top: 26px;
+  padding: 7px 14px 7px 12px; border-radius: 999px;
+  border: 1px solid var(--card-border); background: var(--card);
+  color: var(--muted); font-size: 13px; font-weight: 600;
+  transition: color .18s ease, border-color .18s ease, background .18s ease;
+}
+.bp-feed:hover { color: var(--text); border-color: rgba(255,255,255,0.2); background: rgba(255,255,255,0.06); }
+.bp-feed:focus-visible { outline: 2px solid var(--teal); outline-offset: 3px; }
+
+/* ---- the list ----
+   Rows, not cards. The date holds a left rail so there is one vertical axis to
+   scan down, and the topic rides under it as a coloured label. Hairlines between
+   rows rather than boxes around them: at three posts a stack of boxes reads as
+   an unfinished grid, a ruled list reads as a table of contents. */
+.bp-list { list-style: none; }
+.bp-row + .bp-row { border-top: 1px solid var(--card-border); }
+
+.bp-row-link {
+  position: relative;
+  display: grid; grid-template-columns: 132px 1fr; gap: 30px; align-items: start;
+  padding: 30px 22px; margin: 0 -22px;
+  border-radius: var(--radius);
+  transition: background .22s ease;
+}
+/* A hairline in the topic colour grows down the left edge on hover — the only
+   thing that moves, so the eye is told which row it is on and nothing else. */
+.bp-row-link::before {
+  content: ""; position: absolute; left: 6px; top: 30px; bottom: 30px; width: 2px;
+  border-radius: 2px; background: var(--shelf);
+  opacity: 0; transform: scaleY(.3); transform-origin: 50% 50%;
+  transition: opacity .26s ease, transform .34s cubic-bezier(.16,1,.3,1);
+}
+.bp-row-link:hover { background: rgba(255,255,255,0.035); }
+.bp-row-link:hover::before, .bp-row-link:focus-visible::before { opacity: 1; transform: scaleY(1); }
+.bp-row-link:focus-visible { outline: 2px solid var(--shelf); outline-offset: -2px; }
+
+.bp-row-rail { display: flex; flex-direction: column; gap: 7px; padding-top: 5px; }
+.bp-row-rail time { color: var(--muted); font-size: 0.82rem; font-variant-numeric: tabular-nums; }
+.bp-row-topic {
+  display: inline-flex; align-items: center; gap: 7px; width: fit-content;
+  color: var(--shelf); font-size: 0.76rem; font-weight: 650; letter-spacing: 0.01em;
+}
+.bp-row-topic::before {
+  content: ""; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--shelf); box-shadow: 0 0 0 3.5px var(--shelf-soft);
+}
+
+.bp-row-body { display: flex; flex-direction: column; gap: 9px; }
+.bp-row-title {
+  font-size: 1.24rem; font-weight: 680; letter-spacing: -0.022em; line-height: 1.3;
+  text-wrap: balance; transition: color .18s ease;
+}
+/* The newest post is the one most people came for, so it gets the size. */
+.bp-row:first-child .bp-row-title { font-size: clamp(1.45rem, 3vw, 1.85rem); letter-spacing: -0.032em; }
+.bp-row-summary { color: var(--muted); font-size: 0.94rem; line-height: 1.6; max-width: 62ch; }
+.bp-row:first-child .bp-row-summary { font-size: 1rem; }
+.bp-row-more {
+  display: inline-flex; align-items: center; gap: 7px; margin-top: 2px;
+  color: var(--muted); font-size: 0.78rem; font-weight: 600;
+  transition: color .18s ease;
+}
+.bp-row-more svg { opacity: 0; transform: translateX(-5px); transition: opacity .22s ease, transform .28s cubic-bezier(.16,1,.3,1); }
+.bp-row-link:hover .bp-row-more { color: var(--shelf); }
+.bp-row-link:hover .bp-row-more svg { opacity: 1; transform: none; }
+
+@media (max-width: 640px) {
+  .bp-row-link { grid-template-columns: 1fr; gap: 12px; padding: 26px 16px; margin: 0 -16px; }
+  .bp-row-link::before { top: 26px; bottom: 26px; left: 2px; }
+  .bp-row-rail { flex-direction: row; align-items: center; gap: 12px; padding-top: 0; }
+  .bp-row-rail time { order: 2; }
+  .bp-row-title { font-size: 1.15rem; }
+}
+
+/* ---- empty state ---- */
+.bp-empty { padding: 56px 0; border-top: 1px solid var(--card-border); }
+.bp-empty h2 { font-size: 1.3rem; font-weight: 700; letter-spacing: -0.02em; }
+.bp-empty p { margin-top: 10px; color: var(--muted); max-width: 52ch; }
+.bp-empty a { color: var(--teal); text-decoration: underline; text-underline-offset: 3px; }
+
+/* ---- post ---- */
+.bp-post { max-width: 720px; margin: 0 auto; padding: clamp(40px, 6vw, 72px) clamp(20px, 5vw, 32px) 96px; }
+.bp-post-head { margin-bottom: clamp(32px, 5vw, 52px); }
+
+.bp-back {
+  display: inline-flex; align-items: center; gap: 5px; margin-bottom: 26px;
+  color: var(--muted); font-size: 0.85rem; font-weight: 600;
+  transition: color .18s ease, gap .18s ease;
+}
+.bp-back:hover { color: var(--text); gap: 8px; }
+.bp-back:focus-visible { outline: 2px solid var(--shelf, var(--teal)); outline-offset: 3px; border-radius: 4px; }
+
+.bp-post-head h1 {
+  font-size: clamp(2.1rem, 5.4vw, 3.15rem);
+  font-weight: 800; letter-spacing: -0.04em; line-height: 1.08; text-wrap: balance;
+}
+.bp-post-summary { margin-top: 16px; color: var(--muted); font-size: clamp(1.02rem, 1.7vw, 1.18rem); line-height: 1.55; max-width: 60ch; }
+.bp-post-meta { margin-top: 22px; display: flex; align-items: center; gap: 9px; color: var(--muted); font-size: 0.82rem; }
+.bp-topic {
+  padding: 3px 10px; border-radius: 999px; font-weight: 650; font-size: 0.74rem;
+  color: var(--shelf); background: var(--shelf-soft);
+  border: 1px solid color-mix(in srgb, var(--shelf) 26%, transparent);
+}
+
+.bp-byline { color: var(--text); font-weight: 600; }
+
+.bp-crumbs {
+  display: flex; align-items: center; gap: 8px; margin-bottom: 24px;
+  color: var(--muted); font-size: 0.82rem; font-weight: 600; flex-wrap: wrap;
+}
+/* min-height keeps these at the WCAG 2.2 24px target size; the text alone is 21px. */
+.bp-crumbs a { color: var(--muted); transition: color .16s ease; display: inline-flex; align-items: center; min-height: 24px; }
+.bp-crumbs a:hover { color: var(--text); }
+.bp-crumbs a:focus-visible { outline: 2px solid var(--shelf, var(--teal)); outline-offset: 3px; border-radius: 3px; }
+.bp-crumbs span { opacity: .45; }
+
+/* ---- tags ---- */
+.bp-tags {
+  list-style: none; display: flex; flex-wrap: wrap; gap: 8px;
+  margin-top: clamp(32px, 4vw, 44px); padding-top: 22px;
+  border-top: 1px solid var(--card-border);
+}
+.bp-tags li {
+  padding: 4px 11px; border-radius: 999px;
+  border: 1px solid var(--card-border); background: var(--card);
+  color: var(--muted); font-size: 0.76rem; font-weight: 600;
+}
+
+/* Attribution for a post built on someone else's work. Above the fold, small,
+   and unmistakably a credit rather than a related-link. */
+.bp-via {
+  margin-top: 14px; color: var(--muted); font-size: 0.86rem;
+}
+.bp-via a {
+  color: var(--shelf, var(--teal));
+  text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px;
+}
+.bp-via a:hover { text-decoration-thickness: 2px; }
+
+/* ---- author ----
+   A monogram rather than a photo: no asset to maintain, no broken avatar, and
+   it inherits the post's topic colour so the card belongs to the page it ends. */
+.bp-author {
+  margin-top: clamp(44px, 6vw, 64px); padding: 24px 26px;
+  display: flex; gap: 18px; align-items: flex-start;
+  border: 1px solid var(--card-border); border-radius: var(--radius);
+  background: var(--card);
+}
+.bp-author-mark {
+  flex: none; width: 46px; height: 46px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: var(--shelf-soft); color: var(--shelf);
+  border: 1px solid color-mix(in srgb, var(--shelf) 30%, transparent);
+  font-size: 0.92rem; font-weight: 750; letter-spacing: 0.01em;
+}
+.bp-author-body { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.bp-author-name { font-size: 1rem; font-weight: 700; letter-spacing: -0.015em; }
+.bp-author-role { color: var(--shelf, var(--muted)); font-size: 0.8rem; font-weight: 600; }
+.bp-author-bio { margin-top: 7px; color: var(--muted); font-size: 0.92rem; line-height: 1.6; max-width: 56ch; }
+.bp-author-links { margin-top: 11px; display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 0.82rem; }
+.bp-author-links a { color: var(--muted); font-weight: 600; transition: color .16s ease; display: inline-flex; align-items: center; min-height: 24px; }
+.bp-author-links a:hover { color: var(--text); }
+.bp-author-links a:focus-visible { outline: 2px solid var(--shelf); outline-offset: 3px; border-radius: 3px; }
+@media (max-width: 560px) {
+  .bp-author { padding: 20px; gap: 14px; }
+  .bp-author-mark { width: 40px; height: 40px; font-size: 0.84rem; }
+}
+
+/* ---- prose ---- */
+.bp-prose { font-size: 1.06rem; line-height: 1.75; }
+.bp-prose > * + * { margin-top: 1.35em; }
+.bp-prose p, .bp-prose ul, .bp-prose ol, .bp-prose blockquote { max-width: 68ch; }
+.bp-prose h2 {
+  margin-top: 2.4em; font-size: 1.55rem; font-weight: 750;
+  letter-spacing: -0.03em; line-height: 1.2; text-wrap: balance;
+}
+.bp-prose h3 { margin-top: 2em; font-size: 1.18rem; font-weight: 700; letter-spacing: -0.02em; }
+.bp-prose h4 { margin-top: 1.8em; font-size: 1rem; font-weight: 700; color: var(--muted); }
+.bp-prose a { color: var(--shelf, var(--teal)); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.bp-prose a:hover { text-decoration-thickness: 2px; }
+.bp-prose strong { font-weight: 680; color: #f3f7fc; }
+.bp-prose ul, .bp-prose ol { padding-left: 1.3em; }
+.bp-prose li + li { margin-top: .5em; }
+.bp-prose li::marker { color: var(--shelf, var(--muted)); }
+.bp-prose img { border-radius: var(--radius); border: 1px solid var(--card-border); margin-inline: auto; }
+.bp-prose hr { border: none; border-top: 1px solid var(--card-border); margin: 2.6em 0; }
+
+.bp-prose blockquote {
+  padding: 2px 0 2px 20px; border-left: 1px solid var(--shelf);
+  color: var(--muted); font-style: normal;
+}
+
+.bp-prose code {
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.87em; padding: 2px 6px; border-radius: 6px;
+  background: rgba(255,255,255,0.07); border: 1px solid var(--card-border);
+}
+/* ---- callouts ----
+   An aside the reader can skip without losing the thread. Set inside the
+   measure rather than full-bleed, so it reads as a step out of the prose
+   instead of a banner interrupting it. */
+.bp-call {
+  padding: 16px 18px 17px; border-radius: var(--radius);
+  border: 1px solid var(--card-border); background: var(--card);
+  max-width: 68ch;
+}
+/* The accent lives in the label and its dot — the same dot the index uses for a
+   topic — rather than in a coloured bar down one edge. */
+.bp-call-label {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 0.72rem; font-weight: 700; letter-spacing: 0.07em;
+  text-transform: uppercase; color: var(--call, var(--shelf)); margin-bottom: 8px;
+}
+.bp-call-label::before {
+  content: ""; flex: none; width: 6px; height: 6px; border-radius: 50%;
+  background: currentColor; box-shadow: 0 0 0 3.5px color-mix(in srgb, currentColor 18%, transparent);
+}
+.bp-call p:not(.bp-call-label) { font-size: 0.96rem; line-height: 1.65; color: var(--muted); }
+.bp-call p + p { margin-top: .8em; }
+.bp-call--fact { --call: var(--teal); }
+.bp-call--warn { --call: #fbbf24; }
+/* note keeps the post's own topic colour, so it reads as the author's aside
+   rather than a fourth signal competing with the other two. */
+
+/* ---- demos ----
+   A thing the reader can poke at. Full width of the measure, framed like a
+   figure, and self-contained: if its script never runs, the markup inside must
+   still say something true. */
+.bp-demo {
+  margin-inline: 0; padding: 20px;
+  border: 1px solid var(--card-border); border-radius: var(--radius);
+  background: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.012));
+}
+.bp-demo[data-label]::before {
+  content: attr(data-label); display: block; margin-bottom: 14px;
+  font-size: 0.72rem; font-weight: 700; letter-spacing: 0.07em;
+  text-transform: uppercase; color: var(--muted);
+}
+.bp-demo figcaption { margin-top: 14px; color: var(--muted); font-size: 0.85rem; line-height: 1.55; }
+.bp-demo button {
+  padding: 9px 16px; border-radius: 9px; cursor: pointer;
+  border: 1px solid color-mix(in srgb, var(--shelf) 34%, transparent);
+  background: var(--shelf-soft); color: var(--shelf);
+  font: inherit; font-size: 0.86rem; font-weight: 650;
+  transition: background .16s ease, border-color .16s ease, transform .12s ease;
+}
+.bp-demo button:hover { background: color-mix(in srgb, var(--shelf) 22%, transparent); }
+.bp-demo button:active { transform: translateY(1px); }
+.bp-demo button:focus-visible { outline: 2px solid var(--shelf); outline-offset: 3px; }
+
+.bp-code {
+  position: relative; overflow-x: auto; padding: 18px 20px;
+  border-radius: var(--radius); border: 1px solid var(--card-border);
+  background: #070a0f; font-size: 0.86rem; line-height: 1.65;
+  max-width: 100%;
+}
+.bp-code code { background: none; border: none; padding: 0; font-size: inherit; }
+.bp-code[data-lang]::before {
+  content: attr(data-lang); position: absolute; top: 10px; right: 14px;
+  font-size: 0.66rem; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted); opacity: .6;
+}
+
+/* ---- prev / next ---- */
+.bp-adjacent {
+  margin-top: clamp(48px, 7vw, 80px); padding-top: 26px;
+  border-top: 1px solid var(--card-border);
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+}
+.bp-adjacent-link {
+  display: flex; flex-direction: column; gap: 5px; padding: 16px 18px;
+  border: 1px solid var(--card-border); border-radius: var(--radius); background: var(--card);
+  transition: border-color .2s ease, background .2s ease;
+}
+.bp-adjacent-link--next { text-align: right; }
+.bp-adjacent-link:hover { border-color: rgba(255,255,255,0.18); background: rgba(255,255,255,0.055); }
+.bp-adjacent-link:focus-visible { outline: 2px solid var(--shelf, var(--teal)); outline-offset: 3px; }
+.bp-adjacent-dir { color: var(--muted); font-size: 0.74rem; letter-spacing: 0.04em; text-transform: uppercase; }
+.bp-adjacent-title { font-size: 0.95rem; font-weight: 620; line-height: 1.35; }
+@media (max-width: 620px) { .bp-adjacent { grid-template-columns: 1fr; } .bp-adjacent-link--next { text-align: left; } }
+
+/* ---- motion ----
+   One authored moment: the masthead and the first few rows settle in on load,
+   staggered by position. Rows beyond the fold share the last delay so a long
+   archive never turns into a slow cascade, and nothing here depends on JS or a
+   scroll listener — the page is complete without it. */
+@media (prefers-reduced-motion: no-preference) {
+  .bp-masthead, .bp-row { animation: bp-rise .55s cubic-bezier(.16,1,.3,1) both; }
+  .bp-row:nth-child(1) { animation-delay: .06s; }
+  .bp-row:nth-child(2) { animation-delay: .12s; }
+  .bp-row:nth-child(3) { animation-delay: .18s; }
+  .bp-row:nth-child(n+4) { animation-delay: .22s; }
+}
+@keyframes bp-rise {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}

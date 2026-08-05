@@ -4,5 +4,9 @@
 
 User-agent: *
 Allow: /
+# Post sources and the writing guide ship with the site but are not pages —
+# the rendered post at /blog/<slug>/ is the canonical version of each one.
+Disallow: /blog/_posts/
+Disallow: /blog/WRITING.md
 
 Sitemap: https://coderippletech.com/sitemap.xml

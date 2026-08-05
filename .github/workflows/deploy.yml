@@ -3,6 +3,20 @@ name: Deploy site
 on:
   push:
     branches: [main]
+  # Scheduled publishing. A post dated in the future is not built; this run
+  # picks it up on its own date without anyone being at a keyboard.
+  #
+  # 14:00 UTC is the slot: 15:00 UK, 10:00 US Eastern, 07:00 US Pacific. That
+  # covers a UK afternoon, a US East mid-morning and the start of a US West
+  # day, which is where a developer audience actually is. Date posts on a
+  # Tuesday or Wednesday — mid-week mornings consistently outperform Mondays
+  # and Fridays for long-form technical reading.
+  #
+  # GitHub's cron is best-effort and can drift by several minutes under load.
+  # That is fine here: nothing downstream cares about the exact minute.
+  schedule:
+    - cron: "0 14 * * *"
+  workflow_dispatch:
 
 concurrency: deploy-site
 
@@ -11,9 +25,34 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+
+      # Regenerate the blog before validating: a post is one .md file, and the
+      # HTML, feed, sitemap block and llms.txt block are all derived from it
+      # here so authors never have to remember to run the build.
+      - name: Build blog
+        run: node scripts/build-blog.mjs
+
       - name: Validate static site
         run: node scripts/validate-site.mjs
+
+      # A scheduled run on a day with nothing due would otherwise redeploy an
+      # identical site every morning. Push and manual runs always deploy.
+      - name: Decide whether to deploy
+        id: gate
+        run: |
+          if [ "${{ github.event_name }}" != "schedule" ]; then
+            echo "deploy=true" >> "$GITHUB_OUTPUT"
+          elif [ -n "$(git status --porcelain)" ]; then
+            echo "A post came due — deploying."
+            git status --porcelain
+            echo "deploy=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "Nothing scheduled for today; skipping deploy."
+            echo "deploy=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Publish to Cloudflare Pages
+        if: steps.gate.outputs.deploy == 'true'
         uses: cloudflare/wrangler-action@v4
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}

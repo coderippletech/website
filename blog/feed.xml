@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<channel>
+  <title>CodeRipple Tech — Writing</title>
+  <link>https://coderippletech.com/blog/</link>
+  <atom:link href="https://coderippletech.com/blog/feed.xml" rel="self" type="application/rss+xml"/>
+  <description>Working notes from building CodeRipple Tech — what shipped, what broke, and what the numbers actually said.</description>
+  <language>en-GB</language>
+  <managingEditor>support@coderippletech.com (Dan Negoescu)</managingEditor>
+  <item>
+    <title>Self-hosting Convex: the 16 variables an export leaves behind</title>
+    <link>https://coderippletech.com/blog/self-hosting-convex-on-one-vps/</link>
+    <guid isPermaLink="true">https://coderippletech.com/blog/self-hosting-convex-on-one-vps/</guid>
+    <pubDate>Mon, 03 Aug 2026 09:00:00 GMT</pubDate>
+    <dc:creator>Dan Negoescu</dc:creator>
+    <description>Three apps, three backends, one Postgres. Moving off Convex Cloud took an afternoon. The environment variables took the rest of the day, because convex export carries your data and nothing else.</description>
+    <content:encoded><![CDATA[<p>Convex Cloud is good. It's also a subscription, and once you're already paying for a server the maths stops being obvious. Moving three apps onto a self-hosted Convex took an afternoon — and almost all of that afternoon went on one thing nobody warns you about.</p>
+<h3 id="one-backend-is-one-deployment">One backend is one deployment</h3>
+<p>The first instinct is to run a single Convex backend and point all three apps at it. That doesn't work. A Convex backend serves exactly <strong>one</strong> deployment. Three apps with different schemas would collide on day one — one has <code>workspaces</code> and <code>captures</code>, another has <code>plateCache</code> and <code>dvsaToken</code>, and they'd be sharing a table namespace.</p>
+<p>So it's one backend per app. They can still share a Postgres server, because Convex derives its database name from <code>INSTANCE_NAME</code>, swapping hyphens for underscores:</p>
+<pre class="bp-code" data-lang="yaml"><code>ripplebug:
+  image: ghcr.io/get-convex/convex-backend:latest
+  environment:
+    - INSTANCE_NAME=ripplebug
+    - POSTGRES_URL=${POSTGRES_URL}</code></pre>
+<p>Three of those, three databases, one Postgres container. Each backend idles around 30 MB, so separating them costs nothing worth counting.</p>
+<h3 id="the-part-that-bites">The part that bites</h3>
+<p><code>convex export</code> carries <strong>data only</strong>. It does not carry your deployment's environment variables.</p>
+<p>That's obvious in hindsight and invisible at the time, because everything looks fine. The data's there. The dashboard loads. Functions deploy. And then nobody can sign in, because <code>JWT_PRIVATE_KEY</code> and <code>JWKS</code> never came across, and without them Convex Auth can't mint or verify a session.</p>
+<p>The failure is silent in the worst way. It isn't a line in a log, it's a login page that just doesn't work. On one app alone, sixteen variables were still sitting on the old deployment: auth keys, Stripe price IDs, a Resend key, an OpenAI token.</p>
+<p>Copy them across explicitly:</p>
+<pre class="bp-code" data-lang="bash"><code>npx convex env list                    # against the cloud deployment
+npx convex env get NAME                # one at a time
+CONVEX_SELF_HOSTED_URL=... npx convex env set NAME value</code></pre>
+<p>Two traps in that last command. Values that start with <code>-</code> — a PEM key, some secrets — get parsed as CLI flags, so you need <code>convex env set -- NAME value</code>. And multi-line values truncate at the first newline if you set them from Windows, because argv doesn't survive it. Set those from the server.</p>
+<h3 id="what-it-actually-costs">What it actually costs</h3>
+<p>Three backends, one Postgres, behind a reverse proxy that was already running. Idle memory for the whole set is under 200 MB. The deploy pipeline changed by one variable — <code>CONVEX_DEPLOY_KEY</code> becomes <code>CONVEX_SELF_HOSTED_URL</code> plus an admin key — and CI didn't otherwise care.</p>
+<p>Honest summary: the migration is easy, the environment variables are the entire difficulty, and you want to have checked them <em>before</em> you cancel anything.</p>]]></content:encoded>
+    <category>Engineering</category>
+  </item>
+  <item>
+    <title>The bug with no spinner</title>
+    <link>https://coderippletech.com/blog/the-bug-with-no-spinner/</link>
+    <guid isPermaLink="true">https://coderippletech.com/blog/the-bug-with-no-spinner/</guid>
+    <pubDate>Sun, 02 Aug 2026 09:00:00 GMT</pubDate>
+    <dc:creator>Dan Negoescu</dc:creator>
+    <description>A video kept stopping and starting with no buffering circle. That missing circle ruled out half the system before I&#39;d opened a single graph, and I checked the graphs anyway.</description>
+    <content:encoded><![CDATA[<p>Someone told me a video kept stopping. It would freeze for a while, then carry on by itself. Then they added the detail that solved it:</p>
+<blockquote>The spinning circle doesn't appear when it stops, like it normally does when the internet drops.</blockquote>
+<p>That sentence is the whole diagnosis, and it took me an embarrassingly long time to hear it.</p>
+<h3 id="what-a-spinner-actually-means">What a spinner actually means</h3>
+<p>A buffering spinner means the player asked for data and is <em>waiting</em>. There's a request open. The network might be slow, the server might be slow, but the conversation is still going.</p>
+<p>No spinner means the player isn't waiting for anything. It either got an answer it couldn't use, or it stopped asking. Those are different failures in different halves of the system.</p>
+<p>Here are both, side by side. Hit play and watch which one spins.</p>
+<figure class="bp-demo" data-label="Two ways for a video to stop"><style>
+  .sd-wrap{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media (max-width:520px){.sd-wrap{grid-template-columns:1fr}}
+  .sd-lane{border:1px solid var(--card-border);border-radius:10px;padding:13px 14px;background:rgba(0,0,0,.25)}
+  .sd-head{font-size:.75rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+  .sd-screen{height:64px;border-radius:8px;background:#05070b;border:1px solid var(--card-border);display:grid;place-items:center;position:relative;overflow:hidden}
+  .sd-frame{font-size:1.5rem;font-variant-numeric:tabular-nums;color:#dbe4f0;font-weight:600}
+  .sd-spin{position:absolute;width:20px;height:20px;border-radius:50%;border:2.5px solid rgba(255,255,255,.18);border-top-color:#dbe4f0;animation:sd-rot .8s linear infinite}
+  @keyframes sd-rot{to{transform:rotate(360deg)}}
+  @media (prefers-reduced-motion:reduce){.sd-spin{animation-duration:2.4s}}
+  .sd-bar{height:4px;border-radius:3px;background:rgba(255,255,255,.09);margin-top:11px;overflow:hidden}
+  .sd-bar i{display:block;height:100%;background:var(--shelf);width:0;border-radius:3px}
+  .sd-note{margin-top:9px;font-size:.8rem;line-height:1.5;color:var(--muted);min-height:2.6em}
+  .sd-note b{color:#dbe4f0;font-weight:650}
+  .sd-controls{margin-top:15px;display:flex;align-items:center;gap:13px;flex-wrap:wrap}
+  .sd-status{font-size:.8rem;color:var(--muted)}
+</style>
+<div class="sd-wrap">
+  <div class="sd-lane" id="sd-slow">
+    <div class="sd-head">Slow network</div>
+    <div class="sd-screen"><span class="sd-frame">00:00</span></div>
+    <div class="sd-bar"><i></i></div>
+    <p class="sd-note">The next segment is late. The request is still open, so the player knows it is waiting.</p>
+  </div>
+  <div class="sd-lane" id="sd-gone">
+    <div class="sd-head">Segment deleted &rarr; 404</div>
+    <div class="sd-screen"><span class="sd-frame">00:00</span></div>
+    <div class="sd-bar"><i></i></div>
+    <p class="sd-note">The next segment is gone. The server answers immediately, so there is nothing to wait for.</p>
+  </div>
+</div>
+<div class="sd-controls">
+  <button type="button" id="sd-play">Play both</button>
+  <span class="sd-status" id="sd-status">Not running &mdash; this is a simulation, no video is loaded.</span>
+</div>
+<figcaption>Same stall, same duration. Only one of them has anything pending, so
+only one of them can show you a spinner. That difference is the whole
+diagnosis.</figcaption>
+<script>
+(() => {
+  const btn = document.getElementById("sd-play");
+  if (!btn) return;
+  const status = document.getElementById("sd-status");
+  const lanes = [
+    { el: document.getElementById("sd-slow"), spins: true,
+      stalled: "Waiting on a slow response. <b>Spinner shown.</b>",
+      resumed: "Segment arrived late. Playback continues." },
+    { el: document.getElementById("sd-gone"), spins: false,
+      stalled: "Got a 404 and stopped asking. <b>No spinner &mdash; nothing is pending.</b>",
+      resumed: "Server rebuilt the segment. Playback jumps back in." },
+  ].map((l) => ({ ...l,
+    frame: l.el.querySelector(".sd-frame"),
+    bar: l.el.querySelector(".sd-bar i"),
+    note: l.el.querySelector(".sd-note"),
+    screen: l.el.querySelector(".sd-screen"),
+    idle: l.el.querySelector(".sd-note").innerHTML,
+  }));
+
+  const STALL_AT = 38;                     // percent through a 1:30 clip
+  const clock = (p) => {
+    const t = Math.round(p * 0.9);         // 100% === 90 seconds
+    return `${Math.floor(t / 60)}:${String(t % 60).padStart(2, "0")}`;
+  };
+  const spinners = (lane, on) => {
+    lane.screen.querySelectorAll(".sd-spin").forEach((s) => s.remove());
+    if (on && lane.spins) {
+      const s = document.createElement("span");
+      s.className = "sd-spin";
+      s.setAttribute("aria-hidden", "true");
+      lane.screen.appendChild(s);
+    }
+  };
+
+  let timer = null;
+
+  function reset() {
+    lanes.forEach((l) => {
+      l.bar.style.width = "0%";
+      l.frame.textContent = "0:00";
+      l.note.innerHTML = l.idle;
+      spinners(l, false);
+    });
+  }
+
+  btn.addEventListener("click", () => {
+    if (timer) return;
+    reset();
+    btn.textContent = "Playing…";
+    btn.disabled = true;
+    status.textContent = "Both players stall for the same 1.4 seconds.";
+
+    let p = 0;
+    let phase = "playing";               // playing → stalled → resumed
+
+    timer = setInterval(() => {
+      // The stall freezes the playhead. Only the lane with a request still open
+      // is allowed a spinner — that is the entire point of the demo.
+      if (phase === "playing" && p >= STALL_AT) {
+        phase = "stalled";
+        lanes.forEach((l) => { l.note.innerHTML = l.stalled; spinners(l, true); });
+        setTimeout(() => {
+          if (phase !== "stalled") return;
+          phase = "resumed";
+          lanes.forEach((l) => { l.note.innerHTML = l.resumed; spinners(l, false); });
+        }, 1400);
+      }
+      if (phase === "stalled") return;
+
+      p += 1;
+      lanes.forEach((l) => {
+        l.bar.style.width = p + "%";
+        l.frame.textContent = clock(p);
+      });
+
+      if (p >= 100) {
+        clearInterval(timer);
+        timer = null;
+        btn.disabled = false;
+        btn.textContent = "Play again";
+        status.textContent = "One spinner, two stalls. That is what gave it away.";
+      }
+    }, 40);
+  });
+})();
+</script></figure>
+<p>I spent the first hour checking everything a spinner would have implicated: server load, disk I/O, network errors, bandwidth. All clean. Load average 0.14, zero packet loss, and a sustained pull of 1.3 GB at 63 MB/s without a single stall.</p>
+<p>None of it mattered. The symptom had already ruled that half out.</p>
+<h3 id="the-actual-cause">The actual cause</h3>
+<p>The player was streaming HLS, which chops video into numbered segments. A cleanup job I'd scheduled was deleting those segments every four hours, including while someone was watching.</p>
+<p>So the player asks for the next segment and gets a <strong>404</strong>. Not slow data — no data, immediately, with an answer. Nothing to buffer, nothing to spin for. Playback just stops until the server notices and starts producing segments again from that position. That's the pause, and then the restart.</p>
+<p>The fix was two settings that should have been on from day one:</p>
+<ul><li><strong>Throttling</strong> — the encoder pauses once it's far enough ahead, instead of racing to transcode a whole film as fast as the CPU allows.</li><li><strong>Segment deletion</strong> — old segments get dropped as playback moves past them, so the cache stays small <em>by design</em> instead of needing a sweep that can collide with someone watching.</li></ul>
+<p>With both on, the cleanup job has nothing left to clean up mid-stream.</p>
+<aside class="bp-call bp-call--fact"><p class="bp-call-label">The spinner is older than the web</p><p>The idea of showing a spinning shape to mean "still working" comes from the 1980s Macintosh, where a spinning watch cursor told you the machine hadn't died. It was always a promise about <em>pending work</em>, not about slowness. Which is exactly why its absence is information — a player that isn't waiting has nothing to promise you.</p></aside>
+<h3 id="the-lesson-i-keep-relearning">The lesson I keep relearning</h3>
+<p>Every instinct I have points at throughput. The person reporting it had already told me it wasn't throughput. I checked anyway. Twice. Because throughput is what I know how to measure.</p>
+<p>People using your software hand you the deciding detail without knowing it's the deciding detail. That one sentence contained a fact none of my monitoring had: the client wasn't waiting. No dashboard I own would ever have shown me that.</p>]]></content:encoded>
+    <category>Tech</category>
+    <category>debugging</category>
+    <category>hls</category>
+    <category>jellyfin</category>
+    <category>streaming</category>
+    <category>self-hosting</category>
+  </item>
+  <item>
+    <title>How this blog works</title>
+    <link>https://coderippletech.com/blog/writing-a-post/</link>
+    <guid isPermaLink="true">https://coderippletech.com/blog/writing-a-post/</guid>
+    <pubDate>Sat, 01 Aug 2026 09:00:00 GMT</pubDate>
+    <dc:creator>Dan Negoescu</dc:creator>
+    <description>One Markdown file and a push. The index, the RSS feed, the sitemap and llms.txt all regenerate themselves, and a broken link fails the build instead of shipping.</description>
+    <content:encoded><![CDATA[<p>There's no CMS here, no database, no runtime. Every page you're reading is a static file that got written at deploy time. Here's the whole system.</p>
+<h3 id="writing-a-post">Writing a post</h3>
+<p>Make one file in <code>blog/_posts/</code>:</p>
+<pre class="bp-code" data-lang="markdown"><code>---
+title: The thing I want to say
+date: 2026-08-14
+topic: engineering
+summary: One or two sentences. This shows on the index and in search results.
+---
+
+Write the post here in Markdown.</code></pre>
+<p>Then push. That's the workflow.</p>
+<p><code>title</code>, <code>date</code> and <code>summary</code> are required. <code>topic</code> is one of <code>product</code>, <code>engineering</code> or <code>tech</code>, and it decides which accent colour the post carries. Add <code>draft: true</code> to keep something out of the build while you're still working on it.</p>
+<p>There's a <code>_TEMPLATE.md</code> next to the posts with the front matter already filled in and the house rules in comments, so starting a post is a copy rather than a blank page.</p>
+<h3 id="what-happens-on-push">What happens on push</h3>
+<p>GitHub Actions runs <code>scripts/build-blog.mjs</code>, which:</p>
+<ul><li>renders every post to static HTML;</li><li>rebuilds the index, newest first;</li><li>writes <code>feed.xml</code> so the blog works in a reader;</li><li>updates the blog's block in <code>sitemap.xml</code> and <code>llms.txt</code>;</li><li>deletes generated pages whose source file has gone.</li></ul>
+<p>Then <code>validate-site.mjs</code> checks that nothing points at a missing asset or route, and only after that does Cloudflare Pages get the deploy. A broken link fails the build rather than shipping.</p>
+<h3 id="why-there-s-a-build-step-at-all">Why there's a build step at all</h3>
+<p>The rest of this site has no build step, on purpose. Pages are hand-written HTML. A blog is where that rule stops paying for itself.</p>
+<p>Hand-writing each post means editing three or four files every time: the post, the index, the sitemap, the feed. That decays fast. It's the reason so many company blogs have four posts and a last-updated date from two years ago.</p>
+<p>The trade here is that the <em>output</em> stays exactly as static as everything else. No client-side rendering, no service to go down. A crawler and a reader both get finished HTML. The build step buys authoring convenience and spends nothing that mattered.</p>
+<h3 id="two-bits-worth-stealing">Two bits worth stealing</h3>
+<p><strong>Managed blocks in shared files.</strong> The generator only writes between <code>&lt;!-- blog:start --&gt;</code> and <code>&lt;!-- blog:end --&gt;</code> markers in <code>sitemap.xml</code> and <code>llms.txt</code>. It never rewrites those files wholesale, so hand-written entries elsewhere in them survive every regeneration.</p>
+<p><strong>Deleting orphans.</strong> If a source file disappears, its generated directory goes with it. Otherwise unpublishing something leaves a live page that nothing links to and everything still indexes.</p>]]></content:encoded>
+    <category>Product</category>
+  </item>
+</channel>
+</rss>

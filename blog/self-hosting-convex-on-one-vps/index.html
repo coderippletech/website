@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Self-hosting Convex: the 16 variables an export leaves behind — CodeRipple Tech</title>
+<meta name="description" content="Three apps, three backends, one Postgres. Moving off Convex Cloud took an afternoon. The environment variables took the rest of the day, because convex export carries your data and nothing else.">
+<link rel="canonical" href="https://coderippletech.com/blog/self-hosting-convex-on-one-vps/">
+<meta property="og:site_name" content="CodeRipple Tech">
+<meta property="og:locale" content="en_GB">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Self-hosting Convex: the 16 variables an export leaves behind — CodeRipple Tech">
+<meta property="og:description" content="Three apps, three backends, one Postgres. Moving off Convex Cloud took an afternoon. The environment variables took the rest of the day, because convex export carries your data and nothing else.">
+<meta property="og:url" content="https://coderippletech.com/blog/self-hosting-convex-on-one-vps/">
+<meta property="og:image" content="https://coderippletech.com/assets/og-home.png">
+<meta property="og:image:alt" content="Self-hosting Convex: the 16 variables an export leaves behind — CodeRipple Tech">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="article:published_time" content="2026-08-03T09:00:00Z">
+<meta property="article:modified_time" content="2026-08-03T09:00:00Z">
+<meta property="article:author" content="Dan Negoescu">
+<meta property="article:section" content="Engineering">
+<meta name="author" content="Dan Negoescu">
+<link rel="author" href="https://github.com/negoescg">
+<link rel="alternate" type="application/rss+xml" title="CodeRipple Tech — Writing" href="https://coderippletech.com/blog/feed.xml">
+<link rel="icon" href="/assets/logo.svg">
+<link rel="stylesheet" href="/site.css?v=18">
+<link rel="stylesheet" href="/blog/blog.css?v=6">
+<script type="application/ld+json">[{"@context":"https://schema.org","@type":"BlogPosting","headline":"Self-hosting Convex: the 16 variables an export leaves behind","description":"Three apps, three backends, one Postgres. Moving off Convex Cloud took an afternoon. The environment variables took the rest of the day, because convex export carries your data and nothing else.","abstract":"Three apps, three backends, one Postgres. Moving off Convex Cloud took an afternoon. The environment variables took the rest of the day, because convex export carries your data and nothing else.","datePublished":"2026-08-03T09:00:00Z","dateModified":"2026-08-03T09:00:00Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://coderippletech.com/blog/self-hosting-convex-on-one-vps/"},"url":"https://coderippletech.com/blog/self-hosting-convex-on-one-vps/","inLanguage":"en-GB","wordCount":433,"timeRequired":"PT2M","articleSection":"Engineering","image":"https://coderippletech.com/assets/og-home.png","author":{"@type":"Person","name":"Dan Negoescu","jobTitle":"Software engineer · founder, CodeRipple Tech","description":"I build small developer tools and self-host almost everything that runs them. Most of what I write here started as something that broke on a Tuesday.","url":"https://coderippletech.com/blog/","sameAs":["https://github.com/negoescg","https://github.com/coderippletech"]},"publisher":{"@type":"Organization","name":"CodeRipple Tech","url":"https://coderippletech.com","logo":{"@type":"ImageObject","url":"https://coderippletech.com/assets/logo.svg"}}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"CodeRipple Tech","item":"https://coderippletech.com/"},{"@type":"ListItem","position":2,"name":"Writing","item":"https://coderippletech.com/blog/"},{"@type":"ListItem","position":3,"name":"Self-hosting Convex: the 16 variables an export leaves behind","item":"https://coderippletech.com/blog/self-hosting-convex-on-one-vps/"}]}]</script>
+</head>
+<body class="bp-post-body" data-accent="purple">
+  <nav class="snav">
+    <a href="/" class="snav-brand">
+      <img src="/assets/logo.svg" alt="">
+      CodeRipple Tech
+    </a>
+    <div class="snav-links">
+      <div class="nav-drop">
+        <button class="nav-drop-btn" type="button" aria-haspopup="true" aria-expanded="false">
+          Products
+          <svg width="10" height="7" viewBox="0 0 10 7" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </button>
+        <div class="nav-drop-menu">
+          <a href="/rippleroot/"><img src="/assets/rippleroot-logo.png" alt=""><div>RippleRoot<small>Local-first dev workspace platform</small></div></a>
+          <a href="/ripplesnap/"><img src="/assets/ripplesnap-logo.png" alt=""><div>RippleSnap<small>macOS window manager</small></div></a>
+          <a href="/rippleclip/"><img src="/assets/rippleclip-logo.png" alt=""><div>RippleClip<small>The capture inbox for iPhone</small></div></a>
+          <a href="/ripplebug/"><img src="/assets/ripplebug-logo.png" alt=""><div>Ripplebug<small>Bug reporting, captured whole</small></div></a>
+          <a href="/ripple-import/"><img src="/assets/logo.svg" alt=""><div>Ripple Import<small>CSV &amp; Excel → monday.com</small></div></a>
+          <a href="/ripple-merge/"><img src="/assets/ripple-merge-mark.svg" alt=""><div>Ripple Merge<small>Mail merge for monday.com emails</small></div></a>
+          <a href="/ripple-preview/"><img src="/assets/ripple-preview-logo.svg" alt=""><div>Ripple Preview<small>Real block previews for Umbraco</small></div></a>
+        </div>
+      </div>
+      <a href="/blog/">Writing</a>
+      <a class="btn btn-ghost" href="/contact/">Contact</a>
+    </div>
+  </nav>
+  <article class="bp-post">
+    <header class="bp-post-head">
+      <nav class="bp-crumbs" aria-label="Breadcrumb">
+        <a href="/">CodeRipple Tech</a>
+        <span aria-hidden="true">/</span>
+        <a href="/blog/">Writing</a>
+      </nav>
+      <h1>Self-hosting Convex: the 16 variables an export leaves behind</h1>
+      <p class="bp-post-summary">Three apps, three backends, one Postgres. Moving off Convex Cloud took an afternoon. The environment variables took the rest of the day, because convex export carries your data and nothing else.</p>
+      <div class="bp-post-meta">
+        <span class="bp-topic">Engineering</span>
+        <span class="bp-byline" rel="author">Dan Negoescu</span>
+        <span aria-hidden="true">&middot;</span>
+        <time datetime="2026-08-03">3 August 2026</time>
+        <span aria-hidden="true">&middot;</span>
+        <span>2 min read</span>
+      </div>
+    </header>
+    <div class="bp-prose">
+<p>Convex Cloud is good. It's also a subscription, and once you're already paying for a server the maths stops being obvious. Moving three apps onto a self-hosted Convex took an afternoon — and almost all of that afternoon went on one thing nobody warns you about.</p>
+<h3 id="one-backend-is-one-deployment">One backend is one deployment</h3>
+<p>The first instinct is to run a single Convex backend and point all three apps at it. That doesn't work. A Convex backend serves exactly <strong>one</strong> deployment. Three apps with different schemas would collide on day one — one has <code>workspaces</code> and <code>captures</code>, another has <code>plateCache</code> and <code>dvsaToken</code>, and they'd be sharing a table namespace.</p>
+<p>So it's one backend per app. They can still share a Postgres server, because Convex derives its database name from <code>INSTANCE_NAME</code>, swapping hyphens for underscores:</p>
+<pre class="bp-code" data-lang="yaml"><code>ripplebug:
+  image: ghcr.io/get-convex/convex-backend:latest
+  environment:
+    - INSTANCE_NAME=ripplebug
+    - POSTGRES_URL=${POSTGRES_URL}</code></pre>
+<p>Three of those, three databases, one Postgres container. Each backend idles around 30 MB, so separating them costs nothing worth counting.</p>
+<h3 id="the-part-that-bites">The part that bites</h3>
+<p><code>convex export</code> carries <strong>data only</strong>. It does not carry your deployment's environment variables.</p>
+<p>That's obvious in hindsight and invisible at the time, because everything looks fine. The data's there. The dashboard loads. Functions deploy. And then nobody can sign in, because <code>JWT_PRIVATE_KEY</code> and <code>JWKS</code> never came across, and without them Convex Auth can't mint or verify a session.</p>
+<p>The failure is silent in the worst way. It isn't a line in a log, it's a login page that just doesn't work. On one app alone, sixteen variables were still sitting on the old deployment: auth keys, Stripe price IDs, a Resend key, an OpenAI token.</p>
+<p>Copy them across explicitly:</p>
+<pre class="bp-code" data-lang="bash"><code>npx convex env list                    # against the cloud deployment
+npx convex env get NAME                # one at a time
+CONVEX_SELF_HOSTED_URL=... npx convex env set NAME value</code></pre>
+<p>Two traps in that last command. Values that start with <code>-</code> — a PEM key, some secrets — get parsed as CLI flags, so you need <code>convex env set -- NAME value</code>. And multi-line values truncate at the first newline if you set them from Windows, because argv doesn't survive it. Set those from the server.</p>
+<h3 id="what-it-actually-costs">What it actually costs</h3>
+<p>Three backends, one Postgres, behind a reverse proxy that was already running. Idle memory for the whole set is under 200 MB. The deploy pipeline changed by one variable — <code>CONVEX_DEPLOY_KEY</code> becomes <code>CONVEX_SELF_HOSTED_URL</code> plus an admin key — and CI didn't otherwise care.</p>
+<p>Honest summary: the migration is easy, the environment variables are the entire difficulty, and you want to have checked them <em>before</em> you cancel anything.</p>
+    </div>
+    
+    <aside class="bp-author">
+      <span class="bp-author-mark" aria-hidden="true">DN</span>
+      <div class="bp-author-body">
+        <p class="bp-author-name">Dan Negoescu</p>
+        <p class="bp-author-role">Software engineer · founder, CodeRipple Tech</p>
+        <p class="bp-author-bio">I build small developer tools and self-host almost everything that runs them. Most of what I write here started as something that broke on a Tuesday.</p>
+        <p class="bp-author-links"><a href="https://github.com/negoescg" target="_blank" rel="noopener">GitHub</a><a href="/">CodeRipple Tech</a><a href="/blog/feed.xml">RSS</a></p>
+      </div>
+    </aside>
+    
+    <nav class="bp-adjacent" aria-label="More posts">
+      <span></span>
+      <a class="bp-adjacent-link bp-adjacent-link--next" href="/blog/the-bug-with-no-spinner/">
+        <span class="bp-adjacent-dir">Older</span>
+        <span class="bp-adjacent-title">The bug with no spinner</span></a>
+    </nav>
+  </article>
+  <footer class="sfooter">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="footer-brand-link" href="/"><img src="/assets/logo.svg" alt="">CodeRipple Tech</a>
+        <p>Small tools. Big ripples. Focused products that remove the friction from everyday software work.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Products</h4>
+        <a href="/rippleroot/">RippleRoot</a>
+        <a href="/ripplesnap/">RippleSnap</a>
+        <a href="/rippleclip/">RippleClip</a>
+        <a href="/ripplebug/">Ripplebug</a>
+        <a href="/ripple-import/">Ripple Import</a>
+        <a href="/ripple-merge/">Ripple Merge</a>
+        <a href="/ripple-preview/">Ripple Preview</a>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <a href="/contact/">Contact</a>
+        <a href="/blog/">Writing</a>
+        <a href="/blog/feed.xml">RSS feed</a>
+        <a href="/guide.html">Ripple Import guide</a>
+        <a href="/ripple-merge/guide/">Ripple Merge guide</a>
+        <a href="mailto:support@coderippletech.com">Email support</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="/terms.html">Terms</a>
+        <a href="/privacy.html">Privacy</a>
+        <a href="/ripplebug/privacy/">Ripplebug privacy</a>
+      </div>
+    </div>
+    <div class="footer-base">
+      <span>© 2026 CodeRipple Tech Ltd</span>
+      <a href="https://github.com/coderippletech" rel="noopener">GitHub</a>
+    </div>
+  </footer>
+  <script>
+    (() => {
+      const drop = document.querySelector(".nav-drop");
+      if (!drop) return;
+      const btn = drop.querySelector(".nav-drop-btn");
+      const close = () => { drop.classList.remove("open"); btn.setAttribute("aria-expanded", "false"); };
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        btn.setAttribute("aria-expanded", String(drop.classList.toggle("open")));
+      });
+      document.addEventListener("click", (e) => { if (!drop.contains(e.target)) close(); });
+      document.addEventListener("keydown", (e) => { if (e.key === "Escape") close(); });
+    })();
+  </script>
+</body>
+</html>

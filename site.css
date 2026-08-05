@@ -56,7 +56,9 @@ img { max-width: 100%; display: block; }
 .snav-by:hover { color: var(--text); }
 .snav-brand, .snav-brand-main { white-space: nowrap; }
 .snav-links { display: flex; align-items: center; gap: clamp(12px, 2.5vw, 28px); font-size: 14px; color: var(--muted); }
-.snav-links a { white-space: nowrap; }
+/* 24px is the WCAG 2.2 minimum target size. These sit at ~21px on their text
+   alone, so the hit area is grown without moving anything visually. */
+.snav-links a { white-space: nowrap; display: inline-flex; align-items: center; min-height: 24px; }
 .snav-links a:hover { color: var(--text); }
 @media (max-width: 1060px) {
   .snav-by { display: none; }
@@ -66,6 +68,12 @@ img { max-width: 100%; display: block; }
   /* keep brand + CTA on small screens; section anchors are reachable by scrolling */
   .snav-links a:not(.btn) { display: none; }
   .snav-by { display: none; }
+  /* Writing is a destination rather than a section anchor, so it survives the
+     cull — down to the width where the row genuinely stops fitting. */
+  .snav-links a[href="/blog/"] { display: inline-block; }
+}
+@media (max-width: 480px) {
+  .snav-links a[href="/blog/"] { display: none; }
 }
 @media (max-width: 420px) {
   .snav { padding: 12px 14px; gap: 10px; }
@@ -490,7 +498,7 @@ h1.display {
 .footer-brand p { color: var(--muted); font-size: 13.5px; line-height: 1.6; margin-top: 12px; max-width: 280px; }
 .footer-col { display: flex; flex-direction: column; gap: 11px; }
 .footer-col h4 { font-size: 12px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: var(--muted); margin-bottom: 3px; }
-.footer-col a { color: var(--muted); font-size: 14px; width: fit-content; transition: color 0.15s ease; }
+.footer-col a { color: var(--muted); font-size: 14px; width: fit-content; transition: color 0.15s ease; display: inline-flex; align-items: center; min-height: 24px; }
 .footer-col a:hover { color: var(--text); }
 .footer-base {
   max-width: 1080px; margin: 40px auto 0; padding-top: 22px;
@@ -498,6 +506,7 @@ h1.display {
   display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between;
   font-size: 13px;
 }
+.footer-base a { display: inline-flex; align-items: center; min-height: 24px; }
 .footer-base a:hover { color: var(--text); }
 @media (max-width: 900px) {
   .footer-grid { grid-template-columns: 1fr 1fr; gap: 34px; }
@@ -505,4 +514,26 @@ h1.display {
 }
 @media (max-width: 460px) {
   .footer-grid { grid-template-columns: 1fr; gap: 28px; }
+}
+
+/* ---- small-screen nav menu ------------------------------------------------
+   Placed at the end of the file on purpose: it overrides .nav-drop-menu, which
+   is defined further up, and equal-specificity rules are won by whichever comes
+   last. The base menu is a fixed 264px panel hung off the right edge of its
+   button; once the viewport drops under ~370px that button sits far enough
+   right that the panel's left edge leaves the screen and the product icons are
+   clipped. Below 420px the panel spans the nav instead, with a real gutter. */
+@media (max-width: 420px) {
+  .nav-drop { position: static; }
+  .snav { position: sticky; }
+  .nav-drop-menu { left: 12px; right: 12px; width: auto; top: calc(100% + 8px); }
+}
+
+/* At 320px the brand wordmark, the Products control and the CTA no longer fit
+   on one row and the CTA gets clipped. The logo mark alone still identifies
+   the site and still links home, so the word is what gives way. */
+@media (max-width: 360px) {
+  .snav-brand { font-size: 0; gap: 0; }
+  .snav-brand img { width: 28px; height: 28px; }
+  .snav-links { gap: 10px; }
 }

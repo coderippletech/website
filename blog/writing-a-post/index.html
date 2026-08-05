@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How this blog works — CodeRipple Tech</title>
+<meta name="description" content="One Markdown file and a push. The index, the RSS feed, the sitemap and llms.txt all regenerate themselves, and a broken link fails the build instead of shipping.">
+<link rel="canonical" href="https://coderippletech.com/blog/writing-a-post/">
+<meta property="og:site_name" content="CodeRipple Tech">
+<meta property="og:locale" content="en_GB">
+<meta property="og:type" content="article">
+<meta property="og:title" content="How this blog works — CodeRipple Tech">
+<meta property="og:description" content="One Markdown file and a push. The index, the RSS feed, the sitemap and llms.txt all regenerate themselves, and a broken link fails the build instead of shipping.">
+<meta property="og:url" content="https://coderippletech.com/blog/writing-a-post/">
+<meta property="og:image" content="https://coderippletech.com/assets/og-home.png">
+<meta property="og:image:alt" content="How this blog works — CodeRipple Tech">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="article:published_time" content="2026-08-01T09:00:00Z">
+<meta property="article:modified_time" content="2026-08-01T09:00:00Z">
+<meta property="article:author" content="Dan Negoescu">
+<meta property="article:section" content="Product">
+<meta name="author" content="Dan Negoescu">
+<link rel="author" href="https://github.com/negoescg">
+<link rel="alternate" type="application/rss+xml" title="CodeRipple Tech — Writing" href="https://coderippletech.com/blog/feed.xml">
+<link rel="icon" href="/assets/logo.svg">
+<link rel="stylesheet" href="/site.css?v=18">
+<link rel="stylesheet" href="/blog/blog.css?v=6">
+<script type="application/ld+json">[{"@context":"https://schema.org","@type":"BlogPosting","headline":"How this blog works","description":"One Markdown file and a push. The index, the RSS feed, the sitemap and llms.txt all regenerate themselves, and a broken link fails the build instead of shipping.","abstract":"One Markdown file and a push. The index, the RSS feed, the sitemap and llms.txt all regenerate themselves, and a broken link fails the build instead of shipping.","datePublished":"2026-08-01T09:00:00Z","dateModified":"2026-08-01T09:00:00Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://coderippletech.com/blog/writing-a-post/"},"url":"https://coderippletech.com/blog/writing-a-post/","inLanguage":"en-GB","wordCount":413,"timeRequired":"PT2M","articleSection":"Product","image":"https://coderippletech.com/assets/og-home.png","author":{"@type":"Person","name":"Dan Negoescu","jobTitle":"Software engineer · founder, CodeRipple Tech","description":"I build small developer tools and self-host almost everything that runs them. Most of what I write here started as something that broke on a Tuesday.","url":"https://coderippletech.com/blog/","sameAs":["https://github.com/negoescg","https://github.com/coderippletech"]},"publisher":{"@type":"Organization","name":"CodeRipple Tech","url":"https://coderippletech.com","logo":{"@type":"ImageObject","url":"https://coderippletech.com/assets/logo.svg"}}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"CodeRipple Tech","item":"https://coderippletech.com/"},{"@type":"ListItem","position":2,"name":"Writing","item":"https://coderippletech.com/blog/"},{"@type":"ListItem","position":3,"name":"How this blog works","item":"https://coderippletech.com/blog/writing-a-post/"}]}]</script>
+</head>
+<body class="bp-post-body" data-accent="teal">
+  <nav class="snav">
+    <a href="/" class="snav-brand">
+      <img src="/assets/logo.svg" alt="">
+      CodeRipple Tech
+    </a>
+    <div class="snav-links">
+      <div class="nav-drop">
+        <button class="nav-drop-btn" type="button" aria-haspopup="true" aria-expanded="false">
+          Products
+          <svg width="10" height="7" viewBox="0 0 10 7" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </button>
+        <div class="nav-drop-menu">
+          <a href="/rippleroot/"><img src="/assets/rippleroot-logo.png" alt=""><div>RippleRoot<small>Local-first dev workspace platform</small></div></a>
+          <a href="/ripplesnap/"><img src="/assets/ripplesnap-logo.png" alt=""><div>RippleSnap<small>macOS window manager</small></div></a>
+          <a href="/rippleclip/"><img src="/assets/rippleclip-logo.png" alt=""><div>RippleClip<small>The capture inbox for iPhone</small></div></a>
+          <a href="/ripplebug/"><img src="/assets/ripplebug-logo.png" alt=""><div>Ripplebug<small>Bug reporting, captured whole</small></div></a>
+          <a href="/ripple-import/"><img src="/assets/logo.svg" alt=""><div>Ripple Import<small>CSV &amp; Excel → monday.com</small></div></a>
+          <a href="/ripple-merge/"><img src="/assets/ripple-merge-mark.svg" alt=""><div>Ripple Merge<small>Mail merge for monday.com emails</small></div></a>
+          <a href="/ripple-preview/"><img src="/assets/ripple-preview-logo.svg" alt=""><div>Ripple Preview<small>Real block previews for Umbraco</small></div></a>
+        </div>
+      </div>
+      <a href="/blog/">Writing</a>
+      <a class="btn btn-ghost" href="/contact/">Contact</a>
+    </div>
+  </nav>
+  <article class="bp-post">
+    <header class="bp-post-head">
+      <nav class="bp-crumbs" aria-label="Breadcrumb">
+        <a href="/">CodeRipple Tech</a>
+        <span aria-hidden="true">/</span>
+        <a href="/blog/">Writing</a>
+      </nav>
+      <h1>How this blog works</h1>
+      <p class="bp-post-summary">One Markdown file and a push. The index, the RSS feed, the sitemap and llms.txt all regenerate themselves, and a broken link fails the build instead of shipping.</p>
+      <div class="bp-post-meta">
+        <span class="bp-topic">Product</span>
+        <span class="bp-byline" rel="author">Dan Negoescu</span>
+        <span aria-hidden="true">&middot;</span>
+        <time datetime="2026-08-01">1 August 2026</time>
+        <span aria-hidden="true">&middot;</span>
+        <span>2 min read</span>
+      </div>
+    </header>
+    <div class="bp-prose">
+<p>There's no CMS here, no database, no runtime. Every page you're reading is a static file that got written at deploy time. Here's the whole system.</p>
+<h3 id="writing-a-post">Writing a post</h3>
+<p>Make one file in <code>blog/_posts/</code>:</p>
+<pre class="bp-code" data-lang="markdown"><code>---
+title: The thing I want to say
+date: 2026-08-14
+topic: engineering
+summary: One or two sentences. This shows on the index and in search results.
+---
+
+Write the post here in Markdown.</code></pre>
+<p>Then push. That's the workflow.</p>
+<p><code>title</code>, <code>date</code> and <code>summary</code> are required. <code>topic</code> is one of <code>product</code>, <code>engineering</code> or <code>tech</code>, and it decides which accent colour the post carries. Add <code>draft: true</code> to keep something out of the build while you're still working on it.</p>
+<p>There's a <code>_TEMPLATE.md</code> next to the posts with the front matter already filled in and the house rules in comments, so starting a post is a copy rather than a blank page.</p>
+<h3 id="what-happens-on-push">What happens on push</h3>
+<p>GitHub Actions runs <code>scripts/build-blog.mjs</code>, which:</p>
+<ul><li>renders every post to static HTML;</li><li>rebuilds the index, newest first;</li><li>writes <code>feed.xml</code> so the blog works in a reader;</li><li>updates the blog's block in <code>sitemap.xml</code> and <code>llms.txt</code>;</li><li>deletes generated pages whose source file has gone.</li></ul>
+<p>Then <code>validate-site.mjs</code> checks that nothing points at a missing asset or route, and only after that does Cloudflare Pages get the deploy. A broken link fails the build rather than shipping.</p>
+<h3 id="why-there-s-a-build-step-at-all">Why there's a build step at all</h3>
+<p>The rest of this site has no build step, on purpose. Pages are hand-written HTML. A blog is where that rule stops paying for itself.</p>
+<p>Hand-writing each post means editing three or four files every time: the post, the index, the sitemap, the feed. That decays fast. It's the reason so many company blogs have four posts and a last-updated date from two years ago.</p>
+<p>The trade here is that the <em>output</em> stays exactly as static as everything else. No client-side rendering, no service to go down. A crawler and a reader both get finished HTML. The build step buys authoring convenience and spends nothing that mattered.</p>
+<h3 id="two-bits-worth-stealing">Two bits worth stealing</h3>
+<p><strong>Managed blocks in shared files.</strong> The generator only writes between <code>&lt;!-- blog:start --&gt;</code> and <code>&lt;!-- blog:end --&gt;</code> markers in <code>sitemap.xml</code> and <code>llms.txt</code>. It never rewrites those files wholesale, so hand-written entries elsewhere in them survive every regeneration.</p>
+<p><strong>Deleting orphans.</strong> If a source file disappears, its generated directory goes with it. Otherwise unpublishing something leaves a live page that nothing links to and everything still indexes.</p>
+    </div>
+    
+    <aside class="bp-author">
+      <span class="bp-author-mark" aria-hidden="true">DN</span>
+      <div class="bp-author-body">
+        <p class="bp-author-name">Dan Negoescu</p>
+        <p class="bp-author-role">Software engineer · founder, CodeRipple Tech</p>
+        <p class="bp-author-bio">I build small developer tools and self-host almost everything that runs them. Most of what I write here started as something that broke on a Tuesday.</p>
+        <p class="bp-author-links"><a href="https://github.com/negoescg" target="_blank" rel="noopener">GitHub</a><a href="/">CodeRipple Tech</a><a href="/blog/feed.xml">RSS</a></p>
+      </div>
+    </aside>
+    
+    <nav class="bp-adjacent" aria-label="More posts">
+      <a class="bp-adjacent-link" href="/blog/the-bug-with-no-spinner/">
+        <span class="bp-adjacent-dir">Newer</span>
+        <span class="bp-adjacent-title">The bug with no spinner</span></a>
+      <span></span>
+    </nav>
+  </article>
+  <footer class="sfooter">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="footer-brand-link" href="/"><img src="/assets/logo.svg" alt="">CodeRipple Tech</a>
+        <p>Small tools. Big ripples. Focused products that remove the friction from everyday software work.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Products</h4>
+        <a href="/rippleroot/">RippleRoot</a>
+        <a href="/ripplesnap/">RippleSnap</a>
+        <a href="/rippleclip/">RippleClip</a>
+        <a href="/ripplebug/">Ripplebug</a>
+        <a href="/ripple-import/">Ripple Import</a>
+        <a href="/ripple-merge/">Ripple Merge</a>
+        <a href="/ripple-preview/">Ripple Preview</a>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <a href="/contact/">Contact</a>
+        <a href="/blog/">Writing</a>
+        <a href="/blog/feed.xml">RSS feed</a>
+        <a href="/guide.html">Ripple Import guide</a>
+        <a href="/ripple-merge/guide/">Ripple Merge guide</a>
+        <a href="mailto:support@coderippletech.com">Email support</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="/terms.html">Terms</a>
+        <a href="/privacy.html">Privacy</a>
+        <a href="/ripplebug/privacy/">Ripplebug privacy</a>
+      </div>
+    </div>
+    <div class="footer-base">
+      <span>© 2026 CodeRipple Tech Ltd</span>
+      <a href="https://github.com/coderippletech" rel="noopener">GitHub</a>
+    </div>
+  </footer>
+  <script>
+    (() => {
+      const drop = document.querySelector(".nav-drop");
+      if (!drop) return;
+      const btn = drop.querySelector(".nav-drop-btn");
+      const close = () => { drop.classList.remove("open"); btn.setAttribute("aria-expanded", "false"); };
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        btn.setAttribute("aria-expanded", String(drop.classList.toggle("open")));
+      });
+      document.addEventListener("click", (e) => { if (!drop.contains(e.target)) close(); });
+      document.addEventListener("keydown", (e) => { if (e.key === "Escape") close(); });
+    })();
+  </script>
+</body>
+</html>

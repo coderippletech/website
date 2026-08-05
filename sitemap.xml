@@ -95,4 +95,10 @@
     <lastmod>2026-07-03</lastmod>
     <priority>0.3</priority>
   </url>
+  <!-- blog:start -->
+  <url><loc>https://coderippletech.com/blog/</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://coderippletech.com/blog/self-hosting-convex-on-one-vps/</loc><lastmod>2026-08-03</lastmod><priority>0.6</priority></url>
+  <url><loc>https://coderippletech.com/blog/the-bug-with-no-spinner/</loc><lastmod>2026-08-02</lastmod><priority>0.6</priority></url>
+  <url><loc>https://coderippletech.com/blog/writing-a-post/</loc><lastmod>2026-08-01</lastmod><priority>0.6</priority></url>
+  <!-- blog:end -->
 </urlset>
