@@ -28,20 +28,20 @@ for (const file of walk(ROOT)) {
 
   // Nav: only the corporate pages carry the products dropdown; product pages
   // have their own section links and are left alone.
-  if (s.includes("nav-drop-btn") && !/<a href="\/blog\/">Writing<\/a>/.test(s)) {
+  if (s.includes("nav-drop-btn") && !/<a href="\/blog\/">Blog<\/a>/.test(s)) {
     const after = s.replace(
       /(\s*)<a class="btn btn-ghost" href="\/contact\/">Contact<\/a>/,
-      '$1<a href="/blog/">Writing</a>$1<a class="btn btn-ghost" href="/contact/">Contact</a>'
+      '$1<a href="/blog/">Blog</a>$1<a class="btn btn-ghost" href="/contact/">Contact</a>'
     );
     if (after !== s) { s = after; nav++; }
   }
 
-  // Footer: every page with the structured footer gets Writing + RSS under
+  // Footer: every page with the structured footer gets Blog + RSS under
   // Support, so the blog is reachable from anywhere on the site.
   if (s.includes("<h4>Support</h4>") && !/<a href="\/blog\/feed\.xml">/.test(s)) {
     const after = s.replace(
       /(<h4>Support<\/h4>\s*\n(\s*)<a href="\/contact\/">Contact<\/a>)/,
-      '$1\n$2<a href="/blog/">Writing</a>\n$2<a href="/blog/feed.xml">RSS feed</a>'
+      '$1\n$2<a href="/blog/">Blog</a>\n$2<a href="/blog/feed.xml">RSS feed</a>'
     );
     if (after !== s) { s = after; foot++; }
   }

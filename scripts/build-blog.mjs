@@ -253,16 +253,16 @@ function siteChrome() {
   let nav = absolute(grab(/<nav class="snav">[\s\S]*?<\/nav>/, "<nav class=\"snav\">"));
   let footer = absolute(grab(/<footer class="sfooter">[\s\S]*?<\/footer>/, "<footer class=\"sfooter\">"));
 
-  // Writing is a top-level destination, so it sits beside the CTA rather than
+  // The blog is a top-level destination, so it sits beside the CTA rather than
   // inside the products menu. Injected here so the homepage keeps one copy of
   // the markup and the blog does not have to be edited when it changes.
   if (!/href="\/blog\/"/.test(nav)) {
     nav = nav.replace(/(\s*)<a class="btn[^"]*" href="\/contact\/">/,
-                      '$1<a href="/blog/">Writing</a>$1<a class="btn btn-ghost" href="/contact/">');
+                      '$1<a href="/blog/">Blog</a>$1<a class="btn btn-ghost" href="/contact/">');
   }
   if (!/href="\/blog\/"/.test(footer)) {
     footer = footer.replace(/(<h4>Support<\/h4>\s*\n(\s*)<a href="\/contact\/">Contact<\/a>)/,
-                            '$1\n$2<a href="/blog/">Writing</a>\n$2<a href="/blog/feed.xml">RSS feed</a>');
+                            '$1\n$2<a href="/blog/">Blog</a>\n$2<a href="/blog/feed.xml">RSS feed</a>');
   }
 
   return { nav, footer };
@@ -315,10 +315,10 @@ const head = ({ title, desc, url, og, article = null, extra = "" }) => `<!doctyp
 `\n<meta property="article:tag" content="${esc(t)}">`).join("")}
 <meta name="author" content="${esc(article.author)}">
 <link rel="author" href="${AUTHOR.sameAs[0]}">` : ""}
-<link rel="alternate" type="application/rss+xml" title="CodeRipple Tech — Writing" href="${SITE}/blog/feed.xml">
+<link rel="alternate" type="application/rss+xml" title="CodeRipple Tech — Blog" href="${SITE}/blog/feed.xml">
 <link rel="icon" href="/assets/logo.svg">
 <link rel="stylesheet" href="/site.css?v=18">
-<link rel="stylesheet" href="/blog/blog.css?v=6">
+<link rel="stylesheet" href="/blog/blog.css?v=7">
 ${extra}
 </head>`;
 
@@ -397,7 +397,7 @@ function renderIndex(posts) {
 
   const jsonld = `<script type="application/ld+json">${JSON.stringify({
     "@context": "https://schema.org", "@type": "Blog",
-    name: "CodeRipple Tech — Writing", url: `${SITE}/blog/`,
+    name: "CodeRipple Tech — Blog", url: `${SITE}/blog/`,
     description: "Working notes from building CodeRipple Tech: what shipped, what broke, and what the numbers actually said.",
     publisher: { "@type": "Organization", name: "CodeRipple Tech", url: SITE },
     blogPost: posts.slice(0, 20).map((p) => ({
@@ -406,7 +406,7 @@ function renderIndex(posts) {
   })}</script>`;
 
   return `${head({
-    title: "Writing — CodeRipple Tech",
+    title: "Blog — CodeRipple Tech",
     desc: "Working notes from building CodeRipple Tech: what shipped, what broke, and what the numbers actually said.",
     url: `${SITE}/blog/`, og: "og-home.png", extra: jsonld,
   })}
@@ -414,7 +414,7 @@ function renderIndex(posts) {
   ${NAV(true)}
   <main class="bp-main">
     <header class="bp-masthead">
-      <h1>Writing</h1>
+      <h1>Blog</h1>
       <p>Working notes from building CodeRipple Tech — what shipped, what broke,
          and what the numbers actually said.</p>
       <a class="bp-feed" href="/blog/feed.xml">
@@ -438,7 +438,7 @@ function renderPost(post, prev, next) {
 
   /* Two graphs, one script tag. The Article tells a crawler what this page is;
      the BreadcrumbList tells it where the page sits, which is what produces the
-     "coderippletech.com › Writing › …" line in a result rather than a bare URL. */
+     "coderippletech.com › Blog › …" line in a result rather than a bare URL. */
   const jsonld = `<script type="application/ld+json">${JSON.stringify([{
     "@context": "https://schema.org", "@type": "BlogPosting",
     headline: post.title, description: post.summary, abstract: post.summary,
@@ -462,7 +462,7 @@ function renderPost(post, prev, next) {
     "@context": "https://schema.org", "@type": "BreadcrumbList",
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "CodeRipple Tech", item: `${SITE}/` },
-      { "@type": "ListItem", position: 2, name: "Writing", item: `${SITE}/blog/` },
+      { "@type": "ListItem", position: 2, name: "Blog", item: `${SITE}/blog/` },
       { "@type": "ListItem", position: 3, name: post.title, item: post.url },
     ],
   }])}</script>`;
@@ -471,7 +471,7 @@ function renderPost(post, prev, next) {
       <nav class="bp-crumbs" aria-label="Breadcrumb">
         <a href="/">CodeRipple Tech</a>
         <span aria-hidden="true">/</span>
-        <a href="/blog/">Writing</a>
+        <a href="/blog/">Blog</a>
       </nav>`;
 
   const tagList = post.tags.length ? `
@@ -571,7 +571,7 @@ function renderFeed(posts) {
   return `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/">
 <channel>
-  <title>CodeRipple Tech — Writing</title>
+  <title>CodeRipple Tech — Blog</title>
   <link>${SITE}/blog/</link>
   <atom:link href="${SITE}/blog/feed.xml" rel="self" type="application/rss+xml"/>
   <description>Working notes from building CodeRipple Tech — what shipped, what broke, and what the numbers actually said.</description>
@@ -606,8 +606,8 @@ function updateLlms(posts) {
   const file = join(ROOT, "llms.txt");
   if (!existsSync(file)) return "llms.txt not found — skipped";
   let txt = readFileSync(file, "utf8");
-  const block = ["<!-- blog:start -->", "", "## Writing", "",
-    `- [Writing](${SITE}/blog/): notes on the products, the engineering behind them, and the wider craft.`,
+  const block = ["<!-- blog:start -->", "", "## Blog", "",
+    `- [Blog](${SITE}/blog/): working notes on the products, the engineering behind them, and the wider craft.`,
     ...posts.map((p) => `- [${p.title}](${p.url}): ${p.summary}`),
     "", "<!-- blog:end -->"].join("\n");
 

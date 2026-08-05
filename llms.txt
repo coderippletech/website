@@ -87,9 +87,9 @@
 
 <!-- blog:start -->
 
-## Writing
+## Blog
 
-- [Writing](https://coderippletech.com/blog/): notes on the products, the engineering behind them, and the wider craft.
+- [Blog](https://coderippletech.com/blog/): working notes on the products, the engineering behind them, and the wider craft.
 - [Self-hosting Convex: the 16 variables an export leaves behind](https://coderippletech.com/blog/self-hosting-convex-on-one-vps/): Three apps, three backends, one Postgres. Moving off Convex Cloud took an afternoon. The environment variables took the rest of the day, because convex export carries your data and nothing else.
 - [The bug with no spinner](https://coderippletech.com/blog/the-bug-with-no-spinner/): A video kept stopping and starting with no buffering circle. That missing circle ruled out half the system before I'd opened a single graph, and I checked the graphs anyway.
 - [How this blog works](https://coderippletech.com/blog/writing-a-post/): One Markdown file and a push. The index, the RSS feed, the sitemap and llms.txt all regenerate themselves, and a broken link fails the build instead of shipping.
