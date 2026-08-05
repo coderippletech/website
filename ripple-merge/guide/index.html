@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Use — Ripple Merge</title>
+  <meta name="description" content="Set up Ripple Merge in four steps: add the board view, build a template, add the Resolve Template action, chain monday's Send Email. Plus the placeholder cheat sheet.">
+  <link rel="icon" type="image/svg+xml" href="/assets/ripple-merge-logo.svg">
+  <link rel="stylesheet" href="/site.css?v=14">
+  <style>
+    :root {
+      --accent: #10b981;
+      --accent-soft: rgba(16, 185, 129, 0.14);
+    }
+    .legal table {
+      border-collapse: collapse; width: 100%;
+      font-size: 13.5px; color: var(--muted); margin: 12px 0;
+    }
+    .legal td, .legal th {
+      border: 1px solid var(--card-border); padding: 8px 12px;
+      text-align: left; vertical-align: top;
+    }
+    .legal th { color: var(--text); background: var(--card); }
+    .tip {
+      border-left: 3px solid var(--accent); border-radius: 0 8px 8px 0;
+      background: var(--card); padding: 12px 16px; margin: 24px 0;
+      font-size: 14.5px; color: var(--muted);
+    }
+  </style>
+  <link rel="canonical" href="https://coderippletech.com/ripple-merge/guide/">
+  <meta name="theme-color" content="#0a0e14">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="CodeRipple Tech">
+  <meta property="og:url" content="https://coderippletech.com/ripple-merge/guide/">
+  <meta property="og:title" content="How to Use Ripple Merge">
+  <meta property="og:description" content="Four setup steps, the placeholder cheat sheet, and answers to common questions about Ripple Merge for monday.com.">
+  <meta property="og:image" content="https://coderippletech.com/assets/og-ripple-merge.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How to Use Ripple Merge">
+  <meta name="twitter:description" content="Four setup steps, the placeholder cheat sheet, and answers to common questions about Ripple Merge for monday.com.">
+  <meta name="twitter:image" content="https://coderippletech.com/assets/og-ripple-merge.png">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "How to Use Ripple Merge",
+    "url": "https://coderippletech.com/ripple-merge/guide/",
+    "about": {
+      "@type": "SoftwareApplication",
+      "name": "Ripple Merge",
+      "url": "https://coderippletech.com/ripple-merge/"
+    },
+    "author": {
+      "@type": "Organization",
+      "name": "CodeRipple Tech",
+      "url": "https://coderippletech.com/"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <nav class="snav">
+    <div class="snav-brand">
+      <a class="snav-brand-main" href="/ripple-merge/">
+        <img src="/assets/ripple-merge-logo.svg" alt="">
+        Ripple Merge
+      </a>
+      <a class="snav-by" href="/">by CodeRipple Tech</a>
+    </div>
+    <div class="snav-links">
+      <a href="/ripple-merge/privacy/">Privacy</a>
+      <a href="/ripple-merge/terms/">Terms</a>
+      <a class="btn btn-teal" href="https://auth.monday.com/oauth2/authorize?client_id=541be882141b531d368a90be8b4ab21d&amp;response_type=install"><span class="cta-full">Install on monday.com</span><span class="cta-short">Install</span></a>
+    </div>
+  </nav>
+
+  <main class="legal">
+    <h1>How to Use Ripple Merge</h1>
+    <p class="date">Set it up once. Every automation email pulls the right content, including
+    subitem data.</p>
+
+    <h2>Step 1 — Add the Ripple Merge view to your board</h2>
+    <p>On the board you send emails from: click <strong>+ Add view</strong> &rarr;
+    <strong>Apps</strong> &rarr; <strong>Ripple Merge</strong>.</p>
+
+    <h2>Step 2 — Build your template</h2>
+    <p>Click <strong>+ New</strong>, then click any column on the right to insert it as a
+    placeholder.</p>
+    <ul>
+      <li><strong>Item columns</strong> insert instantly — e.g. <code>{Company}</code></li>
+      <li><strong>Subitem columns</strong> ask how you want them: every row, one specific row,
+      a total (<code>sum</code>, <code>avg</code>, <code>count</code>, <code>min</code>,
+      <code>max</code>), or a repeating loop block</li>
+      <li><strong>Date columns</strong> offer 13 formats — e.g. <em>31st March 2026</em> or
+      <em>03/31/2026</em></li>
+      <li>Choose <strong>Plain Text</strong> or <strong>HTML</strong> for rich formatting</li>
+    </ul>
+
+    <h2>Step 3 — Add Ripple Merge to your automation</h2>
+    <p>In your board's workflow builder, add the action
+    <strong>"Ripple Merge — Resolve Template"</strong> after your trigger and pick the
+    template you just created from the dropdown.</p>
+
+    <h2>Step 4 — Chain monday's Send Email action</h2>
+    <p>Add monday's <strong>Send Email</strong> step right after. Map the fields:</p>
+    <ul>
+      <li><em>Subject</em> &rarr; <strong>Resolved Subject</strong> (from the Ripple Merge step)</li>
+      <li><em>Message</em> &rarr; <strong>Resolved Content</strong></li>
+    </ul>
+
+    <div class="tip"><strong>That's it.</strong> When the automation fires, Ripple Merge fills
+    in every placeholder — item data, subitem rows, totals — and hands the finished email to
+    monday to send. Add as many Ripple Merge + Send Email pairs as you need in one workflow.</div>
+
+    <h2>Placeholder cheat sheet</h2>
+    <table>
+      <tr><th>What</th><th>Syntax</th></tr>
+      <tr><td>Item column</td><td><code>{Amount}</code></td></tr>
+      <tr><td>Item name / board name</td><td><code>{item.name}</code> · <code>{board.name}</code></td></tr>
+      <tr><td>All subitem values</td><td><code>{subitem.Description}</code></td></tr>
+      <tr><td>One subitem row</td><td><code>{subitems[0].Description}</code> (first row)</td></tr>
+      <tr><td>Total across subitems</td><td><code>{subitem.Line Total | sum}</code></td></tr>
+      <tr><td>Loop over subitems</td><td><code>{#each subitem} {Description} — {Line Total} {/each}</code></td></tr>
+      <tr><td>Loop with filter</td><td><code>{#each subitem where Status = "Paid"} … {/each}</code></td></tr>
+      <tr><td>Formatted date</td><td><code>{Due Date | date:ordinal}</code> &rarr; 31st March 2026</td></tr>
+      <tr><td>Subitem count</td><td><code>{subitem_count}</code></td></tr>
+    </table>
+
+    <h2>FAQ</h2>
+    <p><strong>Where do I manage templates across boards?</strong><br>
+    Open Ripple Merge from the left sidebar (Apps) for the account-wide view — search, edit,
+    and copy templates to any board.</p>
+    <p><strong>A column shows a warning badge?</strong><br>
+    The template references a column that no longer exists on that board. Open the template
+    and re-insert the column.</p>
+    <p><strong>Need help?</strong><br>
+    Email <a href="mailto:dan.negoescu4@gmail.com">dan.negoescu4@gmail.com</a> — happy to help
+    you wire up your first workflow.</p>
+  </main>
+
+  <footer class="sfooter">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="footer-brand-link" href="/"><img src="/assets/logo.svg" alt="">CodeRipple Tech</a>
+        <p>Small tools. Big ripples. Focused products that remove the friction from everyday software work.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Products</h4>
+        <a href="/rippleroot/">RippleRoot</a>
+        <a href="/ripplesnap/">RippleSnap</a>
+        <a href="/rippleclip/">RippleClip</a>
+        <a href="/ripplebug/">Ripplebug</a>
+        <a href="/ripple-import/">Ripple Import</a>
+        <a href="/ripple-merge/">Ripple Merge</a>
+        <a href="/ripple-preview/">Ripple Preview</a>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <a href="/contact/">Contact</a>
+        <a href="/ripple-merge/guide/">Ripple Merge guide</a>
+        <a href="mailto:dan.negoescu4@gmail.com">Email support</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="/ripple-merge/terms/">Ripple Merge terms</a>
+        <a href="/ripple-merge/privacy/">Ripple Merge privacy</a>
+        <a href="/terms.html">Terms</a>
+        <a href="/privacy.html">Privacy</a>
+      </div>
+    </div>
+    <div class="footer-base">
+      <span>© 2026 CodeRipple Tech Ltd</span>
+      <a href="https://github.com/coderippletech" rel="noopener">GitHub</a>
+    </div>
+  </footer>
+
+</body>
+</html>

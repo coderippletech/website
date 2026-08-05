@@ -49,6 +49,17 @@
   Pro $10/account/month, Business $20/account/month, billed through the
   monday.com marketplace. Usage guide: https://coderippletech.com/guide
 
+- [Ripple Merge](https://coderippletech.com/ripple-merge/): monday.com app
+  that brings mail merge to email automations. Build email templates in a
+  board view — click a column to insert a placeholder — that pull item and
+  subitem data into emails, with loops (optionally filtered), sum/avg/count/
+  min/max totals, 13 date formats, and plain-text or rich HTML bodies. The
+  "Ripple Merge — Resolve Template" workflow action returns Resolved Subject
+  and Resolved Content for monday's native Send Email step. Subitem data is
+  something monday's built-in email automations cannot reach. Templates are
+  stored via monday's Storage API on monday-code; no third-party services.
+  Usage guide: https://coderippletech.com/ripple-merge/guide/
+
 - [Ripple Preview](https://coderippletech.com/ripple-preview/): free,
   MIT-licensed Umbraco backoffice package (Umbraco 17.3+). Renders Block Grid,
   Block List, Rich Text and Single Block entries through the site's own Razor
@@ -67,4 +78,9 @@
 - [Ripple Import privacy](https://coderippletech.com/privacy): the app runs
   client-side; no user data is collected or transmitted.
 - [Ripple Import terms](https://coderippletech.com/terms)
+- [Ripple Merge guide](https://coderippletech.com/ripple-merge/guide/):
+  four setup steps, the placeholder cheat sheet, and FAQ.
+- [Ripple Merge privacy](https://coderippletech.com/ripple-merge/privacy/):
+  all data stays inside monday.com; templates auto-delete on uninstall.
+- [Ripple Merge terms](https://coderippletech.com/ripple-merge/terms/)
 - [Ripplebug privacy](https://coderippletech.com/ripplebug/privacy/)

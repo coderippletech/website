@@ -15,6 +15,7 @@
     .product.blue { --pc: #4da3ff; }
     .product.teal { --pc: var(--accent); }
     .product.purple { --pc: #7d66fd; }
+    .product.emerald { --pc: #10b981; }
     .product.sky { --pc: #38bdf8; }
 
     /* cursor-tracked spotlight + accent edge */
@@ -53,6 +54,8 @@
       .ps-snap { --phase: -4s; }
       .ps-bug { --phase: -7s; }
       .ps-import { --phase: -2.5s; }
+      .ps-merge { --phase: -6s; }
+      .ps-clip { --phase: -5s; }
       .ps-preview { --phase: -9s; }
     }
 
@@ -344,6 +347,71 @@
       color: #04231f; background: linear-gradient(120deg, #3ecfc0, #63e0c9);
       padding: 4px 10px; border-radius: 100px;
     }
+
+    /* Ripple Merge (emerald) — card accent + mini scene */
+    .product.emerald { --hairline: #10b981; }
+    .chip-emerald:hover { border-color: rgba(16, 185, 129, 0.55); box-shadow: 0 10px 34px rgba(16, 185, 129, 0.22); }
+    .btn-emerald { background: linear-gradient(120deg, #10b981, #34d399); color: #032018; border-color: transparent; font-weight: 700; }
+    .btn-emerald:hover { box-shadow: 0 8px 30px rgba(16, 185, 129, 0.4); }
+
+    /* scene (12s): template chips resolve into a finished email, then unwind */
+    .ps-merge .tsheet { left: 12px; top: 12px; bottom: 12px; width: 42%; border-radius: 7px; border: 1px solid rgba(255,255,255,0.14); background: #121a26; overflow: hidden; }
+    .ps-merge .tbar2 { top: 0; left: 0; right: 0; height: 18px; background: rgba(255,255,255,0.06); border-bottom: 1px solid rgba(255,255,255,0.08); font-size: 8.5px; font-weight: 700; letter-spacing: 0.06em; color: #6ee7b7; line-height: 18px; padding-left: 8px; }
+    .ps-merge .tk {
+      font-family: ui-monospace, Menlo, monospace; font-size: 8.5px; line-height: 1.5;
+      color: #6ee7b7; background: rgba(16, 185, 129, 0.14);
+      border: 1px solid rgba(16, 185, 129, 0.4); border-radius: 4px; padding: 1px 5px;
+      white-space: nowrap;
+    }
+    .ps-merge .tk1 { left: 8px; top: 24px; }
+    .ps-merge .tk2 { left: 8px; top: 43px; }
+    .ps-merge .tk3 { left: 18px; top: 62px; }
+    .ps-merge .tk4 { left: 8px; top: 81px; }
+    .ps-merge .mailc { right: 12px; top: 12px; bottom: 12px; width: 46%; border-radius: 7px; border: 1px solid rgba(16, 185, 129, 0.4); background: rgba(16, 185, 129, 0.06); overflow: hidden; }
+    .ps-merge .mhead { top: 0; left: 0; right: 0; height: 20px; background: linear-gradient(90deg, rgba(16, 185, 129, 0.5), rgba(16, 185, 129, 0.22)); font-size: 9.5px; font-weight: 700; color: #d9fbee; line-height: 20px; padding-left: 8px; letter-spacing: 0.04em; }
+    .ps-merge .rl {
+      left: 8px; right: 8px; font-family: ui-monospace, Menlo, monospace;
+      font-size: 8.5px; line-height: 1.4; color: rgba(232, 237, 244, 0.82);
+      white-space: nowrap; overflow: hidden;
+    }
+    .ps-merge .rl1 { top: 26px; color: #e8edf4; }
+    .ps-merge .rl2 { top: 43px; }
+    .ps-merge .rl3 { top: 60px; }
+    .ps-merge .rl4 { top: 77px; color: #6ee7b7; font-weight: 700; }
+    .ps-merge .sent {
+      right: 10px; bottom: 10px; font-size: 10px; font-weight: 600; color: #6ee7b7;
+      background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(16, 185, 129, 0.4);
+      border-radius: 999px; padding: 3px 10px;
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .ps-merge .tk { animation: 12s ease infinite; }
+      .ps-merge .tk1 { animation-name: tkUse1; } .ps-merge .tk2 { animation-name: tkUse2; }
+      .ps-merge .tk3 { animation-name: tkUse3; } .ps-merge .tk4 { animation-name: tkUse4; }
+      @keyframes tkUse1 { 0%, 8% { background: rgba(16,185,129,0.14); } 12%, 18% { background: rgba(16,185,129,0.38); } 24%, 100% { background: rgba(16,185,129,0.14); } }
+      @keyframes tkUse2 { 0%, 16% { background: rgba(16,185,129,0.14); } 20%, 26% { background: rgba(16,185,129,0.38); } 32%, 100% { background: rgba(16,185,129,0.14); } }
+      @keyframes tkUse3 { 0%, 22% { background: rgba(16,185,129,0.14); } 26%, 32% { background: rgba(16,185,129,0.38); } 38%, 100% { background: rgba(16,185,129,0.14); } }
+      @keyframes tkUse4 { 0%, 28% { background: rgba(16,185,129,0.14); } 32%, 38% { background: rgba(16,185,129,0.38); } 44%, 100% { background: rgba(16,185,129,0.14); } }
+      /* RippleClip (12s): captures drop into the inbox, get tagged, then unwind */
+      .ps-clip .cliprow { animation: 12s ease infinite; }
+      .ps-clip .cr1 { animation-name: clipIn1; } .ps-clip .cr2 { animation-name: clipIn2; }
+      .ps-clip .cr3 { animation-name: clipIn3; }
+      @keyframes clipIn1 { 0%, 8% { opacity: 0; transform: translateX(14px); } 14%, 84% { opacity: 1; transform: none; } 92%, 100% { opacity: 0; transform: translateX(14px); } }
+      @keyframes clipIn2 { 0%, 18% { opacity: 0; transform: translateX(14px); } 24%, 84% { opacity: 1; transform: none; } 93%, 100% { opacity: 0; transform: translateX(14px); } }
+      @keyframes clipIn3 { 0%, 28% { opacity: 0; transform: translateX(14px); } 34%, 85% { opacity: 1; transform: none; } 94%, 100% { opacity: 0; transform: translateX(14px); } }
+      .ps-clip .cliprow i { animation: clipDot 12s ease infinite; }
+      @keyframes clipDot { 0%, 36% { box-shadow: none; } 40%, 46% { box-shadow: 0 0 0 3px rgba(62, 207, 192, 0.25); } 52%, 100% { box-shadow: none; } }
+      .ps-clip .capchip { animation: clipCaptured 12s ease infinite; }
+      @keyframes clipCaptured { 0%, 38% { opacity: 0; transform: scale(0.75) translateY(3px); } 44% { opacity: 1; transform: scale(1.06); } 48%, 78% { opacity: 1; transform: none; } 88%, 100% { opacity: 0; transform: none; } }
+      .ps-merge .rl { animation: 12s ease infinite; }
+      .ps-merge .rl1 { animation-name: rlIn1; } .ps-merge .rl2 { animation-name: rlIn2; }
+      .ps-merge .rl3 { animation-name: rlIn3; } .ps-merge .rl4 { animation-name: rlIn4; }
+      @keyframes rlIn1 { 0%, 12% { opacity: 0; transform: translateY(3px); } 18%, 84% { opacity: 1; transform: none; } 92%, 100% { opacity: 0; transform: translateY(3px); } }
+      @keyframes rlIn2 { 0%, 20% { opacity: 0; transform: translateY(3px); } 26%, 84% { opacity: 1; transform: none; } 93%, 100% { opacity: 0; transform: translateY(3px); } }
+      @keyframes rlIn3 { 0%, 26% { opacity: 0; transform: translateY(3px); } 32%, 85% { opacity: 1; transform: none; } 94%, 100% { opacity: 0; transform: translateY(3px); } }
+      @keyframes rlIn4 { 0%, 34% { opacity: 0; transform: translateY(3px); } 40%, 85% { opacity: 1; transform: none; } 95%, 100% { opacity: 0; transform: translateY(3px); } }
+      .ps-merge .sent { animation: mergeSent 12s ease infinite; }
+      @keyframes mergeSent { 0%, 44% { opacity: 0; transform: scale(0.75) translateY(3px); } 50% { opacity: 1; transform: scale(1.06); } 54%, 76% { opacity: 1; transform: none; } 86%, 100% { opacity: 0; transform: none; } }
+    }
   </style>
 </head>
 <body>
@@ -365,6 +433,7 @@
           <a href="/rippleclip/"><img src="/assets/rippleclip-logo.png" alt=""><div>RippleClip<small>The capture inbox for iPhone</small></div></a>
           <a href="/ripplebug/"><img src="/assets/ripplebug-logo.png" alt=""><div>Ripplebug<small>Bug reporting, captured whole</small></div></a>
           <a href="/ripple-import/"><img src="/assets/logo.svg" alt=""><div>Ripple Import<small>CSV &amp; Excel → monday.com</small></div></a>
+          <a href="/ripple-merge/"><img src="/assets/ripple-merge-logo.svg" alt=""><div>Ripple Merge<small>Mail merge for monday.com emails</small></div></a>
           <a href="/ripple-preview/"><img src="/assets/ripple-preview-logo.svg" alt=""><div>Ripple Preview<small>Real block previews for Umbraco</small></div></a>
         </div>
       </div>
@@ -386,6 +455,7 @@
       <a class="chip chip-mint" href="/rippleclip/"><img src="assets/rippleclip-logo.png" alt="">RippleClip</a>
       <a class="chip chip-teal" href="/ripplebug/"><img src="assets/ripplebug-logo.png" alt="">Ripplebug</a>
       <a class="chip chip-purple" href="/ripple-import/"><img src="assets/logo.svg" alt="">Ripple Import</a>
+      <a class="chip chip-emerald" href="/ripple-merge/"><img src="assets/ripple-merge-logo.svg" alt="">Ripple Merge</a>
       <a class="chip chip-sky" href="/ripple-preview/"><img src="assets/ripple-preview-logo.svg" alt="">Ripple Preview</a>
     </div>
   </header>
@@ -508,6 +578,35 @@
           </span></div>
         </a>
 
+        <a class="product emerald reveal" href="/ripple-merge/">
+          <img class="product-logo" src="assets/ripple-merge-logo.svg" alt="Ripple Merge logo">
+          <h3>Ripple Merge</h3>
+          <div class="tag">Mail merge for monday.com emails</div>
+          <p>monday's email automations can't see subitem data. Ripple Merge can: build an
+          email template once, loop over subitem rows, add totals and formatted dates, then
+          hand the finished email to monday's own Send Email step.</p>
+          <div class="plinks">
+            <span class="btn btn-emerald">See how it works →</span>
+          </div>
+          <div class="pscene ps-merge" aria-hidden="true"><span class="stage">
+            <span class="tsheet">
+              <span class="tbar2">TEMPLATE</span>
+              <span class="tk tk1">Hi {item.name},</span>
+              <span class="tk tk2">{#each subitem}</span>
+              <span class="tk tk3">{Description} — {Line Total}</span>
+              <span class="tk tk4">{/each} Total: {…| sum}</span>
+            </span>
+            <span class="mailc">
+              <span class="mhead">New email</span>
+              <span class="rl rl1">Hi Acme Corp,</span>
+              <span class="rl rl2">Widget A — $1,000</span>
+              <span class="rl rl3">Widget B — $2,000</span>
+              <span class="rl rl4">Total: $3,000</span>
+              <span class="sent">✓ Resolved</span>
+            </span>
+          </span></div>
+        </a>
+
         <a class="product sky reveal" href="/ripple-preview/">
           <img class="product-logo" src="assets/ripple-preview-logo.svg" alt="Ripple Preview logo">
           <h3>Ripple Preview</h3>
@@ -553,12 +652,14 @@
         <a href="/rippleclip/">RippleClip</a>
         <a href="/ripplebug/">Ripplebug</a>
         <a href="/ripple-import/">Ripple Import</a>
+        <a href="/ripple-merge/">Ripple Merge</a>
         <a href="/ripple-preview/">Ripple Preview</a>
       </div>
       <div class="footer-col">
         <h4>Support</h4>
         <a href="/contact/">Contact</a>
         <a href="/guide.html">Ripple Import guide</a>
+        <a href="/ripple-merge/guide/">Ripple Merge guide</a>
         <a href="mailto:support@coderippletech.com">Email support</a>
       </div>
       <div class="footer-col">

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ripple Merge — Mail merge with subitem data for monday.com</title>
+  <meta name="description" content="Mail merge templates for monday.com email automations. Pull item and subitem data into emails with loops, totals and smart dates. Data stays inside monday.com.">
+  <link rel="icon" type="image/svg+xml" href="/assets/ripple-merge-logo.svg">
+  <link rel="stylesheet" href="/site.css?v=14">
+  <style>
+    /* Ripple Merge accent: emerald green */
+    :root {
+      --accent: #10b981;
+      --accent-soft: rgba(16, 185, 129, 0.14);
+    }
+    .monday-badge img { height: 46px; width: auto; }
+    .monday-badge { transition: transform 0.15s ease; display: inline-flex; }
+    .monday-badge:hover { transform: translateY(-1px); }
+  </style>
+  <link rel="canonical" href="https://coderippletech.com/ripple-merge/">
+  <meta name="theme-color" content="#0a0e14">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="CodeRipple Tech">
+  <meta property="og:url" content="https://coderippletech.com/ripple-merge/">
+  <meta property="og:title" content="Ripple Merge — Mail merge with subitem data for monday.com">
+  <meta property="og:description" content="Build email templates that pull subitem data into monday.com automations. Loops, totals, smart dates — then monday's own Send Email delivers it.">
+  <meta property="og:image" content="https://coderippletech.com/assets/og-ripple-merge.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Ripple Merge — Mail merge with subitem data for monday.com">
+  <meta name="twitter:description" content="Build email templates that pull subitem data into monday.com automations. Loops, totals, smart dates — then monday's own Send Email delivers it.">
+  <meta name="twitter:image" content="https://coderippletech.com/assets/og-ripple-merge.png">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Ripple Merge",
+    "url": "https://coderippletech.com/ripple-merge/",
+    "image": "https://coderippletech.com/assets/og-ripple-merge.png",
+    "description": "monday.com app that brings mail merge to email automations: build templates in a board view that pull item and subitem data into emails, with loops, filters, totals and date formatting, then chain monday's native Send Email action.",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web (monday.com)",
+    "installUrl": "https://auth.monday.com/oauth2/authorize?client_id=541be882141b531d368a90be8b4ab21d&response_type=install",
+    "offers": {
+      "@type": "Offer",
+      "name": "Free",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "author": {
+      "@type": "Organization",
+      "name": "CodeRipple Tech",
+      "url": "https://coderippletech.com/"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <nav class="snav">
+    <div class="snav-brand">
+      <a class="snav-brand-main" href="/ripple-merge/">
+        <img src="/assets/ripple-merge-logo.svg" alt="">
+        Ripple Merge
+      </a>
+      <a class="snav-by" href="/">by CodeRipple Tech</a>
+    </div>
+    <div class="snav-links">
+      <a href="#features">Features</a>
+      <a href="#how">How it works</a>
+      <a href="/ripple-merge/guide/">Guide</a>
+      <a class="btn btn-teal" href="https://auth.monday.com/oauth2/authorize?client_id=541be882141b531d368a90be8b4ab21d&amp;response_type=install"><span class="cta-full">Install on monday.com</span><span class="cta-short">Install</span></a>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="orb orb-teal"></div>
+    <div class="orb orb-purple"></div>
+    <span class="eyebrow">Built for monday.com</span>
+    <h1 class="display">Mail merge for monday.com,<br><span class="grad-teal">subitems included.</span></h1>
+    <p class="lede">monday's email automations can only pull columns from a single item.
+    Ripple Merge reaches the rest: subitem rows, loops, totals and formatted dates,
+    resolved into one email and handed to monday to send.</p>
+    <div class="hero-ctas">
+      <a class="monday-badge" href="https://auth.monday.com/oauth2/authorize?client_id=541be882141b531d368a90be8b4ab21d&amp;response_type=install" aria-label="Add Ripple Merge to monday.com">
+        <img alt="Add to monday.com" src="https://dapulse-res.cloudinary.com/image/upload/f_auto,q_auto/remote_mondaycom_static/uploads/Tal/4b5d9548-0598-436e-a5b6-9bc5f29ee1d9_Group12441.png">
+      </a>
+      <a class="btn btn-ghost" href="/ripple-merge/guide/">Read the guide</a>
+    </div>
+    <div class="hero-note">Your data stays inside monday.com. No third-party services, no tracking.</div>
+  </header>
+
+  <main class="wrap">
+
+    <!-- big screenshot -->
+    <section class="section" style="padding-top:12px;">
+      <div class="browser reveal">
+        <div class="browser-bar"><span></span><span></span><span></span><div class="url">monday.com · Ripple Merge board view</div></div>
+        <img src="/assets/shot-ripple-merge.png" alt="Ripple Merge template editor showing an invoice email with placeholder chips, a subitem loop block, and the column picker">
+      </div>
+    </section>
+
+    <!-- features -->
+    <section class="section" id="features">
+      <div class="section-head reveal">
+        <h2>Everything monday's email automations can't do</h2>
+        <p>Build the template once. Every send fills itself in.</p>
+      </div>
+      <div class="features">
+        <div class="feature reveal">
+          <div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="5" rx="1.5"/><rect x="7" y="12" width="14" height="4" rx="1" stroke-width="1.5"/><rect x="7" y="18" width="14" height="4" rx="1" stroke-width="1.5"/><path d="M5.5 9 L5.5 14 L7 14" stroke-width="1.5"/><path d="M5.5 14 L5.5 20 L7 20" stroke-width="1.5"/></svg></div>
+          <h4>Subitem data in emails</h4>
+          <p>Reference subitem columns right in the body — <code style="font-family:ui-monospace,Menlo,monospace;font-size:12px;">{subitem.Description}</code> — or pull one row with <code style="font-family:ui-monospace,Menlo,monospace;font-size:12px;">{subitems[0].Description}</code>. monday's native emails can't reach this data.</p>
+        </div>
+        <div class="feature reveal">
+          <div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+          <h4>Click to insert, no syntax</h4>
+          <p>Click any column in the picker and it lands in your template as a placeholder. Nothing to memorize, nothing to mistype.</p>
+        </div>
+        <div class="feature reveal">
+          <div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 11-3-6.7"/><polyline points="21 4 21 10 15 10"/></svg></div>
+          <h4>Loops &amp; filters</h4>
+          <p><code style="font-family:ui-monospace,Menlo,monospace;font-size:12px;">{#each subitem}</code> repeats a block for every row — perfect for invoice lines. Add a filter like <em>where Status = "Paid"</em> to keep only the rows you want.</p>
+        </div>
+        <div class="feature reveal">
+          <div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="20" x2="20" y2="20"/><line x1="6" y1="20" x2="6" y2="12"/><line x1="12" y1="20" x2="12" y2="6"/><line x1="18" y1="20" x2="18" y2="10"/></svg></div>
+          <h4>Totals &amp; smart dates</h4>
+          <p>Sum, average, count, min or max across subitems — <code style="font-family:ui-monospace,Menlo,monospace;font-size:12px;">{subitem.Line Total | sum}</code>. Format any date column with 13 presets, from <em>31st March 2026</em> to <em>03/31/2026</em>.</p>
+        </div>
+        <div class="feature reveal">
+          <div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+          <h4>Plain text or rich HTML</h4>
+          <p>Send simple text, or switch to HTML for bold, lists, links and on-brand formatting. Your choice per template.</p>
+        </div>
+        <div class="feature reveal">
+          <div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div>
+          <h4>Templates across boards</h4>
+          <p>An account-wide workspace view lists every template on every board. Search them, edit them, copy one to another board.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- how it works -->
+    <section class="section" id="how">
+      <div class="section-head reveal">
+        <h2>From template to sent email in four steps</h2>
+        <p>Set it up once. Every automation email fills itself in.</p>
+      </div>
+      <div class="steps">
+        <div class="step reveal">
+          <div class="step-num">1</div>
+          <h4>Add the view</h4>
+          <p>On the board you send from: + Add view &rarr; Apps &rarr; Ripple Merge.</p>
+        </div>
+        <div class="step reveal">
+          <div class="step-num">2</div>
+          <h4>Build your template</h4>
+          <p>Click + New, then click columns to insert placeholders. Choose Plain Text or HTML.</p>
+        </div>
+        <div class="step reveal">
+          <div class="step-num">3</div>
+          <h4>Add the action</h4>
+          <p>In the workflow builder, add "Ripple Merge — Resolve Template" after your trigger and pick your template.</p>
+        </div>
+        <div class="step reveal">
+          <div class="step-num">4</div>
+          <h4>Chain Send Email</h4>
+          <p>Add monday's Send Email step. Map Subject to Resolved Subject and Message to Resolved Content.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- split: automation flow -->
+    <section class="section">
+      <div class="split">
+        <div class="split-copy reveal">
+          <h3>Drops straight into your automations</h3>
+          <p>No new email sender to trust. Ripple Merge resolves the template,
+          then monday's own Send Email action does the sending.</p>
+          <ul>
+            <li>Works with the triggers you already use</li>
+            <li>Returns Resolved Subject and Resolved Content for the next step</li>
+            <li>Add as many Resolve + Send pairs as one workflow needs</li>
+          </ul>
+        </div>
+        <div class="browser reveal">
+          <div class="browser-bar"><span></span><span></span><span></span><div class="url">monday.com · workflow builder</div></div>
+          <img src="/assets/shot-ripple-merge-2.png" alt="A monday.com automation with the Ripple Merge Resolve Template action chained into monday's Send Email step">
+        </div>
+      </div>
+    </section>
+
+    <!-- split: privacy -->
+    <section class="section">
+      <div class="split flip">
+        <div class="split-copy reveal">
+          <h3>Your data never leaves monday.com</h3>
+          <p>Templates live in monday's Storage API. The backend runs on monday-code,
+          monday's own hosting platform. There is nothing else.</p>
+          <ul>
+            <li>No third-party services, no analytics, no tracking</li>
+            <li>Item and subitem values are processed in memory during a run, never stored</li>
+            <li>Uninstall the app and its stored data is deleted automatically</li>
+          </ul>
+        </div>
+        <div class="browser reveal">
+          <div class="browser-bar"><span></span><span></span><span></span><div class="url">monday.com · Ripple Merge</div></div>
+          <img src="/assets/shot-ripple-merge-3.png" alt="Ripple Merge welcome screen: use subitem data in your monday.com email automations">
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section">
+      <div class="cta-band reveal">
+        <h2>Stop copying subitems into emails by hand.</h2>
+        <p>Install Ripple Merge and send your first merged email in minutes.</p>
+        <div class="hero-ctas">
+          <a class="monday-badge" href="https://auth.monday.com/oauth2/authorize?client_id=541be882141b531d368a90be8b4ab21d&amp;response_type=install" aria-label="Add Ripple Merge to monday.com">
+            <img alt="Add to monday.com" src="https://dapulse-res.cloudinary.com/image/upload/f_auto,q_auto/remote_mondaycom_static/uploads/Tal/4b5d9548-0598-436e-a5b6-9bc5f29ee1d9_Group12441.png">
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="sfooter">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="footer-brand-link" href="/"><img src="/assets/logo.svg" alt="">CodeRipple Tech</a>
+        <p>Small tools. Big ripples. Focused products that remove the friction from everyday software work.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Products</h4>
+        <a href="/rippleroot/">RippleRoot</a>
+        <a href="/ripplesnap/">RippleSnap</a>
+        <a href="/rippleclip/">RippleClip</a>
+        <a href="/ripplebug/">Ripplebug</a>
+        <a href="/ripple-import/">Ripple Import</a>
+        <a href="/ripple-merge/">Ripple Merge</a>
+        <a href="/ripple-preview/">Ripple Preview</a>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <a href="/contact/">Contact</a>
+        <a href="/ripple-merge/guide/">Ripple Merge guide</a>
+        <a href="mailto:dan.negoescu4@gmail.com">Email support</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="/ripple-merge/terms/">Ripple Merge terms</a>
+        <a href="/ripple-merge/privacy/">Ripple Merge privacy</a>
+        <a href="/terms.html">Terms</a>
+        <a href="/privacy.html">Privacy</a>
+      </div>
+    </div>
+    <div class="footer-base">
+      <span>© 2026 CodeRipple Tech Ltd</span>
+      <a href="https://github.com/coderippletech" rel="noopener">GitHub</a>
+    </div>
+  </footer>
+
+  <script>
+    const io = new IntersectionObserver((es) => es.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+    }), { threshold: 0.12 });
+    document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+  </script>
+</body>
+</html>
