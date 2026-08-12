@@ -131,6 +131,22 @@
     <h2>Skip duplicates</h2>
     <p>If you'd rather not update or create new entries when names already exist on the board, pick <strong>"Skip duplicates"</strong> instead. Matching rows are left alone, only new items get added.</p>
 
+    <h2>Scheduled imports</h2>
+    <p>Instead of uploading a file by hand, point Ripple Import at a link and let it run on its own. It fetches the file and updates your board on a schedule. Runs happen on our servers, so nobody needs to have monday open.</p>
+    <p>To set one up, choose <strong>From a link</strong> instead of <strong>Upload a file</strong> on the upload step, then:</p>
+    <ul>
+      <li>Paste a direct link to a CSV or Excel file. SharePoint, OneDrive, Google Drive, Dropbox and GitHub share links are turned into direct downloads for you. If the file sits behind a key or token, add it as a request header.</li>
+      <li>Connect your monday account once. This is what lets a run create items when you're not there.</li>
+      <li>Map the columns and preview as normal. It fetches the real file, so what you map is exactly what will be imported.</li>
+      <li>Pick <strong>Update existing</strong> and a match column, for example an invoice or reference number.</li>
+      <li>Choose when it runs — daily, on chosen weekdays, or every few hours — and save.</li>
+    </ul>
+    <p>The match column matters more here than anywhere else. Without one, every run adds a fresh copy of every row, so a daily schedule would pile up duplicates. With one, the same rows are updated in place and the board stays the size it should be.</p>
+    <p>Times are in your own timezone, and daylight saving is handled for you. A run fires shortly after the time you set, not to the exact second.</p>
+    <p>Once a schedule exists, the upload step shows a line telling you how many schedules the board has and when the next run is. Open it to see every schedule, and open one to see its run history — when it ran, and how many items were created, updated, skipped, or failed. The last 60 runs are kept. If a run fails, the reason is shown there rather than being swallowed, and if the file changes shape (a renamed column, say) the run stops instead of importing something wrong.</p>
+    <p>You can have several schedules on one board, for example one file for orders and another for returns. Each keeps its own history and can be paused on its own.</p>
+    <p>Two things to know. The file has to be reachable over HTTPS — a path on an internal network drive won't work, because the import runs on our servers rather than your machine. And scheduled runs count toward your plan's monthly import allowance, the same as imports you run by hand.</p>
+
     <h2>Header hint tags</h2>
     <p>For advanced control, you can add tags to your file's column headers to specify the column type:</p>
     <ul>
