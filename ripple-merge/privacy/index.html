@@ -54,8 +54,8 @@
     <p>Ripple Merge is a mail merge template app for monday.com, operated by Dan Negoescu.
     Your board data stays inside monday.com's infrastructure — the app has
     <strong>no tracking and no data stores of its own</strong>; the only external processing
-    is the optional AI feature described in section 4, which never receives your board item
-    values.</p>
+    is the optional AI features described in section 4, which never receive your board item
+    values unless you explicitly add the AI Summary placeholder to a template.</p>
 
     <h2>1. Data the app accesses</h2>
     <table>
@@ -89,11 +89,19 @@
     </ul>
 
     <h2>4. AI features (Ripple Merge AI)</h2>
-    <p>The optional AI features (template generation, refinement, subject suggestions, and
-    column mapping) send the following to an AI model, only when you actively use them: your
-    written description or instruction, the <strong>names and types of your board's
-    columns</strong>, and the template text being worked on. <strong>Board item values,
-    subitem values, and email contents are never sent to any AI model.</strong></p>
+    <p>The optional editor AI features (template generation, refinement, translation, subject
+    suggestions, starter ideas, and column mapping) send the following to an AI model, only
+    when you actively use them: your written description or instruction, the <strong>names
+    and types of your board's columns</strong>, and the template text being worked on.
+    <strong>These editor features never send board item values, subitem values, or email
+    contents to any AI model.</strong></p>
+    <p><strong>One opt-in exception — the AI Summary placeholder.</strong> If you place
+    <code>{ai.summary}</code> in a template, then each time that template's automation runs,
+    the triggering item's column values and its subitem rows are sent to the AI model to
+    write a short summary for that email. This happens <strong>only for templates containing
+    that placeholder</strong>, the data is processed transiently and never stored, and
+    removing the placeholder stops it entirely. If the AI is unavailable the placeholder
+    resolves to empty and your email still sends.</p>
     <p>AI requests are processed by <strong>OpenAI</strong> (GPT models) via OpenAI's API.
     Per OpenAI's API terms, business data sent through the API is not used to train models
     by default. AI features are inactive until you click an AI action, and the app works
