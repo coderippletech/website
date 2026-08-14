@@ -48,12 +48,14 @@
 
   <main class="legal">
     <h1>Ripple Merge Privacy Policy</h1>
-    <p class="date">Last updated: August 5, 2026 · Applies to the Ripple Merge app for monday.com.</p>
+    <p class="date">Last updated: August 14, 2026 · Applies to the Ripple Merge app for monday.com.</p>
 
     <h2>The short version</h2>
     <p>Ripple Merge is a mail merge template app for monday.com, operated by Dan Negoescu.
-    All of your data stays inside monday.com's infrastructure — the app has
-    <strong>no third-party services, no tracking, and no data stores of its own</strong>.</p>
+    Your board data stays inside monday.com's infrastructure — the app has
+    <strong>no tracking and no data stores of its own</strong>; the only external processing
+    is the optional AI feature described in section 4, which never receives your board item
+    values.</p>
 
     <h2>1. Data the app accesses</h2>
     <table>
@@ -86,39 +88,50 @@
       output fields.</li>
     </ul>
 
-    <h2>4. Third parties</h2>
-    <p><strong>None.</strong> The app makes no requests to any domain other than monday.com
-    services. Fonts and all assets are bundled with the app. There are no analytics,
-    advertising, or tracking services of any kind.</p>
+    <h2>4. AI features (Ripple Merge AI)</h2>
+    <p>The optional AI features (template generation, refinement, subject suggestions, and
+    column mapping) send the following to an AI model, only when you actively use them: your
+    written description or instruction, the <strong>names and types of your board's
+    columns</strong>, and the template text being worked on. <strong>Board item values,
+    subitem values, and email contents are never sent to any AI model.</strong></p>
+    <p>AI requests are processed by <strong>OpenAI</strong> (GPT models) via OpenAI's API.
+    Per OpenAI's API terms, business data sent through the API is not used to train models
+    by default. AI features are inactive until you click an AI action, and the app works
+    fully without them.</p>
 
-    <h2>5. Cookies and local storage</h2>
+    <h2>5. Third parties</h2>
+    <p>Other than the AI processing described above, the app makes no requests to any domain
+    outside monday.com services. Fonts and all assets are bundled with the app. There are no
+    analytics, advertising, or tracking services of any kind.</p>
+
+    <h2>6. Cookies and local storage</h2>
     <p>The app sets <strong>no cookies</strong>. It uses browser <code>localStorage</code> for
     one UI preference (whether you have dismissed the welcome screen). This never leaves your
     browser.</p>
 
-    <h2>6. Logging</h2>
+    <h2>7. Logging</h2>
     <p>The backend keeps short-lived operational logs (request method and path, error
     diagnostics) on the monday-code platform for debugging and reliability. Logs do not include
     your template content or item data, and expire automatically per monday-code's log
     retention.</p>
 
-    <h2>7. Data retention and deletion</h2>
+    <h2>8. Data retention and deletion</h2>
     <p>When you uninstall Ripple Merge, monday.com notifies the app and <strong>all stored data
     for your account (templates and usage counters) is deleted automatically and permanently —
     immediately upon notification, and in all cases within 10 days</strong>, in line with
     monday.com's marketplace requirements.</p>
     <p>You can also request deletion at any time by emailing the address below.</p>
 
-    <h2>8. Your rights</h2>
+    <h2>9. Your rights</h2>
     <p>Depending on your jurisdiction (e.g. GDPR in the EU/EEA), you may have rights to access,
     correct, export, or erase your data. Since the only personal data the app holds is what you
     put in your templates, the fastest route for any request is the contact below.</p>
 
-    <h2>9. Changes</h2>
+    <h2>10. Changes</h2>
     <p>If this policy changes materially, the "Last updated" date above will change and the new
     version will be published at this address before it takes effect.</p>
 
-    <h2>10. Contact</h2>
+    <h2>11. Contact</h2>
     <p>Dan Negoescu —
     <a href="mailto:support@coderippletech.com">support@coderippletech.com</a></p>
   </main>
