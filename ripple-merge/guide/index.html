@@ -82,6 +82,16 @@
     <p class="date">Set it up once. Every automation email pulls the right content, including
     subitem data.</p>
 
+    <h2>See it in 90 seconds</h2>
+    <div style="position:relative;padding-top:56.25%;border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,0.1);margin:18px 0 8px;">
+      <iframe src="https://www.youtube.com/embed/8gvehBPUM5E" title="Ripple Merge demo — AI mail merge for monday.com"
+        style="position:absolute;inset:0;width:100%;height:100%;border:0;"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen loading="lazy"></iframe>
+    </div>
+    <p class="date" style="margin-top:0;">AI drafts the template, the automation resolves it, and the
+    client in Spain gets it in Spanish — start to finish.</p>
+
     <h2>Step 1 — Add the Ripple Merge view to your board</h2>
     <p>On the board you send emails from: click <strong>+ Add view</strong> &rarr;
     <strong>Apps</strong> &rarr; <strong>Ripple Merge</strong>.</p>
@@ -115,6 +125,38 @@
     in every placeholder — item data, subitem rows, totals — and hands the finished email to
     monday to send. Add as many Ripple Merge + Send Email pairs as you need in one workflow.</div>
 
+    <h2>Ripple Merge AI</h2>
+    <p>Every AI feature is optional — the app works fully without them. With them, the
+    learning curve disappears:</p>
+    <ul>
+      <li><strong>Write with AI</strong> — click <strong>✨ Write with AI</strong> in the editor and
+      describe the email ("order confirmation listing every line item with a total, friendly
+      tone"). You get a complete template wired to your real columns — subitem loops, totals
+      and formatted dates included.</li>
+      <li><strong>Starter ideas</strong> — on a board with no templates yet, click
+      <strong>Suggest templates with AI</strong> for three ideas tailored to your columns;
+      one click drafts any of them.</li>
+      <li><strong>Refine &amp; translate</strong> — the <strong>✨ AI</strong> menu makes any
+      template friendlier, more formal, shorter or grammar-perfect, or translates it into six
+      languages. Placeholders always survive.</li>
+      <li><strong>AI subject lines</strong> — three suggestions generated from your email body.</li>
+      <li><strong>AI Summary at send time</strong> — insert <code>{ai.summary}</code> from Meta
+      Fields and every email opens with a fresh 2–3 sentence summary of the item and its
+      subitems, written from the live data when the automation fires.</li>
+      <li><strong>Your client's language, automatically</strong> — set <strong>✨ Send
+      Language</strong> to a Country or Language column and each email is AI-translated into
+      that recipient's language at send time. Translations are cached per template, and an
+      empty column simply sends the template's own language.</li>
+      <li><strong>Fix columns with AI</strong> — if a template shows missing-column warnings
+      after a board change, the row menu's <strong>✨ Fix columns with AI</strong> remaps the
+      placeholders onto your real columns for review.</li>
+    </ul>
+    <div class="tip"><strong>Privacy:</strong> the editor AI sees only column names/types and
+    the text you write — never board item values. The opt-in <code>{ai.summary}</code>
+    placeholder and the Send Language column value are the only send-time exceptions, both
+    processed transiently and covered in the
+    <a href="/ripple-merge/privacy/">privacy policy</a>.</div>
+
     <h2>Placeholder cheat sheet</h2>
     <table>
       <tr><th>What</th><th>Syntax</th></tr>
@@ -127,6 +169,7 @@
       <tr><td>Loop with filter</td><td><code>{#each subitem where Status = "Paid"} … {/each}</code></td></tr>
       <tr><td>Formatted date</td><td><code>{Due Date | date:ordinal}</code> &rarr; 31st March 2026</td></tr>
       <tr><td>Subitem count</td><td><code>{subitem_count}</code></td></tr>
+      <tr><td>AI summary at send time</td><td><code>{ai.summary}</code></td></tr>
     </table>
 
     <h2>FAQ</h2>
@@ -134,8 +177,9 @@
     Open Ripple Merge from the left sidebar (Apps) for the account-wide view — search, edit,
     and copy templates to any board.</p>
     <p><strong>A column shows a warning badge?</strong><br>
-    The template references a column that no longer exists on that board. Open the template
-    and re-insert the column.</p>
+    The template references a column that no longer exists on that board. Use
+    <strong>✨ Fix columns with AI</strong> in the template's row menu to remap it, or open
+    the template and re-insert the column.</p>
     <p><strong>Need help?</strong><br>
     Email <a href="mailto:support@coderippletech.com">support@coderippletech.com</a> — happy to help
     you wire up your first workflow.</p>
