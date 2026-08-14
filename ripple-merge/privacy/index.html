@@ -102,6 +102,12 @@
     that placeholder</strong>, the data is processed transiently and never stored, and
     removing the placeholder stops it entirely. If the AI is unavailable the placeholder
     resolves to empty and your email still sends.</p>
+    <p>Similarly, if you set a template's <strong>Send Language</strong> column, the value
+    of that single column (e.g. "Spain") is sent at send time so the AI can translate the
+    template's text into the recipient's language. Only the template text and that one
+    value are sent — never other item values; translations are cached per template and
+    language, and if the AI is unavailable the email sends in the template's original
+    language.</p>
     <p>AI requests are processed by <strong>OpenAI</strong> (GPT models) via OpenAI's API.
     Per OpenAI's API terms, business data sent through the API is not used to train models
     by default. AI features are inactive until you click an AI action, and the app works
