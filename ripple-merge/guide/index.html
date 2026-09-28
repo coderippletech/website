@@ -27,6 +27,21 @@
       font-size: 14.5px; color: var(--muted);
     }
   </style>
+  <style>
+    /* Shown inside monday.com as the app's "How to use" tab: no site chrome. */
+    html.embedded .snav, html.embedded .sfooter { display: none; }
+    .guide-shot { display: block; width: 100%; height: auto; border-radius: 12px;
+      border: 1px solid var(--card-border); margin: 18px 0 6px; }
+  </style>
+  <script>
+    (function () {
+      var framed = true;
+      try { framed = window.self !== window.top; } catch (e) { /* cross-origin parent */ }
+      if (framed || /[?&]embed=1(&|$)/.test(location.search)) {
+        document.documentElement.classList.add("embedded");
+      }
+    })();
+  </script>
   <link rel="canonical" href="https://coderippletech.com/ripple-merge/guide/">
   <meta name="theme-color" content="#0a0e14">
   <meta property="og:type" content="website">
@@ -92,6 +107,26 @@
     <p class="date" style="margin-top:0;">AI drafts the template, the automation resolves it, and the
     client in Spain gets it in Spanish — start to finish.</p>
 
+    <h2>Before you start</h2>
+    <ul>
+      <li><strong>Install</strong> Ripple Merge from the monday.com apps marketplace. It asks
+      for read access to your boards only — it never edits your data.</li>
+      <li><strong>Automations:</strong> emails are sent by monday's own <em>Send Email</em>
+      automation action, so your monday.com plan needs automations.</li>
+      <li><strong>Nothing else to set up</strong> — no external accounts or API keys, and the
+      AI features work out of the box.</li>
+    </ul>
+
+    <h2>What's inside</h2>
+    <ul>
+      <li><strong>Ripple Merge board view</strong> — create and edit the email templates for
+      that board.</li>
+      <li><strong>Ripple Merge Templates</strong> (left sidebar &rarr; Apps) — every template in
+      your account in one place: search, edit, and copy templates between boards.</li>
+      <li><strong>"Ripple Merge — Resolve Template" automation action</strong> — fills a
+      template with an item's data when your automation runs.</li>
+    </ul>
+
     <h2>Step 1 — Add the Ripple Merge view to your board</h2>
     <p>On the board you send emails from: click <strong>+ Add view</strong> &rarr;
     <strong>Apps</strong> &rarr; <strong>Ripple Merge</strong>.</p>
@@ -108,6 +143,8 @@
       <em>03/31/2026</em></li>
       <li>Choose <strong>Plain Text</strong> or <strong>HTML</strong> for rich formatting</li>
     </ul>
+    <img class="guide-shot" src="/assets/ripple-merge-guide-editor.jpg" width="1280" height="640"
+      loading="lazy" alt="The Ripple Merge template editor: an invoice email with item placeholders, a loop over subitems, and a subitem total, with the column picker on the right.">
 
     <h2>Step 3 — Add Ripple Merge to your automation</h2>
     <p>In your board's workflow builder, add the action
@@ -124,6 +161,8 @@
     <div class="tip"><strong>That's it.</strong> When the automation fires, Ripple Merge fills
     in every placeholder — item data, subitem rows, totals — and hands the finished email to
     monday to send. Add as many Ripple Merge + Send Email pairs as you need in one workflow.</div>
+    <img class="guide-shot" src="/assets/ripple-merge-guide-email.jpg" width="1280" height="640"
+      loading="lazy" alt="A finished HTML email sent by monday's Send Email action, personalised with item data by Ripple Merge.">
 
     <h2>Ripple Merge AI</h2>
     <p>Every AI feature is optional — the app works fully without them. With them, the
@@ -223,5 +262,15 @@
     </div>
   </footer>
 
+  <script>
+    if (document.documentElement.classList.contains("embedded")) {
+      document.querySelectorAll("main a[href]").forEach(function (a) {
+        if (a.getAttribute("href").charAt(0) !== "#") {
+          a.target = "_blank";
+          a.rel = "noopener";
+        }
+      });
+    }
+  </script>
 </body>
 </html>
