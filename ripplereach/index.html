@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RippleReach — Remote desktop for Windows and Mac, in tabs</title>
+  <meta name="description" content="Remote connection manager for Windows and Mac. Every RDP connection in one library, sessions in tabs at full resolution, and your Macs too. 14-day free trial.">
+  <link rel="icon" type="image/png" href="/assets/ripplereach-logo.png">
+  <link rel="stylesheet" href="/site.css?v=19">
+  <link rel="canonical" href="https://coderippletech.com/ripplereach/">
+  <meta name="theme-color" content="#0a0e14">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="CodeRipple Tech">
+  <meta property="og:url" content="https://coderippletech.com/ripplereach/">
+  <meta property="og:title" content="RippleReach — Remote desktop for Windows and Mac, in tabs">
+  <meta property="og:description" content="Every RDP connection in one library. Sessions open in tabs at your screen's full resolution, and RippleReach Host lets you control your Macs too. 14-day free trial.">
+  <meta property="og:image" content="https://coderippletech.com/assets/og-ripplereach.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="RippleReach — Remote desktop for Windows and Mac, in tabs">
+  <meta name="twitter:description" content="Every RDP connection in one library. Sessions open in tabs at your screen's full resolution, and RippleReach Host lets you control your Macs too. 14-day free trial.">
+  <meta name="twitter:image" content="https://coderippletech.com/assets/og-ripplereach.png">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "RippleReach",
+    "url": "https://coderippletech.com/ripplereach/",
+    "image": "https://coderippletech.com/assets/og-ripplereach.png",
+    "screenshot": "https://coderippletech.com/assets/shot-ripplereach.jpg",
+    "description": "Remote connection manager for Windows and macOS. Keeps RDP connections in one library with folders, tags and inherited settings, opens sessions in tabs at full resolution, imports RDCMan, mRemoteNG, .rdp and CSV, and stores passwords only in the OS vault. RippleReach Host lets other computers control a Mac over RDP. Includes an MCP server for AI agents.",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Windows, macOS",
+    "downloadUrl": "https://github.com/coderippletech/ripplereach-releases/releases/latest",
+    "softwareRequirements": "Windows 10 or 11 (64-bit); macOS 14 Sonoma or later (Apple silicon or Intel)",
+    "author": {
+      "@type": "Organization",
+      "name": "CodeRipple Tech",
+      "url": "https://coderippletech.com/"
+    }
+  }
+  </script>
+  <style>
+    /* RippleReach indigo. The app icon runs teal #14C6B4 -> blue #1463F3; the
+       blue end is RippleSnap's territory, so the page leads with indigo and
+       borrows the icon's teal as the second stop. */
+    :root {
+      --accent: #6574ff;
+      --accent-soft: rgba(101, 116, 255, 0.14);
+      --reach-teal: #14c6b4;
+      --reach-tint: #a9b1ff;
+    }
+    .btn-reach { background: linear-gradient(120deg, var(--accent), var(--reach-teal)); color: #060a1c; border-color: transparent; font-weight: 700; }
+    .btn-reach:hover { box-shadow: 0 8px 30px rgba(101, 116, 255, 0.4); }
+    .grad-reach { background: linear-gradient(92deg, #8f99ff, #6ad8cb); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .hero .orb-purple { background: radial-gradient(circle at 60% 40%, var(--reach-teal), color-mix(in srgb, var(--reach-teal) 40%, transparent) 48%, transparent 72%); opacity: 0.16; }
+
+    /* App screenshots: the app draws its own title bar, so no fake browser chrome. */
+    .appshot {
+      margin: 0; border-radius: 14px; overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: #101319;
+      box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(101, 116, 255, 0.06);
+    }
+    .appshot img { width: 100%; height: auto; }
+    .hero-shot { position: relative; }
+    .hero-shot::before {
+      content: ""; position: absolute; inset: 8% 6% -4%; z-index: -1;
+      background: radial-gradient(60% 60% at 50% 40%, rgba(101, 116, 255, 0.22), transparent 70%);
+      filter: blur(40px);
+    }
+    .shot-cap { margin-top: 12px; font-size: 12.5px; color: var(--muted); text-align: center; }
+
+    /* proof strip */
+    .proof { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 34px; }
+    .proof div { border: 1px solid var(--card-border); border-radius: 12px; background: var(--card); padding: 16px 18px; }
+    .proof b { display: block; font-size: 22px; font-weight: 800; letter-spacing: -0.02em; color: var(--text); }
+    .proof span { font-size: 13px; color: var(--muted); }
+    @media (max-width: 760px) { .proof { grid-template-columns: 1fr 1fr; } }
+
+    .split > * { min-width: 0; }
+    /* Balanced 3x2 feature grid, as on the RippleRoot page. */
+    .features { grid-template-columns: repeat(3, 1fr); }
+    @media (max-width: 900px) { .features { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 600px) { .features { grid-template-columns: 1fr; } }
+    .split-copy kbd, .feature kbd {
+      font: 600 12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(255, 255, 255, 0.1);
+      border-bottom-width: 2px; padding: 0 6px; border-radius: 5px; color: var(--text); white-space: nowrap;
+    }
+    .split-copy code {
+      font: 12.5px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      background: rgba(255, 255, 255, 0.07); padding: 1px 6px; border-radius: 5px; color: var(--reach-tint);
+      white-space: nowrap;
+    }
+    .split-copy .note { font-size: 13px; color: var(--muted); margin-top: 14px; }
+    .split-copy .note b { color: var(--text); font-weight: 600; }
+
+    /* Macs: three steps + Share this PC */
+    .steps { max-width: 980px; margin: 0 auto; }
+    .also {
+      max-width: 980px; margin: 18px auto 0; display: flex; gap: 14px; align-items: flex-start;
+      border: 1px solid var(--card-border); border-radius: var(--radius); background: var(--card); padding: 20px 22px;
+    }
+    .also svg { flex: none; width: 20px; height: 20px; color: var(--accent); margin-top: 3px; }
+    .also h4 { font-size: 15px; margin-bottom: 4px; }
+    .also p { font-size: 13.5px; color: var(--muted); }
+
+    /* coming soon */
+    .coming {
+      max-width: 820px; margin: 0 auto; display: flex; gap: 18px; align-items: flex-start;
+      border: 1px dashed rgba(101, 116, 255, 0.4); border-radius: 16px; padding: 24px 26px;
+      background: linear-gradient(180deg, rgba(101, 116, 255, 0.06), rgba(255, 255, 255, 0.015));
+    }
+    .coming .pill {
+      flex: none; font-size: 10.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+      color: #060a1c; background: linear-gradient(120deg, var(--accent), var(--reach-teal));
+      padding: 4px 10px; border-radius: 999px; margin-top: 3px;
+    }
+    .coming h3 { font-size: 18px; margin-bottom: 6px; letter-spacing: -0.01em; }
+    .coming p { font-size: 14px; color: var(--muted); }
+    @media (max-width: 560px) { .coming { flex-direction: column; gap: 10px; } }
+
+    /* trial + downloads */
+    .trial {
+      max-width: 820px; margin: 0 auto; text-align: center;
+      border: 1px solid rgba(101, 116, 255, 0.4); border-radius: 18px; padding: clamp(26px, 5vw, 40px);
+      background: linear-gradient(180deg, rgba(101, 116, 255, 0.09), rgba(255, 255, 255, 0.02));
+    }
+    .trial h3 { font-size: clamp(22px, 3vw, 28px); letter-spacing: -0.02em; margin-bottom: 10px; }
+    .trial > p { max-width: 600px; margin: 0 auto; color: var(--muted); font-size: 15px; }
+    .trial-points { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 20px; margin: 18px 0 24px; font-size: 13.5px; color: var(--muted); }
+    .trial-points span::before { content: "✓"; color: var(--accent); font-weight: 700; margin-right: 7px; }
+    .trial-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+    .dl-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 26px; text-align: left; }
+    @media (max-width: 620px) { .dl-grid { grid-template-columns: 1fr; } }
+    .dl {
+      display: flex; align-items: center; gap: 12px; padding: 14px 16px;
+      border: 1px solid var(--card-border); border-radius: 12px; background: rgba(255, 255, 255, 0.03);
+      transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+    }
+    .dl:hover { transform: translateY(-3px); border-color: rgba(101, 116, 255, 0.5); background: rgba(101, 116, 255, 0.07); }
+    .dl svg { width: 20px; height: 20px; flex: none; color: var(--accent); }
+    .dl b { display: block; font-size: 14px; color: var(--text); line-height: 1.35; }
+    .dl span { font-size: 12px; color: var(--muted); }
+    .trial .fine { max-width: 640px; margin: 18px auto 0; font-size: 12.5px; color: var(--muted); text-align: center; }
+        .credits { max-width: 760px; margin: 0 auto; font-size: 12.5px; color: var(--muted); text-align: center; }
+  </style>
+</head>
+<body>
+
+  <nav class="snav">
+    <div class="snav-brand">
+      <a class="snav-brand-main" href="/ripplereach/">
+        <img src="/assets/ripplereach-logo.png" alt="">
+        RippleReach
+      </a>
+      <a class="snav-by" href="/">by CodeRipple Tech</a>
+    </div>
+    <div class="snav-links">
+      <a href="#features">Features</a>
+      <a href="#macs">Macs</a>
+      <a href="#agents">AI agents</a>
+      <a href="#pricing">Pricing</a>
+      <a class="btn btn-reach" href="https://github.com/coderippletech/ripplereach-releases/releases/latest" rel="noopener"><span class="cta-full">Download free trial</span><span class="cta-short">Download</span></a>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="orb orb-teal"></div>
+    <div class="orb orb-purple"></div>
+    <span class="eyebrow">Remote desktop for Windows and Mac</span>
+    <h1 class="display">Every remote desktop.<br><span class="grad-reach">In tabs, at full resolution.</span></h1>
+    <p class="lede">Twenty servers means twenty Remote Desktop windows and a folder of .rdp files.
+    RippleReach keeps every connection in one library and opens them in tabs, sized to your screen.
+    Your Macs too.</p>
+    <div class="hero-ctas">
+      <a class="btn btn-reach" href="https://github.com/coderippletech/ripplereach-releases/releases/latest" rel="noopener">Download free trial</a>
+      <a class="btn btn-ghost" href="#features">See what it does →</a>
+    </div>
+    <div class="hero-note">Windows 10 and 11 · macOS 14 or later · 14-day trial with everything unlocked, no account</div>
+  </header>
+
+  <main class="wrap">
+
+    <section class="section" style="padding-top:0;">
+      <figure class="appshot hero-shot reveal in">
+        <img src="/assets/shot-ripplereach.jpg" width="2400" height="1500" alt="RippleReach on Windows: four sessions open in tabs, including a Mac, with the dc01 production server active inside a red PROD frame and the library's folder tree on the left">
+      </figure>
+      <div class="proof reveal">
+        <div><b>Tabs</b><span>for every session, Windows and Mac</span></div>
+        <div><b>60 fps</b><span>at 1920×1080 in the WebGL renderer</span></div>
+        <div><b>3 steps</b><span>to make a Mac reachable over RDP</span></div>
+        <div><b>0</b><span>passwords stored in RippleReach's own files</span></div>
+      </div>
+    </section>
+
+    <section class="section" id="features">
+      <div class="section-head reveal">
+        <h2>Built for people with a lot of servers</h2>
+        <p>The parts of Remote Desktop you use all day, kept. The parts that slow you down, fixed.</p>
+      </div>
+      <div class="features">
+        <div class="feature reveal">
+          <div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M3 10V6a2 2 0 0 1 2-2h4l2 4"/><path d="M13 8V6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></div>
+          <h4>Sessions in tabs</h4>
+          <p>Every session opens in a tab, and the library keeps a last-seen thumbnail of each one. Drag a tab out into its own window and move it to another screen.</p>
+        </div>
+        <div class="feature reveal">
+          <div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M9 21H3v-6"/><path d="M21 3l-7 7"/><path d="M3 21l7-7"/></svg></div>
+          <h4>Full resolution on any monitor</h4>
+          <p>Windows sessions follow the window size, so the remote desktop is always your screen's full resolution. Resize the window and the desktop resizes with it.</p>
+        </div>
+        <div class="feature reveal">
+          <div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M7 14h10"/></svg></div>
+          <h4>The shortcuts you already know</h4>
+          <p>Full screen works like Remote Desktop Connection: <kbd>Ctrl+Alt+Enter</kbd>, <kbd>Pause</kbd> or <kbd>F11</kbd>. <kbd>Ctrl+Alt+Home</kbd> gives your keyboard back.</p>
+        </div>
+        <div class="feature reveal">
+          <div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+          <h4>Passwords stay in your OS vault</h4>
+          <p>Credentials live in Windows Credential Manager or the macOS Keychain, never in RippleReach's files. Backups export to JSON without secrets.</p>
+        </div>
+        <div class="feature reveal">
+          <div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+          <h4>Its own RDP engine</h4>
+          <p>Built on IronRDP, in Rust. H.264 on Windows, bitmap codecs everywhere, dynamic resize and auto-reconnect. Shared clipboard, with files on Windows and plain text on Mac.</p>
+        </div>
+        <div class="feature reveal">
+          <div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></div>
+          <h4>Certificates checked once, then pinned</h4>
+          <p>The first connection shows the certificate's SHA-256 fingerprint. RippleReach remembers it and warns you if it ever changes.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="library">
+      <div class="split">
+        <div class="split-copy reveal">
+          <h3>Set it on the folder. Every server inherits it.</h3>
+          <p>Put the credential on "Acme Corp" and every connection inside uses it. Settings flow
+          from app defaults to folders to the connection, and the inspector shows where each
+          value comes from, so nothing is a mystery.</p>
+          <ul>
+            <li>Folders, tags, favorites and recents, with filtering</li>
+            <li>Card and list views, and a folder tree you rearrange by dragging</li>
+            <li>PROD, STAGING, TEST and DEV frames, so you always know where you are typing</li>
+          </ul>
+        </div>
+        <figure class="appshot reveal">
+          <img src="/assets/shot-ripplereach-library.jpg" width="1800" height="1125" loading="lazy" alt="The library in card view with last-seen thumbnails and PROD and STAGING labels, and the inspector showing sql-prod-01's credential inherited from Acme Corp and its environment from Production">
+        </figure>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="split">
+        <figure class="appshot reveal">
+          <img src="/assets/shot-ripplereach-palette.jpg" width="1360" height="1144" loading="lazy" alt="The command palette listing suggested connections, with Switch to tab on the ones already open, and actions for a new connection, a new folder and import">
+        </figure>
+        <div class="split-copy reveal">
+          <h3>Ctrl+K to anything</h3>
+          <p>Press <kbd>Ctrl+K</kbd>, or <kbd>⌘K</kbd> on a Mac, and type a name, a host or an
+          address. Enter connects. If the session is already open, it switches to that tab
+          instead of opening a second one.</p>
+          <ul>
+            <li>Quick-connect to an address you haven't saved yet</li>
+            <li>New connections, import, settings and more, one search away</li>
+            <li>Shows which computers are online before you pick one</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="split">
+        <div class="split-copy reveal">
+          <h3>Bring the connections you already have</h3>
+          <p>Moving to a new tool shouldn't mean retyping two hundred hostnames. RippleReach
+          looks for RDCMan, mRemoteNG and .rdp files on your computer and imports them with
+          their folders. The original files are left alone.</p>
+          <ul>
+            <li><span>Microsoft RDCMan <code>.rdg</code>, including inherited credentials</span></li>
+            <li><span>mRemoteNG <code>confCons.xml</code>, including encrypted files</span></li>
+            <li><span><code>.rdp</code> files, including DPAPI-protected passwords on Windows</span></li>
+            <li>CSV, or drag any of these straight onto the window</li>
+          </ul>
+        </div>
+        <figure class="appshot reveal">
+          <img src="/assets/shot-ripplereach-import.jpg" width="1280" height="980" loading="lazy" alt="The Import connections dialog listing an mRemoteNG file, an RDCMan file and fourteen .rdp files found on the computer">
+        </figure>
+      </div>
+    </section>
+
+    <section class="section" id="macs">
+      <div class="section-head reveal">
+        <h2>Control your Macs, too</h2>
+        <p>Macs don't speak RDP. RippleReach Host, which ships inside the Mac app, teaches them. Then any computer with RippleReach, or any other Remote Desktop app, can sign in.</p>
+      </div>
+      <div class="split">
+        <figure class="appshot reveal">
+          <img src="/assets/shot-ripplereach-mac.jpg" width="1800" height="1125" loading="lazy" alt="A Mac mini open in a RippleReach tab, showing its desktop, Finder window and Dock">
+        </figure>
+        <div class="split-copy reveal">
+          <h3>A Mac desktop sized to your screen</h3>
+          <p>Choose "own desktop" and the Mac creates a display that matches your screen while
+          you're connected, then puts everything back when you leave. Or mirror the Mac's own
+          screen. You pick per connection.</p>
+          <ul>
+            <li>H.264 at the Mac's native resolution, up to 60 fps</li>
+            <li>Decoded on the viewing computer's graphics card</li>
+            <li>Tested at 3440×1440 on an ultrawide, at around 54 fps</li>
+            <li>Macs on your network show up on their own, over Bonjour</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top:0;">
+      <div class="split">
+        <div class="split-copy reveal">
+          <h3>Share this Mac in three steps</h3>
+          <p>No terminal and no config files. Open Share this Mac and follow the checklist.
+          Each step turns green when it's done.</p>
+          <ul>
+            <li>Works with RippleReach or any other Remote Desktop app</li>
+            <li>Shows the address to connect to and the certificate fingerprint to check</li>
+            <li>Choose what people see: the Mac's own screen, or a desktop sized to theirs</li>
+          </ul>
+        </div>
+        <figure class="appshot reveal">
+          <img src="/assets/shot-ripplereach-share-mac.jpg" width="1240" height="1440" loading="lazy" alt="The Share this Mac dialog with sharing on, all three steps complete, and A desktop sized to their screen selected">
+        </figure>
+      </div>
+      <div class="steps" style="margin-top:clamp(28px, 5vh, 48px);">
+        <div class="step reveal">
+          <div class="step-num">1</div>
+          <h4>Save the Mac password</h4>
+          <p>It's checked, then kept only in the Keychain. Whoever connects signs in as that Mac account.</p>
+        </div>
+        <div class="step reveal">
+          <div class="step-num">2</div>
+          <h4>Turn sharing on</h4>
+          <p>RippleReach Host runs in the background, even when RippleReach itself is closed.</p>
+        </div>
+        <div class="step reveal">
+          <div class="step-num">3</div>
+          <h4>Allow screen and keyboard</h4>
+          <p>Grant Screen Recording and Accessibility in System Settings. Needs macOS 14 or later.</p>
+        </div>
+      </div>
+      <div class="also reveal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="14" rx="2"/><path d="M8 22h8M12 18v4"/></svg>
+        <div>
+          <h4>On a Windows PC? Share this PC.</h4>
+          <p>One step turns on Windows' own Remote Desktop, with Network Level Authentication and the firewall rule, then shows the address and account to use. Needs Windows Pro.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="agents">
+      <div class="split">
+        <figure class="appshot reveal">
+          <img src="/assets/shot-ripplereach-agents.jpg" width="1280" height="1264" loading="lazy" alt="The AI agents dialog: access switched on, limited to computers tagged #agent, the claude mcp add command, and a log of recent agent actions including one refused">
+        </figure>
+        <div class="split-copy reveal">
+          <h3>Let an AI agent take the session</h3>
+          <p>RippleReach ships an MCP server, <code>ripplereach-mcp</code>. Agents like Claude can
+          list your connections, connect, take screenshots, click, type, press keys, scroll and
+          drag. One command adds it to Claude Code.</p>
+          <ul>
+            <li><span>Off until you turn it on, and it can be limited to connections tagged <code>#agent</code></span></li>
+            <li>Agents sign in with saved credentials and never see the passwords</li>
+            <li>An agent never trusts a new certificate on its own</li>
+            <li>Every action goes to an audit log. Typed text is logged as a character count.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top:0;">
+      <div class="coming reveal">
+        <span class="pill">Coming</span>
+        <div>
+          <h3>Multiple monitors</h3>
+          <p>Span one Windows session across all your monitors. It isn't in the app yet. Today, pop-out windows already let you put different sessions on different screens.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="pricing">
+      <div class="section-head reveal">
+        <h2>Try all of it for 14 days</h2>
+        <p>No account, no card, nothing held back during the trial.</p>
+      </div>
+      <div class="trial reveal">
+        <h3>Download, connect, decide later.</h3>
+        <p>Every feature is unlocked for 14 days. After that, a licence is needed to open sessions.
+        Your library, folders and settings stay usable either way.</p>
+        <div class="trial-points">
+          <span>Everything unlocked</span>
+          <span>No account needed</span>
+          <span>Windows and Mac</span>
+        </div>
+        <div class="trial-actions">
+          <a class="btn btn-reach" href="https://github.com/coderippletech/ripplereach-releases/releases/latest" rel="noopener">Download free trial</a>
+          <!-- TODO: Lemon Squeezy checkout URL -->
+          <a class="btn btn-ghost" href="#pricing">Buy a licence</a>
+        </div>
+        <div class="dl-grid">
+          <a class="dl" href="https://github.com/coderippletech/ripplereach-releases/releases/latest" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+            <div><b>Windows</b><span>Windows 10 or 11 · 64-bit</span></div>
+          </a>
+          <a class="dl" href="https://github.com/coderippletech/ripplereach-releases/releases/latest" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+            <div><b>macOS</b><span>macOS 14 or later · Apple silicon and Intel</span></div>
+          </a>
+        </div>
+        <p class="fine">The Mac app is signed with a Developer ID and notarized by Apple. The Windows
+        installer isn't code-signed yet, so SmartScreen may ask before it runs the first time.
+        Light and dark themes, following your system by default.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="cta-band reveal">
+        <h2>Every server you look after, one window away.</h2>
+        <p>RDP connections in tabs, your Macs alongside them. Free for 14 days.</p>
+        <a class="btn btn-reach" href="https://github.com/coderippletech/ripplereach-releases/releases/latest" rel="noopener">Download RippleReach</a>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top:0;">
+      <p class="credits">RippleReach is built on <a href="https://github.com/Devolutions/IronRDP" rel="noopener">IronRDP</a> (MIT/Apache-2.0) by Devolutions and macrdp (MIT/Apache-2.0) by Clint Christopher Canada. Thank you.
+      RDP is a protocol by Microsoft. RippleReach isn't affiliated with Microsoft or Apple.</p>
+    </section>
+  </main>
+
+  <footer class="sfooter">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="footer-brand-link" href="/"><img src="/assets/logo.svg" alt="">CodeRipple Tech</a>
+        <p>Small tools. Big ripples. Focused products that remove the friction from everyday software work.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Products</h4>
+        <a href="/rippleroot/">RippleRoot</a>
+        <a href="/ripplesnap/">RippleSnap</a>
+        <a href="/ripplereach/">RippleReach</a>
+        <a href="/rippleclip/">RippleClip</a>
+        <a href="/ripplebug/">Ripplebug</a>
+        <a href="/ripple-import/">Ripple Import</a>
+        <a href="/ripple-merge/">Ripple Merge</a>
+        <a href="/ripple-preview/">Ripple Preview</a>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <a href="/contact/">Contact</a>
+        <a href="/blog/">Blog</a>
+        <a href="/blog/feed.xml">RSS feed</a>
+        <a href="/guide.html">Ripple Import guide</a>
+        <a href="/ripple-merge/guide/">Ripple Merge guide</a>
+        <a href="mailto:support@coderippletech.com">Email support</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="/terms.html">Terms</a>
+        <a href="/privacy.html">Privacy</a>
+        <a href="/ripplebug/privacy/">Ripplebug privacy</a>
+      </div>
+    </div>
+    <div class="footer-base">
+      <span>© 2026 CodeRipple Tech Ltd</span>
+      <a href="https://github.com/coderippletech" rel="noopener">GitHub</a>
+    </div>
+  </footer>
+
+  <script>
+    const io = new IntersectionObserver((es) => es.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+    }), { threshold: 0.12 });
+    document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+  </script>
+</body>
+</html>
