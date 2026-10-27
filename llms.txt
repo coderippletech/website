@@ -22,6 +22,23 @@
   Pro is a $9 one-time purchase (pay what you want) with a 14-day full trial.
   Signed and notarized by Apple.
 
+- [RippleReach](https://coderippletech.com/ripplereach/): remote connection
+  manager for Windows 10/11 and macOS 14+ (Apple silicon and Intel). Keeps RDP
+  connections in one library (folders, tags, favorites, recents; settings
+  inherit from app defaults to folders to the connection) and opens sessions
+  in tabs at the screen's full resolution, with a built-in IronRDP engine,
+  certificate pinning on first use and a Ctrl+K / Cmd+K palette. Passwords are
+  stored only in Windows Credential Manager or the macOS Keychain. Imports
+  .rdp files, Microsoft RDCMan .rdg, mRemoteNG confCons.xml and CSV.
+  RippleReach Host, inside the Mac app, lets other computers control a Mac
+  over RDP (with RippleReach or any RDP client); Share this PC turns on
+  Windows Remote Desktop in one step. Ships an MCP server (ripplereach-mcp)
+  so AI agents can use your connections; off by default, can be limited to
+  connections tagged #agent, every action audit-logged. Multiple-monitor
+  sessions are planned, not yet available. 14-day free trial with everything
+  unlocked, no account; a licence is needed to open sessions after that.
+  Downloads: https://github.com/coderippletech/ripplereach-releases/releases/latest
+
 - [RippleClip](https://coderippletech.com/rippleclip/): iPhone capture inbox
   (iOS 26+). Clipboard history, screenshot auto-import with on-device OCR
   search, and Shape Grab (rectangle / circle / freeform lasso snips with

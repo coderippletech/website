@@ -415,6 +415,62 @@
       .ps-merge .sent { animation: mergeSent 12s ease infinite; }
       @keyframes mergeSent { 0%, 44% { opacity: 0; transform: scale(0.75) translateY(3px); } 50% { opacity: 1; transform: scale(1.06); } 54%, 76% { opacity: 1; transform: none; } 86%, 100% { opacity: 0; transform: none; } }
     }
+
+    /* RippleReach (indigo) — card accent + mini scene */
+    .product.indigo { --pc: #6574ff; --hairline: #6574ff; }
+    .product.indigo .tag { color: #a9b1ff; }
+    .chip-indigo:hover { border-color: rgba(101, 116, 255, 0.55); box-shadow: 0 10px 34px rgba(101, 116, 255, 0.22); }
+    .btn-indigo { background: linear-gradient(120deg, #6574ff, #14c6b4); color: #060a1c; border-color: transparent; font-weight: 700; }
+    .btn-indigo:hover { box-shadow: 0 8px 30px rgba(101, 116, 255, 0.4); }
+
+    /* scene (12s): three sessions in tabs — a Windows server, a Mac, then a
+       PROD server in its red frame. The first screen never leaves, so the
+       others fade over it and the loop has no empty frame. */
+    .ps-reach .rtabs { top: 0; left: 0; right: 0; height: 22px; background: rgba(255,255,255,0.045); border-bottom: 1px solid var(--card-border); }
+    .ps-reach .rtab {
+      top: 4px; height: 14px; padding: 0 8px; border-radius: 4px; white-space: nowrap;
+      font-size: 9px; line-height: 14px; color: var(--muted);
+    }
+    .ps-reach .rt1 { left: 10px; } .ps-reach .rt2 { left: 52px; } .ps-reach .rt3 { left: 118px; }
+    .ps-reach .rt1 { background: rgba(101, 116, 255, 0.22); color: #dfe3ff; box-shadow: inset 0 0 0 1px rgba(101, 116, 255, 0.5); }
+    .ps-reach .rscreen { left: 10px; right: 10px; top: 30px; bottom: 10px; border-radius: 6px; overflow: hidden; }
+    .ps-reach .rs1, .ps-reach .rs3 { background: linear-gradient(135deg, #1b4f9c, #3b8fe0); }
+    .ps-reach .rs2 { background: linear-gradient(135deg, #3b3a92, #8a4f9e 60%, #c46b78); opacity: 0; }
+    .ps-reach .rs3 { box-shadow: inset 0 0 0 2px #ef4444; opacity: 0; }
+    .ps-reach .rwin { left: 24%; top: 15%; width: 46%; height: 56%; border-radius: 4px; background: #eef1f6; box-shadow: 0 6px 16px rgba(0,0,0,0.35); }
+    .ps-reach .rwin::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 8px; border-radius: 4px 4px 0 0; background: #dde2ea; }
+    .ps-reach .rwin::after { content: ""; position: absolute; left: 9px; top: 17px; width: 52%; height: 3px; border-radius: 2px; background: rgba(40, 70, 140, 0.4); box-shadow: 0 7px 0 rgba(40, 70, 140, 0.22), 0 14px 0 rgba(40, 70, 140, 0.16); }
+    .ps-reach .rbar { left: 0; right: 0; bottom: 0; height: 10px; background: rgba(8, 18, 38, 0.45); }
+    .ps-reach .rmenu { top: 0; left: 0; right: 0; height: 7px; background: rgba(255,255,255,0.22); }
+    .ps-reach .rdock { bottom: 5px; left: 32%; width: 36%; height: 9px; border-radius: 4px; background: rgba(255,255,255,0.3); }
+    .ps-reach .rprod {
+      top: 6px; left: 6px; padding: 0 5px; border-radius: 3px; line-height: 12px;
+      font-size: 8.5px; font-weight: 700; font-style: normal; letter-spacing: 0.04em;
+      color: #fecaca; background: rgba(239, 68, 68, 0.32); border: 1px solid rgba(239, 68, 68, 0.6);
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .ps-reach { --phase: -3s; }
+      .ps-reach .rs2 { animation: reachS2 12s ease infinite; }
+      .ps-reach .rs3 { animation: reachS3 12s ease infinite; }
+      @keyframes reachS2 { 0%, 28% { opacity: 0; } 33%, 66% { opacity: 1; } 67%, 100% { opacity: 0; } }
+      @keyframes reachS3 { 0%, 61% { opacity: 0; } 66%, 93% { opacity: 1; } 98%, 100% { opacity: 0; } }
+      .ps-reach .rwin { animation: reachWin 4s ease-in-out infinite; }
+      @keyframes reachWin { 0%, 100% { transform: none; } 50% { transform: translateY(-2px); } }
+      .ps-reach .rtab { animation: 12s ease infinite; }
+      .ps-reach .rt1 { animation-name: reachT1; } .ps-reach .rt2 { animation-name: reachT2; } .ps-reach .rt3 { animation-name: reachT3; }
+      @keyframes reachT1 {
+        0%, 28%, 98%, 100% { background: rgba(101, 116, 255, 0.22); color: #dfe3ff; box-shadow: inset 0 0 0 1px rgba(101, 116, 255, 0.5); }
+        33%, 93% { background: transparent; color: var(--muted); box-shadow: none; }
+      }
+      @keyframes reachT2 {
+        0%, 28%, 66%, 100% { background: transparent; color: var(--muted); box-shadow: none; }
+        33%, 61% { background: rgba(101, 116, 255, 0.22); color: #dfe3ff; box-shadow: inset 0 0 0 1px rgba(101, 116, 255, 0.5); }
+      }
+      @keyframes reachT3 {
+        0%, 61%, 98%, 100% { background: transparent; color: var(--muted); box-shadow: none; }
+        66%, 93% { background: rgba(239, 68, 68, 0.2); color: #fecaca; box-shadow: inset 0 0 0 1px rgba(239, 68, 68, 0.55); }
+      }
+    }
   </style>
 </head>
 <body>
@@ -433,6 +489,7 @@
         <div class="nav-drop-menu">
           <a href="/rippleroot/"><img src="/assets/rippleroot-logo.png" alt=""><div>RippleRoot<small>Local-first dev workspace platform</small></div></a>
           <a href="/ripplesnap/"><img src="/assets/ripplesnap-logo.png" alt=""><div>RippleSnap<small>macOS window manager</small></div></a>
+          <a href="/ripplereach/"><img src="/assets/ripplereach-logo.png" alt=""><div>RippleReach<small>Remote desktop, in tabs</small></div></a>
           <a href="/rippleclip/"><img src="/assets/rippleclip-logo.png" alt=""><div>RippleClip<small>The capture inbox for iPhone</small></div></a>
           <a href="/ripplebug/"><img src="/assets/ripplebug-logo.png" alt=""><div>Ripplebug<small>Bug reporting, captured whole</small></div></a>
           <a href="/ripple-import/"><img src="/assets/logo.svg" alt=""><div>Ripple Import<small>CSV &amp; Excel → monday.com</small></div></a>
@@ -456,6 +513,7 @@
     <div class="product-chips">
       <a class="chip chip-green" href="/rippleroot/"><img src="assets/rippleroot-logo.png" alt="">RippleRoot</a>
       <a class="chip chip-blue" href="/ripplesnap/"><img src="assets/ripplesnap-logo.png" alt="">RippleSnap</a>
+      <a class="chip chip-indigo" href="/ripplereach/"><img src="assets/ripplereach-logo.png" alt="">RippleReach</a>
       <a class="chip chip-mint" href="/rippleclip/"><img src="assets/rippleclip-logo.png" alt="">RippleClip</a>
       <a class="chip chip-teal" href="/ripplebug/"><img src="assets/ripplebug-logo.png" alt="">Ripplebug</a>
       <a class="chip chip-purple" href="/ripple-import/"><img src="assets/logo.svg" alt="">Ripple Import</a>
@@ -509,6 +567,28 @@
             <span class="win w2"><b></b></span>
             <span class="win w3"><b></b></span>
             <span class="kchip">&#8997; + &#8594;</span>
+          </span></div>
+        </a>
+
+        <a class="product indigo reveal" href="/ripplereach/">
+          <img class="product-logo" src="assets/ripplereach-logo.png" alt="RippleReach logo">
+          <h3>RippleReach</h3>
+          <div class="tag">Remote desktop for Windows and Mac</div>
+          <p>Every RDP connection in one library, with folders, tags and settings that
+          inherit. Sessions open in tabs at your screen's full resolution, passwords stay in
+          your OS vault, and RippleReach Host lets you control your Macs too.</p>
+          <div class="plinks">
+            <span class="btn btn-indigo">See how it works &rarr;</span>
+          </div>
+          <div class="pscene ps-reach" aria-hidden="true"><span class="stage">
+            <span class="rtabs">
+              <span class="rtab rt1">dc01</span>
+              <span class="rtab rt2">Studio Mac</span>
+              <span class="rtab rt3">sql-prod-01</span>
+            </span>
+            <span class="rscreen rs1"><b class="rwin"></b><i class="rbar"></i></span>
+            <span class="rscreen rs2"><b class="rwin"></b><i class="rmenu"></i><i class="rdock"></i></span>
+            <span class="rscreen rs3"><b class="rwin"></b><i class="rbar"></i><em class="rprod">PROD</em></span>
           </span></div>
         </a>
 
@@ -654,6 +734,7 @@
         <h4>Products</h4>
         <a href="/rippleroot/">RippleRoot</a>
         <a href="/ripplesnap/">RippleSnap</a>
+        <a href="/ripplereach/">RippleReach</a>
         <a href="/rippleclip/">RippleClip</a>
         <a href="/ripplebug/">Ripplebug</a>
         <a href="/ripple-import/">Ripple Import</a>
