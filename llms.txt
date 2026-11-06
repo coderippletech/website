@@ -74,8 +74,11 @@
   "Ripple Merge — Resolve Template" workflow action returns Resolved Subject
   and Resolved Content for monday's native Send Email step. Subitem data is
   something monday's built-in email automations cannot reach. Templates are
-  stored via monday's Storage API on monday-code; no third-party services.
-  Usage guide: https://coderippletech.com/ripple-merge/guide/
+  stored via monday's Storage API on monday-code; the optional AI features
+  call OpenAI server-side. Free plan: 50 emails and 10 AI actions/month.
+  Pro $15/account/month (1,000 emails, 100 AI actions), Business
+  $30/account/month (unlimited emails, 400 AI actions), billed through the
+  monday.com marketplace. Usage guide: https://coderippletech.com/ripple-merge/guide/
 
 - [Ripple Preview](https://coderippletech.com/ripple-preview/): free,
   MIT-licensed Umbraco backoffice package (Umbraco 17.3+). Renders Block Grid,
