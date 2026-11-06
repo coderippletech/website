@@ -472,6 +472,240 @@
       }
     }
   </style>
+  <style>
+    /* ---- hero: the products float on the ripple ----------------------------
+       A drop in the middle of the hero sends a group of rings outward once
+       per --cycle. Each product tile sits at (--x, --y) hero units from that
+       centre, and its bob is delayed by the time the ring takes to travel
+       that far (hypot() of its offset), so tiles lift in the order the wave
+       reaches them. Rings and tiles share one unit (--u), so the timing
+       holds at every width. Pure CSS: moving a tile is a one-line change. */
+    .hero {
+      --u: clamp(0.84px, calc((100vw - 60px) / 1300), 1.05px);
+      --R: 760;          /* ring radius at the end of its travel, in units */
+      --cycle: 8s;       /* one drop */
+      --travel: 6.4s;    /* 80% of the cycle: the ring's trip outward */
+      --ring0: 0.6s;     /* first drop lands after the headline settles */
+    }
+    .hero-core { position: relative; }
+    .hero-rings {
+      position: absolute; left: 50%; top: 50%; width: 0; height: 0;
+      z-index: -1; pointer-events: none;
+    }
+    .hero-rings i {
+      position: absolute; border-radius: 50%;
+      left: calc(var(--R) * var(--u) * -1); top: calc(var(--R) * var(--u) * -1);
+      width: calc(var(--R) * var(--u) * 2); height: calc(var(--R) * var(--u) * 2);
+      border: 2px solid rgba(34, 211, 206, 0.34);
+      opacity: 0; transform: scale(0.04);
+    }
+    .hero-rings i:nth-child(2) { border-color: rgba(125, 102, 253, 0.3); }
+    .hero-rings i:nth-child(3) { border-color: rgba(34, 211, 206, 0.16); }
+
+    .hero-orbit { position: absolute; left: 50%; top: 50%; width: 0; height: 0; z-index: 1; }
+    .otile {
+      --dx: var(--x); --dy: var(--y);
+      position: absolute; display: block;
+      left: calc(var(--x) * var(--u)); top: calc(var(--y) * var(--u));
+      translate: -50% -50%;
+      border-radius: 22px; outline: none;
+    }
+    .ot-par, .ot-float, .ot-bob { display: block; position: relative; }
+    .ot-bob { border-radius: 28%; }
+    .ot-face {
+      position: relative; display: grid; place-items: center;
+      width: calc(72 * var(--u)); aspect-ratio: 1; border-radius: 28%;
+      background: linear-gradient(160deg, #18212c, #0e131b 70%);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07), 0 18px 40px -14px rgba(0, 0, 0, 0.75);
+      rotate: var(--tilt, 0deg);
+      transition: rotate 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), scale 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+        border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .ot-face img { width: 56%; height: 56%; border-radius: 24%; }
+    /* lit by the passing ring (opacity animated below) */
+    .ot-face::after {
+      content: ""; position: absolute; inset: -1px; border-radius: inherit; opacity: 0; pointer-events: none;
+      box-shadow: 0 0 0 1px color-mix(in srgb, var(--c) 60%, transparent),
+        0 10px 44px -6px color-mix(in srgb, var(--c) 55%, transparent);
+    }
+    /* the tile's own small ripple, in its product colour */
+    .ot-bob::before {
+      content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+      border: 1.5px solid color-mix(in srgb, var(--c) 70%, transparent); opacity: 0;
+    }
+    .otile:hover .ot-face, .otile:focus-visible .ot-face {
+      rotate: 0deg; scale: 1.1;
+      border-color: color-mix(in srgb, var(--c) 55%, transparent);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07), 0 16px 50px -10px color-mix(in srgb, var(--c) 55%, transparent);
+    }
+    .otile:focus-visible .ot-face { outline: 2px solid var(--c); outline-offset: 4px; }
+    .ot-label {
+      position: absolute; left: 50%; top: calc(100% + 12px); translate: -50% 4px;
+      white-space: nowrap; font-size: 12.5px; font-weight: 600; color: var(--text);
+      padding: 4px 11px; border-radius: 999px;
+      background: rgba(10, 14, 20, 0.82); border: 1px solid color-mix(in srgb, var(--c) 40%, transparent);
+      opacity: 0; pointer-events: none; transition: opacity 0.25s ease, translate 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .otile:hover .ot-label, .otile:focus-visible .ot-label { opacity: 1; translate: -50% 0; }
+    /* no hover to reveal names on touch screens: show them */
+    @media (hover: none) { .ot-label { opacity: 1; translate: -50% 0; } }
+
+    @media (min-width: 1140px) {
+      .hero {
+        padding-top: max(96px, calc(262 * var(--u) - 104px));
+        padding-bottom: max(110px, calc(270 * var(--u) - 104px));
+      }
+    }
+
+    /* tablet and phone: no room around the headline, so the tiles line up
+       under the lede as an icon row (or a 4×2 grid) with their names shown.
+       Same float, same ripple: --gx/--gy are each tile's rough place in
+       that grid, so the wave still reaches the middle tiles first. */
+    @media (max-width: 1139.98px) {
+      .hero { --u: 0.62px; }
+      /* the drop lands on the headline: eyebrow + its gap, then half the
+         two-line h1 */
+      .hero-rings { top: calc(56px + clamp(34px, 6vw, 64px) * 1.06); }
+      .hero-orbit {
+        position: static; width: auto; height: auto;
+        display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 22px 6px;
+        max-width: 780px; margin: 34px auto 0;
+      }
+      .otile {
+        --dx: var(--gx, 0); --dy: var(--gy, 0);
+        position: relative; left: auto; top: auto; translate: none;
+        display: flex; flex-direction: column; align-items: center; gap: 12px;
+      }
+      .ot-face { width: 60px; }
+      .ot-label {
+        position: static; translate: none; opacity: 1; padding: 0 2px; border: 0; background: none;
+        font-size: 12px; color: var(--muted); white-space: normal; text-align: center; line-height: 1.25;
+        transition: color 0.25s ease;
+      }
+      .otile:hover .ot-label, .otile:focus-visible .ot-label { color: var(--text); translate: none; }
+      .otile:nth-child(1) { --gx: -542; --gy: 305; }
+      .otile:nth-child(2) { --gx: -389; --gy: 305; }
+      .otile:nth-child(3) { --gx: -233; --gy: 305; }
+      .otile:nth-child(4) { --gx: -78; --gy: 305; }
+      .otile:nth-child(5) { --gx: 78; --gy: 305; }
+      .otile:nth-child(6) { --gx: 233; --gy: 305; }
+      .otile:nth-child(7) { --gx: 389; --gy: 305; }
+      .otile:nth-child(8) { --gx: 542; --gy: 305; }
+    }
+    @media (max-width: 620px) {
+      .hero-orbit { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 22px 4px; max-width: 360px; margin-top: 30px; }
+      .ot-face { width: 56px; }
+      .otile:nth-child(1), .otile:nth-child(5) { --gx: -214; }
+      .otile:nth-child(2), .otile:nth-child(6) { --gx: -71; }
+      .otile:nth-child(3), .otile:nth-child(7) { --gx: 71; }
+      .otile:nth-child(4), .otile:nth-child(8) { --gx: 214; }
+      .otile:nth-child(-n + 4) { --gy: 347; }
+      .otile:nth-child(n + 5) { --gy: 516; }
+    }
+    @media (max-width: 360px) {
+      .ot-face { width: 50px; }
+      .ot-label { font-size: 11px; letter-spacing: -0.01em; }
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .hero-rings i { animation: heroRing var(--cycle) linear var(--ring0) infinite; }
+      .hero-rings i:nth-child(2) { animation-delay: calc(var(--ring0) + 0.35s); }
+      .hero-rings i:nth-child(3) { animation-delay: calc(var(--ring0) + 0.7s); }
+      @keyframes heroRing {
+        0% { transform: scale(0.04); opacity: 0; }
+        5% { opacity: 1; }
+        80% { transform: scale(1); opacity: 0; }
+        100% { transform: scale(1); opacity: 0; }
+      }
+
+      .otile {
+        --hit: calc(var(--ring0) + var(--travel) * (hypot(var(--dx), var(--dy)) - 66) / 730);
+        animation: otIn 1s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+        animation-delay: calc(0.35s + (hypot(var(--dx), var(--dy)) - 340) * 0.0024s);
+      }
+      @keyframes otIn {
+        from {
+          opacity: 0;
+          transform: translate(calc(var(--dx) * var(--u) * -0.22), calc(var(--dy) * var(--u) * -0.22)) scale(0.6);
+        }
+      }
+      .ot-float { animation: otFloat var(--fd, 7s) ease-in-out var(--fo, 0s) infinite alternate; }
+      @keyframes otFloat {
+        from { transform: translateY(calc(-5 * var(--u))) rotate(-1deg); }
+        to { transform: translateY(calc(5 * var(--u))) rotate(1deg); }
+      }
+      .ot-bob { animation: otBob var(--cycle) linear var(--hit) infinite; }
+      .ot-bob::before { animation: otRing var(--cycle) cubic-bezier(0.2, 0.7, 0.3, 1) var(--hit) infinite; }
+      .ot-face::after { animation: otGlow var(--cycle) ease-out var(--hit) infinite; }
+      /* a float on water: lifts as the ring passes under it, dips, settles */
+      @keyframes otBob {
+        0% { transform: none; animation-timing-function: cubic-bezier(0.2, 0.7, 0.3, 1); }
+        3.5% { transform: translateY(calc(-9 * var(--u))) scale(1.045); animation-timing-function: ease-in-out; }
+        9% { transform: translateY(calc(3 * var(--u))) scale(0.995); animation-timing-function: ease-in-out; }
+        14% { transform: translateY(calc(-1.2 * var(--u))); animation-timing-function: ease-in-out; }
+        20%, 100% { transform: none; }
+      }
+      @keyframes otRing {
+        0% { opacity: 0; transform: scale(0.94); }
+        2% { opacity: 0.75; }
+        20%, 100% { opacity: 0; transform: scale(1.8); }
+      }
+      @keyframes otGlow { 0% { opacity: 0; } 3% { opacity: 1; } 24%, 100% { opacity: 0; } }
+
+      /* while the hero is off screen, hold everything still (JS adds this) */
+      .hero.is-away .hero-rings i, .hero.is-away .ot-float, .hero.is-away .ot-bob,
+      .hero.is-away .ot-bob::before, .hero.is-away .ot-face::after { animation-play-state: paused; }
+    }
+
+    /* scrolling away: tiles drift outward at their own depth and fade */
+    @supports (animation-timeline: scroll()) {
+      @media (min-width: 1140px) and (prefers-reduced-motion: no-preference) {
+        .ot-par { animation: otPar linear both; animation-timeline: scroll(root); animation-range: 0 75vh; }
+        @keyframes otPar {
+          to {
+            transform: translate(calc(var(--x) * var(--u) * 0.16), calc(var(--y) * var(--u) * 0.16 - var(--depth) * 90px));
+            opacity: 0.25;
+          }
+        }
+      }
+    }
+
+    /* reduced motion: the composition without the motion — tiles at rest
+       on three still rings */
+    @media (prefers-reduced-motion: reduce) {
+      .hero-rings i { opacity: 0.55; transform: scale(0.49); }
+      .hero-rings i:nth-child(2) { transform: scale(0.65); }
+      .hero-rings i:nth-child(3) { transform: scale(0.765); }
+      .ot-face, .ot-label { transition: border-color 0.3s ease, box-shadow 0.3s ease, opacity 0.25s ease; }
+      .otile:hover .ot-face, .otile:focus-visible .ot-face { rotate: var(--tilt, 0deg); scale: none; }
+    }
+
+    /* ---- product cards ----------------------------------------------------
+       Cards rise in pairs as they scroll in. The rise is an animation, not
+       the shared .reveal transition, because .product's own hover transition
+       overrides that one and made cards pop in. Hover lift uses `translate`
+       so it never fights the rise. JS adds two .pc-ripple rings: a ripple
+       from where the cursor enters, in the card's colour. */
+    .products .product.reveal { transition: translate 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; }
+    .products .product:hover { transform: none; translate: 0 -4px; }
+    @media (prefers-reduced-motion: no-preference) {
+      .products .product.reveal.in { animation: cardRise 0.9s cubic-bezier(0.22, 1, 0.36, 1) backwards; }
+      .products .product.reveal.in:nth-child(2n) { animation-delay: 0.1s; }
+      @keyframes cardRise { from { opacity: 0; transform: translateY(32px) scale(0.985); } }
+    }
+    .pc-ripple {
+      position: absolute; width: 760px; height: 760px; margin: -380px 0 0 -380px;
+      border-radius: 50%; pointer-events: none; opacity: 0;
+      z-index: -1; /* the hovered card's `translate` makes it a stacking context,
+                      so the ring runs under the copy and the demo, over the card */
+      border: 1.5px solid color-mix(in srgb, var(--pc) 75%, transparent);
+      box-shadow: inset 0 0 46px color-mix(in srgb, var(--pc) 22%, transparent), 0 0 26px color-mix(in srgb, var(--pc) 16%, transparent);
+    }
+    .pc-ripple + .pc-ripple { border-color: color-mix(in srgb, var(--pc) 40%, transparent); box-shadow: none; }
+    /* card scenes off screen don't need to keep looping */
+    .pscene.is-away .stage *, .pscene.is-away .stage *::before { animation-play-state: paused; }
+  </style>
 </head>
 <body>
 
@@ -505,20 +739,48 @@
   <header class="hero">
     <div class="orb orb-teal"></div>
     <div class="orb orb-purple"></div>
-    <div class="ripples" aria-hidden="true"><i></i><i></i><i></i></div>
-    <span class="eyebrow">CodeRipple Tech</span>
-    <h1 class="display">Small tools.<br><span class="grad-teal grad-anim">Big ripples.</span></h1>
-    <p class="lede">We make focused tools for the annoying parts of software work.
-    Each one does a single job well, so the tedious stuff takes seconds instead of afternoons.</p>
-    <div class="product-chips">
-      <a class="chip chip-green" href="/rippleroot/"><img src="assets/rippleroot-logo.png" alt="">RippleRoot</a>
-      <a class="chip chip-blue" href="/ripplesnap/"><img src="assets/ripplesnap-logo.png" alt="">RippleSnap</a>
-      <a class="chip chip-indigo" href="/ripplereach/"><img src="assets/ripplereach-logo.png" alt="">RippleReach</a>
-      <a class="chip chip-mint" href="/rippleclip/"><img src="assets/rippleclip-logo.png" alt="">RippleClip</a>
-      <a class="chip chip-teal" href="/ripplebug/"><img src="assets/ripplebug-logo.png" alt="">Ripplebug</a>
-      <a class="chip chip-purple" href="/ripple-import/"><img src="assets/logo.svg" alt="">Ripple Import</a>
-      <a class="chip chip-emerald" href="/ripple-merge/"><img src="assets/ripple-merge-mark.svg" alt="">Ripple Merge</a>
-      <a class="chip chip-sky" href="/ripple-preview/"><img src="assets/ripple-preview-logo.svg" alt="">Ripple Preview</a>
+    <div class="hero-core">
+      <div class="hero-rings" aria-hidden="true"><i></i><i></i><i></i></div>
+      <span class="eyebrow">CodeRipple Tech</span>
+      <h1 class="display">Small tools.<br><span class="grad-teal grad-anim">Big ripples.</span></h1>
+      <p class="lede">We make focused tools for the annoying parts of software work.
+      Each one does a single job well, so the tedious stuff takes seconds instead of afternoons.</p>
+      <!-- Products float on the ripple. --x/--y place a tile around the
+           headline (desktop); the ripple timing is derived from them. -->
+      <nav class="hero-orbit" aria-label="Products">
+        <a class="otile" href="/rippleroot/" style="--x:-575;--y:-55;--tilt:9deg;--c:#34d399;--fd:7.2s;--fo:-1.3s;--depth:.9">
+          <span class="ot-par"><span class="ot-float"><span class="ot-bob"><span class="ot-face"><img src="assets/rippleroot-logo.png" alt="" width="40" height="40"></span></span></span></span>
+          <span class="ot-label">RippleRoot</span>
+        </a>
+        <a class="otile" href="/ripplesnap/" style="--x:-470;--y:160;--tilt:-6deg;--c:#298cff;--fd:8.4s;--fo:-4.6s;--depth:.6">
+          <span class="ot-par"><span class="ot-float"><span class="ot-bob"><span class="ot-face"><img src="assets/ripplesnap-logo.png" alt="" width="40" height="40"></span></span></span></span>
+          <span class="ot-label">RippleSnap</span>
+        </a>
+        <a class="otile" href="/ripplereach/" style="--x:-335;--y:-212;--tilt:-8deg;--c:#6574ff;--fd:6.6s;--fo:-2.2s;--depth:1">
+          <span class="ot-par"><span class="ot-float"><span class="ot-bob"><span class="ot-face"><img src="assets/ripplereach-logo.png" alt="" width="40" height="40"></span></span></span></span>
+          <span class="ot-label">RippleReach</span>
+        </a>
+        <a class="otile" href="/rippleclip/" style="--x:-262;--y:232;--tilt:7deg;--c:#3ecfc0;--fd:7.8s;--fo:-6.1s;--depth:.5">
+          <span class="ot-par"><span class="ot-float"><span class="ot-bob"><span class="ot-face"><img src="assets/rippleclip-logo.png" alt="" width="40" height="40"></span></span></span></span>
+          <span class="ot-label">RippleClip</span>
+        </a>
+        <a class="otile" href="/ripplebug/" style="--x:240;--y:228;--tilt:-7deg;--c:#22d3ce;--fd:7s;--fo:-3.4s;--depth:.55">
+          <span class="ot-par"><span class="ot-float"><span class="ot-bob"><span class="ot-face"><img src="assets/ripplebug-logo.png" alt="" width="40" height="40"></span></span></span></span>
+          <span class="ot-label">Ripplebug</span>
+        </a>
+        <a class="otile" href="/ripple-import/" style="--x:350;--y:-220;--tilt:8deg;--c:#7d66fd;--fd:8s;--fo:-.7s;--depth:1">
+          <span class="ot-par"><span class="ot-float"><span class="ot-bob"><span class="ot-face"><img src="assets/logo.svg" alt="" width="40" height="40"></span></span></span></span>
+          <span class="ot-label">Ripple Import</span>
+        </a>
+        <a class="otile" href="/ripple-merge/" style="--x:465;--y:165;--tilt:6deg;--c:#10b981;--fd:6.8s;--fo:-5.2s;--depth:.65">
+          <span class="ot-par"><span class="ot-float"><span class="ot-bob"><span class="ot-face"><img src="assets/ripple-merge-mark.svg" alt="" width="40" height="40"></span></span></span></span>
+          <span class="ot-label">Ripple Merge</span>
+        </a>
+        <a class="otile" href="/ripple-preview/" style="--x:580;--y:-38;--tilt:-10deg;--c:#38bdf8;--fd:7.6s;--fo:-2.8s;--depth:.85">
+          <span class="ot-par"><span class="ot-float"><span class="ot-bob"><span class="ot-face"><img src="assets/ripple-preview-logo.svg" alt="" width="40" height="40"></span></span></span></span>
+          <span class="ot-label">Ripple Preview</span>
+        </a>
+      </nav>
     </div>
   </header>
 
@@ -776,6 +1038,39 @@
         card.style.setProperty("--my", (e.clientY - r.top) + "px");
       });
     });
+
+    // Hold the hero ripple and the card scenes still while they're off screen.
+    const away = new IntersectionObserver((es) => es.forEach((e) => {
+      e.target.classList.toggle("is-away", !e.isIntersecting);
+    }));
+    document.querySelectorAll(".hero, .pscene").forEach((el) => away.observe(el));
+
+    // A ripple from wherever the cursor enters a product card.
+    if (matchMedia("(hover: hover) and (prefers-reduced-motion: no-preference)").matches) {
+      const wave = [
+        { transform: "scale(0.02)", opacity: 0 },
+        { opacity: 1, offset: 0.06 },
+        { opacity: 0.55, offset: 0.55 },
+        { transform: "scale(1)", opacity: 0 },
+      ];
+      document.querySelectorAll(".product").forEach((card) => {
+        const rings = [0, 1].map(() => {
+          const ring = document.createElement("span");
+          ring.className = "pc-ripple";
+          ring.setAttribute("aria-hidden", "true");
+          card.append(ring);
+          return ring;
+        });
+        card.addEventListener("pointerenter", (e) => {
+          const r = card.getBoundingClientRect();
+          rings.forEach((ring, i) => {
+            ring.style.left = (e.clientX - r.left) + "px";
+            ring.style.top = (e.clientY - r.top) + "px";
+            ring.animate(wave, { duration: 1500, delay: i * 160, easing: "cubic-bezier(0.25, 0.6, 0.3, 1)" });
+          });
+        });
+      });
+    }
 
     const drop = document.querySelector(".nav-drop");
     const dropBtn = drop.querySelector(".nav-drop-btn");
