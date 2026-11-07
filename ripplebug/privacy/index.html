@@ -33,23 +33,40 @@
 
   <main class="legal">
     <h1>Ripplebug Privacy Policy</h1>
-    <p class="date">Last updated: July 3, 2026 · Applies to the Ripplebug browser
-    extension and the Ripplebug Board service at board.coderippletech.com.</p>
+    <p class="date">Last updated: November 7, 2026 · Applies to the Ripplebug browser
+    extension, the Ripplebug Board service at board.coderippletech.com, and the
+    RippleBug for Jira app.</p>
 
     <h2>The short version</h2>
     <p>Ripplebug exists to move bug reports from your browser to the places you
-    choose — and nowhere else. The extension has no analytics, no tracking, and
-    no servers of its own. The Board service stores only what you put on it.</p>
+    choose — and nowhere else. The extension has no analytics and no tracking, and
+    the only time it talks to our servers is to sign you in to Jira (see below). The
+    Board service stores only what you put on it.</p>
 
     <h2>The extension</h2>
     <ul>
       <li><strong>Credentials</strong> (Azure DevOps PAT, GitHub/GitLab/Trello tokens,
       Jira/Linear API keys, Slack/Teams webhook URLs, board device tokens) are stored in
       your browser's local extension storage. They are sent only to the service they
-      belong to, directly from your browser. They never touch our servers.</li>
+      belong to, directly from your browser. They never touch our servers. Jira tokens,
+      the Jira API token and test-tool keys (Xray, Zephyr, AIO Tests) are also encrypted
+      at rest with a key that stays in your browser.</li>
+      <li><strong>Sign in with Atlassian (Jira):</strong> Atlassian requires a
+      server-held secret to issue and renew sign-in tokens, so our server makes that
+      exchange and passes the tokens straight back to your browser through a single-use
+      code that expires after two minutes. Renewals go through the same server. We keep
+      no copy of the tokens and never see your bug reports. Using a Jira API token
+      instead skips our server entirely.</li>
       <li><strong>Captures</strong> (screenshots, screen recordings, console and network
       logs) stay on your device until you file a report — at which point they are sent
-      only to the destination(s) you selected for that report.</li>
+      only to the destination(s) you selected for that report. Values that look like
+      secrets (bearer tokens, API keys, passwords, secret URL parameters) are replaced
+      with <code>[redacted]</code> before anything leaves your browser.</li>
+      <li><strong>Jira issues</strong> also get a small <code>ripplebug</code> issue
+      property (page address, browser and OS, viewport, steps, file names, log counts,
+      and the test or story the bug came from) so RippleBug for Jira can show the
+      evidence. It is stored on the issue in your own Jira site. When you pick a failed
+      test, the defect is recorded in that test tool using your own key.</li>
       <li><strong>Console &amp; network capture</strong> runs via a lightweight page
       logger on tabs you browse; the data is kept in a small in-memory buffer and is
       discarded unless you attach it to a report.</li>
@@ -71,7 +88,22 @@
       who has the link, until you disable it.</li>
       <li><strong>Send-to connections:</strong> if you connect a tracker for exporting
       cards from the board, those credentials are stored in the service database to
-      perform exports on your behalf. Disconnect at any time to remove them.</li>
+      perform exports on your behalf, encrypted at rest. Disconnect at any time to
+      remove them. Connecting Jira with Atlassian sign-in stores the sign-in tokens
+      (encrypted) and the Jira site, but not your Atlassian account id or name.</li>
+    </ul>
+
+    <h2>RippleBug for Jira (the Atlassian app)</h2>
+    <ul>
+      <li>It shows the evidence of bugs filed with Ripplebug inside the Jira issue. It
+      reads issues and attachments as the person viewing them; nothing is copied out
+      of Jira.</li>
+      <li>If a site admin connects a board, the app keeps the board's sign-in tokens in
+      Atlassian's Forge storage and asks the board for the card linked from an issue
+      (its column, assignee, comment count and AI summary).</li>
+      <li>It sends our server install and uninstall events and weekly counts of bugs
+      filed with Ripplebug on the site. Numbers only: no issue content, attachments or
+      names.</li>
     </ul>
 
     <h2>Data deletion</h2>
@@ -86,6 +118,8 @@
       <li><strong>Tab capture / scripting</strong> — required for screen recording and
       the console/network logger.</li>
       <li><strong>Storage</strong> — for your settings and drafts, locally.</li>
+      <li><strong>Identity</strong> — to open Atlassian's sign-in page for Sign in
+      with Atlassian and receive the result.</li>
     </ul>
 
     <h2>Contact</h2>
