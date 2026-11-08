@@ -95,8 +95,10 @@
 - [RippleRoot terms](https://coderippletech.com/rippleroot/terms/)
 - [Ripple Import guide](https://coderippletech.com/guide): full how-to for
   imports, subitems, multi-level boards, updates and exports.
-- [Ripple Import privacy](https://coderippletech.com/privacy): the app runs
-  client-side; no user data is collected or transmitted.
+- [Ripple Import privacy](https://coderippletech.com/privacy): uploaded files
+  are parsed in the browser and never reach CodeRipple's servers; optional
+  scheduled imports run on monday code (US region), keep no file contents,
+  and store only schedule settings, run counts and the account's OAuth token.
 - [Ripple Import terms](https://coderippletech.com/terms)
 - [Ripple Merge guide](https://coderippletech.com/ripple-merge/guide/):
   four setup steps, the placeholder cheat sheet, and FAQ.

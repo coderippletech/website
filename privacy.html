@@ -18,13 +18,13 @@
   <meta property="og:site_name" content="CodeRipple Tech">
   <meta property="og:url" content="https://coderippletech.com/privacy">
   <meta property="og:title" content="Privacy Policy — Ripple Import">
-  <meta property="og:description" content="Ripple Import runs entirely in your browser. No data is collected, stored or transmitted.">
+  <meta property="og:description" content="Uploaded files are read in your browser and never reach our servers. Optional scheduled imports run on monday.com's own app platform and keep no file contents.">
   <meta property="og:image" content="https://coderippletech.com/assets/og-ripple-import.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Privacy Policy — Ripple Import">
-  <meta name="twitter:description" content="Ripple Import runs entirely in your browser. No data is collected, stored or transmitted.">
+  <meta name="twitter:description" content="Uploaded files are read in your browser and never reach our servers. Optional scheduled imports run on monday.com's own app platform and keep no file contents.">
   <meta name="twitter:image" content="https://coderippletech.com/assets/og-ripple-import.png">
 </head>
 <body>
@@ -46,40 +46,57 @@
 
   <main class="legal">
     <h1>Privacy Policy</h1>
-    <p class="date">Last updated: April 8, 2026</p>
+    <p class="date">Last updated: November 8, 2026</p>
 
     <p>This Privacy Policy describes how Coderipple Tech Ltd ("we", "us", "our") handles information when you use the Ripple Import application ("the App") on the monday.com platform.</p>
 
-    <h2>1. What data we collect</h2>
-    <p><strong>We do not collect, store, or transmit any of your data.</strong></p>
-    <p>Ripple Import runs entirely within your browser as a client-side application embedded in monday.com. Your files (CSV, Excel) are parsed locally in your browser and never leave your device. We do not operate any backend servers that receive your data.</p>
-
-    <h2>2. Data processed locally</h2>
-    <p>When you use the App, the following data is processed locally in your browser:</p>
+    <h2>1. Summary</h2>
+    <p>Ripple Import imports data in two ways, and they handle your data differently:</p>
     <ul>
-      <li><strong>Uploaded files</strong> — CSV and Excel files are parsed in your browser's memory. They are not uploaded to any external server.</li>
-      <li><strong>Board structure</strong> — Column names, types, and groups are read from your monday.com board via the monday.com SDK to enable column mapping.</li>
-      <li><strong>Board items</strong> — Existing item names may be read for duplicate detection purposes.</li>
-      <li><strong>Import usage counter</strong> — A simple counter stored in your browser's localStorage to track monthly import count for plan limits. This data stays in your browser and is not transmitted anywhere.</li>
+      <li><strong>Uploading a file</strong> (the standard import). The file is read in your browser, and its rows go from your browser straight to your monday.com board through monday.com's API. <strong>The file and its contents never reach our servers or any third party.</strong></li>
+      <li><strong>Scheduled imports from a link</strong> (optional, off until someone on your account sets one up). Our backend, hosted on monday.com's own app platform (monday code), downloads the file from the link you give it, imports it into your board, and then discards it. Section 3 explains exactly what is stored and for how long.</li>
     </ul>
 
-    <h2>3. monday.com API</h2>
-    <p>The App communicates with the monday.com API using the monday.com SDK, which handles authentication and authorization. All API calls are made directly between your browser and monday.com's servers. We do not intercept, proxy, or store any of this communication.</p>
+    <h2>2. Uploading a file: data processed in your browser</h2>
+    <ul>
+      <li><strong>Uploaded files</strong> — CSV and Excel files are parsed in your browser's memory. They are not uploaded to our servers or to any external service.</li>
+      <li><strong>Board structure</strong> — Column names, types and groups are read from your monday.com board through the monday.com SDK to set up column mapping.</li>
+      <li><strong>Board items</strong> — Existing items may be read to detect duplicates and to update matching rows.</li>
+      <li><strong>Import usage counter</strong> — A count of imports this month, used for plan limits. It is kept in monday.com's app storage for your account, with your browser's localStorage as a fallback. It contains only a number.</li>
+    </ul>
+    <p>All monday.com API calls for these imports go directly between your browser and monday.com. We do not intercept, proxy or store them.</p>
+    <p>The board view also asks our backend how many scheduled imports your account has run this month, so the plan limit covers both kinds of import. That request carries monday.com's signed session token, which identifies your monday.com account and user. It contains no file or board data.</p>
 
-    <h2>4. Third-party services</h2>
-    <p>The App loads the Instrument Sans font from <strong>Google Fonts</strong> (<code>fonts.googleapis.com</code> and <code>fonts.gstatic.com</code>). This is only used to render the UI and no user data is sent — only the font file is fetched.</p>
-    <p>The App does not use any analytics, tracking, advertising, or error-reporting services. No cookies are set by the App.</p>
+    <h2>3. Scheduled imports from a link</h2>
+    <p>This feature is used only if someone on your account connects Ripple Import to monday.com (monday.com's OAuth sign-in) and saves a schedule.</p>
+    <ul>
+      <li><strong>File contents</strong> — Our backend downloads the file over HTTPS from the link you provide, when you preview the link during setup and at each scheduled run. It parses the file in memory, writes the rows to your board through monday.com's API, and then discards it. File contents are never written to disk or to storage, and nothing from the file is kept after the request or run finishes.</li>
+      <li><strong>What we store</strong> — The schedule's settings (board ID, the source link, an optional access header you enter for a protected link, the column mapping, the run times and time zone); a history of the last 60 runs (start and finish times, how many items were created, updated, skipped or failed, and a short error message if a run failed); a monthly count of scheduled runs; and the monday.com OAuth access token for your account. These are kept in monday code's encrypted secure storage. Access headers are never sent back to the browser.</li>
+      <li><strong>Where</strong> — Our backend runs in monday code's US region. monday code is monday.com's app hosting platform; monday.com names Google Cloud as the cloud provider behind it in <a href="https://monday.com/l/privacy/subprocessors/">its sub-processor list</a>.</li>
+      <li><strong>Retention</strong> — File contents: none, as above. Schedule settings and run history: until you delete the schedule. Access token: until you ask us to remove it; monday.com also invalidates it when the App is uninstalled. On request we delete everything held for your account.</li>
+      <li><strong>Logs</strong> — Our backend's operational logs record account, board and schedule IDs, run counts and error messages. They never contain file contents. monday code holds these logs.</li>
+    </ul>
 
-    <h2>5. Data security</h2>
-    <p>Since no data is collected or transmitted to our servers, there is no risk of data breach from our side. All data processing occurs within the security context of your monday.com account and your browser.</p>
+    <h2>4. Sub-processors and third parties</h2>
+    <ul>
+      <li><strong>monday.com Ltd</strong> — hosting (monday code) and storage for scheduled imports. monday.com's own sub-processors apply, as listed on <a href="https://monday.com/l/privacy/subprocessors/">its sub-processor page</a>. Uploaded-file imports use no sub-processor beyond monday.com itself, which you already use.</li>
+      <li><strong>Google Fonts</strong> — The App's interface font (Instrument Sans) loads from <code>fonts.googleapis.com</code> and <code>fonts.gstatic.com</code>. Like any web request, this lets Google see your IP address and browser details. No file or board data is sent.</li>
+    </ul>
+    <p>The App does not use any analytics, tracking, advertising or error-reporting services. No cookies are set by the App.</p>
 
-    <h2>6. Children's privacy</h2>
+    <h2>5. Roles</h2>
+    <p>Your organisation decides what data goes into its files and boards, so it is the controller of that data. For uploaded-file imports we do not process it at all. For scheduled imports we process it on your behalf, only to perform the imports you set up.</p>
+
+    <h2>6. Data security</h2>
+    <p>Uploaded-file imports take place entirely within your browser and your monday.com account. For scheduled imports, every request to our backend is verified with monday.com's signed session token, sources must use HTTPS, links to private or internal network addresses are refused, and stored access headers and tokens are kept in encrypted storage.</p>
+
+    <h2>7. Children's privacy</h2>
     <p>The App is designed for use within the monday.com platform, which is a business tool. We do not knowingly collect data from children under 16.</p>
 
-    <h2>7. Changes to this policy</h2>
+    <h2>8. Changes to this policy</h2>
     <p>We may update this Privacy Policy from time to time. Any changes will be reflected on this page with an updated date. Continued use of the App after changes constitutes acceptance of the updated policy.</p>
 
-    <h2>8. Contact</h2>
+    <h2>9. Contact</h2>
     <p>If you have questions about this Privacy Policy, contact us at:</p>
     <p><strong>Coderipple Tech Ltd</strong><br>Email: <a href="mailto:support@coderippletech.com">support@coderippletech.com</a></p>
   </main>
