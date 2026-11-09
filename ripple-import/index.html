@@ -18,6 +18,13 @@
     .monday-badge img { height: 46px; width: auto; }
     .monday-badge { transition: transform 0.15s ease; display: inline-flex; }
     .monday-badge:hover { transform: translateY(-1px); }
+  
+    .promo-player {
+      display: block; width: 100%; max-width: 980px; height: auto; aspect-ratio: 16 / 9;
+      margin: 0 auto; border-radius: 16px; background: #0a0e14;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+    }
   </style>
   <link rel="canonical" href="https://coderippletech.com/ripple-import/">
   <meta name="theme-color" content="#0a0e14">
@@ -120,6 +127,14 @@
   </header>
 
   <main class="wrap">
+
+    <!-- one-minute promo (self-hosted; no third-party player or cookies) -->
+    <section class="section reveal" aria-label="Ripple Import in one minute" style="padding-top:8px;padding-bottom:0;">
+      <video class="promo-player" controls playsinline muted preload="none" width="1920" height="1080"
+        poster="/assets/ripple-import-promo-poster.jpg" title="Ripple Import in one minute">
+        <source src="/assets/ripple-import-promo.mp4" type="video/mp4">
+      </video>
+    </section>
 
     <!-- features -->
     <section class="section" id="features" style="padding-top:24px;">
