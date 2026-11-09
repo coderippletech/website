@@ -95,6 +95,17 @@ for (const [, rawUrl] of sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)) {
   const target = localTarget(path.join(root, "sitemap.xml"), rawUrl);
   if (target && !targetExists(target)) {
     errors.push(`sitemap.xml references missing ${target}`);
+    continue;
+  }
+  // A page that asks not to be indexed must not also be offered for indexing:
+  // Search Console reports the contradiction as "Excluded by 'noindex' tag".
+  if (target) {
+    const file = [target, `${target}.html`]
+      .map((candidate) => path.join(root, candidate))
+      .find((candidate) => fs.existsSync(candidate) && fs.statSync(candidate).isFile());
+    if (file && /<meta[^>]+name=["']robots["'][^>]+noindex/i.test(fs.readFileSync(file, "utf8"))) {
+      errors.push(`sitemap.xml lists ${target}, which is marked noindex`);
+    }
   }
 }
 
