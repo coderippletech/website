@@ -11,20 +11,62 @@
       --accent: var(--purple);
       --accent-soft: var(--purple-soft);
     }
+    .legal table {
+      border-collapse: collapse; width: 100%;
+      font-size: 13.5px; color: var(--muted); margin: 12px 0;
+    }
+    .legal td, .legal th {
+      border: 1px solid var(--card-border); padding: 8px 12px;
+      text-align: left; vertical-align: top;
+    }
+    .legal th { color: var(--text); background: var(--card); }
+    .tip {
+      border-left: 3px solid var(--accent); border-radius: 0 8px 8px 0;
+      background: var(--card); padding: 12px 16px; margin: 24px 0;
+      font-size: 14.5px; color: var(--muted);
+    }
+    .tip strong { color: var(--text); }
+    .legal ul.jump { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 8px; padding: 0; list-style: none; }
+    .jump li { margin: 0; }
+    .jump a {
+      display: inline-block; padding: 7px 12px; border-radius: 999px;
+      border: 1px solid var(--card-border); background: var(--card);
+      font-size: 13.5px; color: var(--text); text-decoration: none;
+    }
+    .jump a:hover { border-color: var(--accent); }
+    .legal ol.guide-steps { padding-left: 1.3em; }
+    .legal ol.guide-steps > li { margin: 6px 0; }
+    .legal h3 { margin-top: 26px; }
+    @media (max-width: 640px) {
+      .legal table { display: block; overflow-x: auto; }
+    }
   </style>
+  <style>
+    /* Shown inside monday.com as the app's "How to use" tab: no site chrome. */
+    html.embedded .snav, html.embedded .sfooter { display: none; }
+  </style>
+  <script>
+    (function () {
+      var framed = true;
+      try { framed = window.self !== window.top; } catch (e) { /* cross-origin parent */ }
+      if (framed || /[?&]embed=1(&|$)/.test(location.search)) {
+        document.documentElement.classList.add("embedded");
+      }
+    })();
+  </script>
   <link rel="canonical" href="https://coderippletech.com/guide">
   <meta name="theme-color" content="#0a0e14">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="CodeRipple Tech">
   <meta property="og:url" content="https://coderippletech.com/guide">
   <meta property="og:title" content="How to Use Ripple Import">
-  <meta property="og:description" content="Full guide to imports, subitems, multi-level boards, updating existing items and exports in Ripple Import for monday.com.">
+  <meta property="og:description" content="Four steps to your first import, then step-by-step recipes for updating existing items from Excel, subitems, scheduled imports and more in Ripple Import for monday.com.">
   <meta property="og:image" content="https://coderippletech.com/assets/og-ripple-import.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="How to Use Ripple Import">
-  <meta name="twitter:description" content="Full guide to imports, subitems, multi-level boards, updating existing items and exports in Ripple Import for monday.com.">
+  <meta name="twitter:description" content="Four steps to your first import, then step-by-step recipes for updating existing items from Excel, subitems, scheduled imports and more in Ripple Import for monday.com.">
   <meta name="twitter:image" content="https://coderippletech.com/assets/og-ripple-import.png">
   <script type="application/ld+json">
   {
@@ -64,114 +106,143 @@
 
   <main class="legal">
     <h1>How to Use Ripple Import</h1>
-    <p class="date">Get started in minutes. No configuration needed.</p>
+    <p class="date">Your first import takes about two minutes. Here's how, followed by step-by-step recipes for the jobs people do most.</p>
 
-    <h2>Installation</h2>
-    <p>Install Ripple Import from the monday.com marketplace. Once installed, add it to any board as a <strong>Board View</strong>:</p>
-    <ul>
-      <li>Open your board</li>
-      <li>Click the <strong>+</strong> button next to your existing views (Main Table, Chart, etc.)</li>
-      <li>Search for <strong>Ripple Import</strong></li>
-      <li>Click to add it as a view</li>
+    <ul class="jump" aria-label="Jump to">
+      <li><a href="#quick-start">Quick start</a></li>
+      <li><a href="#update">Update existing items</a></li>
+      <li><a href="#same-settings">Repeat an import</a></li>
+      <li><a href="#subitems">Subitems</a></li>
+      <li><a href="#schedule">Scheduled imports</a></li>
+      <li><a href="#duplicates">Duplicates</a></li>
+      <li><a href="#formats">Numbers &amp; dates</a></li>
+      <li><a href="#faq">FAQ</a></li>
     </ul>
 
-    <h2>Step 1 — Upload your file</h2>
-    <p>Drag and drop a CSV or Excel file onto the upload area, or click to browse. Multi-sheet Excel workbooks are supported — you'll be able to choose which sheet to import.</p>
-    <p><strong>Don't have a file ready?</strong> Click <strong>Download Template</strong> to get a CSV or Excel file that matches your board's columns. Fill it in with your data and upload it.</p>
+    <h2 id="quick-start">Quick start</h2>
 
-    <h2>Step 2 — Map and preview</h2>
-    <p>Ripple Import automatically matches your file's columns to your board's columns by name and type. You can:</p>
+    <h3>Step 1 — Add Ripple Import to your board</h3>
+    <ol class="guide-steps">
+      <li>Open the board you want to import into.</li>
+      <li>Click <strong>+</strong> next to your views (Main table, Kanban, …), then <strong>Apps</strong> → <strong>Ripple Import</strong>.</li>
+    </ol>
+    <p>Ripple Import opens as a tab on the board. You only do this once per board.</p>
+
+    <h3>Step 2 — Upload your file</h3>
+    <p>Drag a <strong>CSV, XLSX or XLS</strong> file onto the upload area, or click it to browse. For an Excel workbook with several sheets, you'll pick the sheet.</p>
+    <p>No file yet? Under <strong>Need a template?</strong>, download a <strong>CSV template</strong> or <strong>Excel template</strong> with your board's columns already in place.</p>
+
+    <h3>Step 3 — Check the mapping</h3>
+    <p>Ripple Import matches your file's columns to the board's columns by name and type. Look down the list and adjust anything that's off:</p>
     <ul>
-      <li><strong>Adjust mappings</strong> — change which board column each file column maps to</li>
-      <li><strong>Skip columns</strong> — set any column to "Skip" if you don't want to import it</li>
-      <li><strong>Auto-create columns</strong> — if your file has columns that don't exist on the board, Ripple Import can create them for you</li>
-      <li><strong>Choose a target group</strong> — pick which group on your board the items should be added to</li>
+      <li>Pick a different board column from the dropdown.</li>
+      <li>Choose <strong>-- Skip --</strong> for columns you don't want to import.</li>
+      <li>Choose <strong>+ Create new column</strong> to add a column the board doesn't have yet.</li>
+    </ul>
+    <p>Map one column to <strong>Item Name</strong> (it's usually done for you). Then pick the group the new items go into. <strong>Preview Data</strong> shows exactly what will be imported, and any row with a problem (an invalid date or email, say) is flagged before anything happens.</p>
+
+    <h3>Step 4 — Import</h3>
+    <p>Click <strong>Start Import</strong>. A progress bar shows each item as it's added. At the end you get a summary: items created, subitems, items updated, and anything skipped or failed. Click <strong>Show Issue Details</strong> for the reason on each row, or <strong>Download issues CSV</strong> to fix those rows and import just them.</p>
+
+    <div class="tip"><strong>Importing into a brand-new board?</strong> On the mapping step choose <strong>To new board from file</strong>. Ripple Import creates the board with a column for every column in your file.</div>
+
+    <h2 id="update">Update existing items from a spreadsheet</h2>
+    <p>Use this when the items are already on the board and you want to refresh some of their values, for example totals worked out in Excel, prices or statuses. Nothing is duplicated.</p>
+    <ol class="guide-steps">
+      <li>Get your data into a file. The easiest way is <strong>Export</strong> on the upload step (CSV or Excel). It includes an <strong>Item ID</strong> column, which makes matching foolproof. Any file works as long as it has a column that identifies each item, such as a Case ID, order number or email.</li>
+      <li>Edit the file and upload it.</li>
+      <li>Map the column that identifies each row, plus the columns you want to change. Set <strong>every other column to -- Skip --</strong>, so only the columns you mean to update are written.</li>
+      <li>Under duplicates, choose <strong>Update existing</strong>.</li>
+      <li>In <strong>Match rows by</strong>, pick your identifying column (Item ID is picked for you when the file has one).</li>
+      <li>Tick <strong>Only update existing items</strong> if the file should never add new items.</li>
+      <li>Click <strong>Start Import</strong>.</li>
+    </ol>
+    <p>What stays untouched:</p>
+    <ul>
+      <li><strong>Columns you set to Skip</strong> keep their values on every item.</li>
+      <li><strong>Blank cells</strong> in your file never clear a value on the board.</li>
+      <li><strong>Item names</strong> change only if you map a column to Item Name.</li>
+    </ul>
+    <p>With <strong>Only update existing items</strong> ticked, a row whose key isn't on the board, is empty, or appears twice in the file is skipped and listed in the summary with the reason. Without it, rows with no match are added as new items, so one import can refresh existing items and add new ones.</p>
+    <div class="tip"><strong>Formula and mirror columns</strong> can't be written by any app, so keep calculated results in ordinary columns (Numbers or Text, for example). Other read-only columns, such as Auto number, Creation log, Last updated, Files and Time tracking, are skipped automatically.</div>
+
+    <h2 id="same-settings">Repeat an import with the same settings</h2>
+    <p>Ripple Import remembers how you set up the last import on each board: which columns were written or skipped, the duplicate mode, the match column, and the number and date formats. Next time you upload a file with the same columns, you'll see <strong>Same columns as your last import on this board</strong>. Click <strong>Use the same settings</strong> and everything is set up again in one go. Check it, then import.</p>
+    <p>The settings are kept per board and shared by everyone on your monday account, so a colleague doing the same weekly import gets them too.</p>
+
+    <h2 id="subitems">Import items with subitems</h2>
+    <p>Ripple Import can build parent items and their subitems from one file. On the mapping step, under <strong>How do you want to structure parents &amp; subitems?</strong>, pick how your file shows the structure:</p>
+    <table>
+      <tr><th>Option</th><th>Your file looks like</th></tr>
+      <tr><td><strong>Type column</strong></td><td>A column says what each row is: "Item" / "Subitem", or a level number (0, 1, 2…).</td></tr>
+      <tr><td><strong>Indentation</strong></td><td>Subitem names are indented with spaces or tabs under their parent.</td></tr>
+      <tr><td><strong>Parent Reference</strong></td><td>A column on each subitem row names its parent item.</td></tr>
+      <tr><td><strong>Flat (no subitems)</strong></td><td>One row per item. This is the default.</td></tr>
+    </table>
+    <p>To add subitems under an item that's already on the board, choose <strong>Add subitems to existing item</strong> and pick the parent.</p>
+    <p><strong>Multi-level boards</strong> (up to 5 levels) are detected automatically. The same options build deeper hierarchies, and you can add children under an existing item at any level.</p>
+
+    <h2 id="schedule">Schedule a recurring import from a link</h2>
+    <p>Point Ripple Import at a file that's updated regularly, such as a daily export from your finance system, and it imports it on a schedule. Runs happen on our servers, so nobody has to have monday open.</p>
+    <ol class="guide-steps">
+      <li>On the upload step choose <strong>From a link</strong>.</li>
+      <li>Connect your monday account (once). This lets runs happen while you're away.</li>
+      <li>Paste a link to a CSV or Excel file. Share links from <strong>SharePoint, OneDrive, Google Drive, Google Sheets and Dropbox</strong> work, and so does any direct HTTPS link. If the file needs a key, tick <strong>This link needs an authentication header</strong>.</li>
+      <li>Map the columns. You're mapping the real file, so what you see is what each run imports.</li>
+      <li>Choose <strong>Update existing</strong> and a match column, such as an invoice or reference number. This is what stops every run from adding the same rows again.</li>
+      <li>Click <strong>Set up a schedule</strong> and choose when it runs: daily, weekdays only, weekly, or every few hours.</li>
+    </ol>
+    <p>The upload step then shows the board's schedules and when the next run is. Open a schedule to pause it, edit it, run it now, or see its last 60 runs with what was created, updated, skipped or failed. If the file changes shape (a column renamed, say), the run stops and tells you why instead of importing the wrong thing.</p>
+    <div class="tip"><strong>The file must be reachable over HTTPS.</strong> A path on an internal network drive won't work, because runs happen on our servers. Save or sync the file to SharePoint or OneDrive and use its share link. Scheduled runs count toward your plan's monthly imports, like imports you run yourself.</div>
+    <p>Just want to import a file from a link once? Choose <strong>Import once now</strong> instead of setting up a schedule.</p>
+
+    <h2 id="duplicates">What happens to rows that are already on the board</h2>
+    <p>When your file contains items the board already has, you choose what happens:</p>
+    <table>
+      <tr><th>Option</th><th>What it does</th></tr>
+      <tr><td><strong>Create anyway</strong></td><td>Adds every row as a new item, even if one with the same name exists.</td></tr>
+      <tr><td><strong>Skip duplicates</strong></td><td>Leaves items with the same name alone. Only new names are added.</td></tr>
+      <tr><td><strong>Update existing</strong></td><td>Matches rows to items (by Item ID, name, or any column you pick) and refreshes their values. Unmatched rows are added, or skipped if <strong>Only update existing items</strong> is ticked.</td></tr>
+    </table>
+
+    <h2 id="formats">Numbers and dates</h2>
+    <p>Real number and date cells in an Excel file are read exactly, whatever your regional settings. The <strong>How do you want to parse dates and numbers?</strong> options matter when numbers and dates are typed as text, as in CSV files:</p>
+    <ul>
+      <li><strong>Date format:</strong> <code>MM/DD/YYYY</code> (US) or <code>DD/MM/YYYY</code> (EU/UK). ISO dates like <code>2026-03-04</code> always work.</li>
+      <li><strong>Number format:</strong> <code>1,234.56</code> (US/UK) or <code>1.234,56</code> (EU). Currency symbols are ignored.</li>
     </ul>
 
-    <h2>Importing with subitems</h2>
-    <p>Ripple Import can automatically detect parent-child relationships in your data. Three detection modes are available:</p>
+    <h2>Header tags (optional)</h2>
+    <p>When Ripple Import creates new columns, it guesses each column's type from the data. To choose the type yourself, put a tag in front of the header in your file:</p>
     <ul>
-      <li><strong>Type / Level column</strong> — a column in your file that indicates whether each row is a parent or subitem (e.g., "Parent" / "Subitem", or level numbers 0, 1, 2)</li>
-      <li><strong>Indentation</strong> — subitems are indented with spaces or tabs in the item name column</li>
-      <li><strong>Parent reference</strong> — a column that contains the name of each row's parent item</li>
-    </ul>
-    <p>You can also add subitems to an existing item on your board. Select <strong>"Add subitems to existing item"</strong> and pick the parent from the dropdown.</p>
-
-    <h2>Multi-level boards</h2>
-    <p>If your board is a multi-level board, Ripple Import automatically detects this and adapts the entire experience. Multi-level boards support up to 5 levels of nesting (Level 0 through Level 4). You can:</p>
-    <ul>
-      <li>Import items with multiple levels of hierarchy in a single upload</li>
-      <li>Add children to any existing item at any depth</li>
-      <li>Download templates with level indicators</li>
-    </ul>
-    <p>All columns are shared across every level on multi-level boards — no separate column assignment is needed.</p>
-
-    <h2>Step 3 — Import</h2>
-    <p>Click <strong>Import</strong> and Ripple Import creates the items on your board. You'll see real-time progress showing how many items have been created. When it's done, you'll see a summary with counts for items created, subitems, any skipped duplicates, and any errors.</p>
-
-    <h2>Export your board data</h2>
-    <p>Need to edit existing items in bulk? Export the current board as a CSV or Excel file, change what you need offline, then re-upload to apply the changes.</p>
-    <ul>
-      <li>On the upload step, choose a group from the <strong>Export</strong> dropdown (or "All groups" for everything) and click <strong>CSV</strong> or <strong>Excel</strong>.</li>
-      <li>The exported file mirrors your board: every column on the board becomes a column in the file, and every item becomes a row with its current values.</li>
-      <li>An <strong>Item ID</strong> column is included as the first column. This is what makes round-trip updates reliable — keep it intact when editing.</li>
+      <li><code>[status] Priority</code> creates a Status column</li>
+      <li><code>[date] Due Date</code> creates a Date column</li>
+      <li><code>[numbers] Budget</code> creates a Numbers column</li>
+      <li><code>[email] Contact</code> creates an Email column</li>
     </ul>
 
-    <h2>Update existing items</h2>
-    <p>When you re-import a file, Ripple Import can update existing items in place instead of creating duplicates. In the Preview step, pick <strong>"Update existing"</strong> in the duplicate-handling section.</p>
-    <p>You can choose <strong>how rows are matched to existing items</strong> with the "Match rows by" dropdown:</p>
-    <ul>
-      <li><strong>Item ID</strong> (auto-detected) — the most reliable option. If your file came from the Export feature, the Item ID column is already there and matching is automatic. IDs survive renames, group moves, and column changes.</li>
-      <li><strong>Item Name</strong> — default fallback when there's no Item ID column. Case-insensitive, whitespace-trimmed. Less reliable if items share names or have been renamed.</li>
-      <li><strong>Any other column you've mapped</strong> — for example, match by Email, Order ID, or any unique identifier already on the board. Pick the column from the dropdown and Ripple Import will look it up against the corresponding board column.</li>
-    </ul>
-    <p>Rows that match existing items get their column values refreshed (and renamed, if the name changed). Rows with no match get created as new items in the same import — so a single re-import can both update and add.</p>
-    <p>Stale Item IDs (items deleted since export), in-file duplicate IDs, and update failures are surfaced on the Done screen with row-level details, never silently skipped.</p>
+    <h2>Board column limit</h2>
+    <p>A monday board can have up to <strong>500 columns</strong>. Ripple Import checks your mapping against that limit before the import starts. If it would go over, it tells you by how much, keeps <strong>Start Import</strong> disabled until you skip or combine columns, and suggests importing into a new board instead when that would fit.</p>
 
-    <h2>Skip duplicates</h2>
-    <p>If you'd rather not update or create new entries when names already exist on the board, pick <strong>"Skip duplicates"</strong> instead. Matching rows are left alone, only new items get added.</p>
+    <h2 id="faq">FAQ</h2>
 
-    <h2>Scheduled imports</h2>
-    <p>Instead of uploading a file by hand, point Ripple Import at a link and let it run on its own. It fetches the file and updates your board on a schedule. Runs happen on our servers, so nobody needs to have monday open.</p>
-    <p>To set one up, choose <strong>From a link</strong> instead of <strong>Upload a file</strong> on the upload step, then:</p>
-    <ul>
-      <li>Paste a direct link to a CSV or Excel file. SharePoint, OneDrive, Google Drive, Dropbox and GitHub share links are turned into direct downloads for you. If the file sits behind a key or token, add it as a request header.</li>
-      <li>Connect your monday account once. This is what lets a run create items when you're not there.</li>
-      <li>Map the columns and preview as normal. It fetches the real file, so what you map is exactly what will be imported.</li>
-      <li>Pick <strong>Update existing</strong> and a match column, for example an invoice or reference number.</li>
-      <li>Choose when it runs — daily, on chosen weekdays, or every few hours — and save.</li>
-    </ul>
-    <p>The match column matters more here than anywhere else. Without one, every run adds a fresh copy of every row, so a daily schedule would pile up duplicates. With one, the same rows are updated in place and the board stays the size it should be.</p>
-    <p>Times are in your own timezone, and daylight saving is handled for you. A run fires shortly after the time you set, not to the exact second.</p>
-    <p>Once a schedule exists, the upload step shows a line telling you how many schedules the board has and when the next run is. Open it to see every schedule, and open one to see its run history — when it ran, and how many items were created, updated, skipped, or failed. The last 60 runs are kept. If a run fails, the reason is shown there rather than being swallowed, and if the file changes shape (a renamed column, say) the run stops instead of importing something wrong.</p>
-    <p>You can have several schedules on one board, for example one file for orders and another for returns. Each keeps its own history and can be paused on its own.</p>
-    <p>Two things to know. The file has to be reachable over HTTPS — a path on an internal network drive won't work, because the import runs on our servers rather than your machine. And scheduled runs count toward your plan's monthly import allowance, the same as imports you run by hand.</p>
+    <h3>Will an import overwrite columns I didn't mean to change?</h3>
+    <p>Only mapped columns are written. Set the columns you want left alone to <strong>-- Skip --</strong>, and use <strong>Use the same settings</strong> on later imports so those choices are kept. Blank cells never clear values.</p>
 
-    <h2>Header hint tags</h2>
-    <p>For advanced control, you can add tags to your file's column headers to specify the column type:</p>
-    <ul>
-      <li><code>[status] Priority</code> — maps to a Status column</li>
-      <li><code>[date] Due Date</code> — maps to a Date column</li>
-      <li><code>[numbers] Budget</code> — maps to a Numbers column</li>
-      <li><code>[email] Contact</code> — maps to an Email column</li>
-    </ul>
-    <p>Tags are optional — Ripple Import auto-detects column types when no tags are provided.</p>
+    <h3>Can I try it safely first?</h3>
+    <p>Yes. Duplicate the board in monday (board menu → Duplicate board), add Ripple Import to the copy, and run your import there first.</p>
 
-    <h2>Import to a new board</h2>
-    <p>Select <strong>"Start fresh from file"</strong> to create a brand new board from your file. Ripple Import will create the board with columns matching your file and import all data into it.</p>
+    <h3>Why were some rows skipped?</h3>
+    <p>Open <strong>Show Issue Details</strong> on the summary screen. Every skipped or failed row is listed with its reason, and <strong>Download issues CSV</strong> gives you just those rows to fix and import again.</p>
 
-    <h2>Board column limits</h2>
-    <p>monday boards currently support up to <strong>500 columns per board</strong>. Ripple Import checks your mapping against this limit <em>before</em> the import starts, so you won't end up half-finished with a validation error from monday's API.</p>
-    <ul>
-      <li><strong>Importing into an existing board</strong> — the app counts the board's current columns plus any new ones your mapping would create. Columns you're reusing aren't double-counted.</li>
-      <li><strong>Importing into a new board</strong> — the app counts the default columns plus every column that would be created from your file.</li>
-    </ul>
-    <p>If your mapping would exceed the limit, the Preview step shows a clear <strong>"Column limit exceeded"</strong> message with the projected total, and the <strong>Start Import</strong> button stays disabled until you skip or consolidate enough columns to fit.</p>
-    <p><strong>Smart fallback:</strong> if importing into the current board would go over the limit but a new board would fit (or the other way around), Ripple Import suggests the alternative with a one-click switch, so you don't have to reconfigure everything manually.</p>
-    <p>You can read more about monday's column limits in <a href="https://support.monday.com/hc/en-us/articles/115005310945-The-basics-of-columns" target="_blank" rel="noopener">The basics of columns</a>.</p>
+    <h3>Does my file leave monday.com?</h3>
+    <p>Uploaded files are read in your browser and go straight to your board. They never reach our servers. Scheduled imports from a link are the exception: the file is downloaded on monday.com's own app platform, imported, and discarded. The <a href="/privacy.html">privacy policy</a> has the details.</p>
+
+    <h3>How many imports can I run?</h3>
+    <p>The Free plan includes 10 imports a month, and paid plans include more. The current count is shown at the bottom of the Ripple Import view.</p>
 
     <h2>Need help?</h2>
-    <p>Contact us at <a href="mailto:support@coderippletech.com">support@coderippletech.com</a> and we'll get back to you as soon as possible.</p>
+    <p>Email <a href="mailto:support@coderippletech.com">support@coderippletech.com</a> and we'll get back to you quickly.</p>
   </main>
 
   <footer class="sfooter">

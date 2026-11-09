@@ -61,8 +61,10 @@
 
 - [Ripple Import](https://coderippletech.com/ripple-import/): monday.com board
   view app that imports CSV and Excel files into monday.com boards. Smart
-  column mapping, subitem and multi-level hierarchy detection, duplicate
-  update-or-skip, templates and exports. Free plan: 10 imports/month.
+  column mapping, subitem and multi-level hierarchy detection, updating
+  existing items by any column (with an update-only mode), remembered
+  settings per board, scheduled imports from SharePoint/OneDrive/Google
+  Drive/Dropbox links, templates and exports. Free plan: 10 imports/month.
   Pro $10/account/month, Business $20/account/month, billed through the
   monday.com marketplace. Usage guide: https://coderippletech.com/guide
 
@@ -93,8 +95,10 @@
   account, workspace, device, encrypted-secret, billing and Google sign-in
   data handling for RippleRoot.
 - [RippleRoot terms](https://coderippletech.com/rippleroot/terms/)
-- [Ripple Import guide](https://coderippletech.com/guide): full how-to for
-  imports, subitems, multi-level boards, updates and exports.
+- [Ripple Import guide](https://coderippletech.com/guide): four-step quick
+  start, then recipes for updating existing items from Excel (match by any
+  column, update-only), repeating an import with the same settings,
+  subitems and multi-level boards, and scheduled imports from a link.
 - [Ripple Import privacy](https://coderippletech.com/privacy): uploaded files
   are parsed in the browser and never reach CodeRipple's servers; optional
   scheduled imports run on monday code (US region), keep no file contents,
