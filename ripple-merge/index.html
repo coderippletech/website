@@ -16,6 +16,13 @@
     .monday-badge img { height: 46px; width: auto; }
     .monday-badge { transition: transform 0.15s ease; display: inline-flex; }
     .monday-badge:hover { transform: translateY(-1px); }
+  
+    .promo-player {
+      display: block; width: 100%; max-width: 980px; height: auto; aspect-ratio: 16 / 9;
+      margin: 0 auto; border-radius: 16px; background: #0a0e14;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+    }
   </style>
   <link rel="canonical" href="https://coderippletech.com/ripple-merge/">
   <meta name="theme-color" content="#0a0e14">
@@ -116,10 +123,18 @@
       </a>
       <a class="btn btn-ghost" href="/ripple-merge/guide/">Read the guide</a>
     </div>
-    <div class="hero-note">Your data stays inside monday.com. No third-party services, no tracking.</div>
+    <div class="hero-note">Templates stay in your monday account. No analytics, no tracking.</div>
   </header>
 
   <main class="wrap">
+
+    <!-- one-minute promo (self-hosted; no third-party player or cookies) -->
+    <section class="section reveal" aria-label="Ripple Merge in one minute" style="padding-top:8px;padding-bottom:0;">
+      <video class="promo-player" controls playsinline muted preload="none" width="1920" height="1080"
+        poster="/assets/ripple-merge-promo-poster.jpg" title="Ripple Merge in one minute">
+        <source src="/assets/ripple-merge-promo.mp4" type="video/mp4">
+      </video>
+    </section>
 
     <!-- big screenshot -->
     <section class="section" style="padding-top:12px;">
@@ -223,12 +238,14 @@
     <section class="section">
       <div class="split flip">
         <div class="split-copy reveal">
-          <h3>Your data never leaves monday.com</h3>
-          <p>Templates live in monday's Storage API. The backend runs on monday-code,
-          monday's own hosting platform. There is nothing else.</p>
+          <h3>Your templates stay in your monday account</h3>
+          <p>Templates live in monday's Storage API, and the backend runs on monday-code,
+          monday's own hosting platform. The only outside service is OpenAI, and only when
+          you use an AI feature.</p>
           <ul>
-            <li>No third-party services, no analytics, no tracking</li>
+            <li>No analytics, advertising or tracking</li>
             <li>Item and subitem values are processed in memory during a run, never stored</li>
+            <li>AI features stay off until you use them. The <a href="/ripple-merge/privacy/">privacy policy</a> says exactly what they send</li>
             <li>Uninstall the app and its stored data is deleted automatically</li>
           </ul>
         </div>
