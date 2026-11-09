@@ -78,6 +78,15 @@
     @media (prefers-reduced-motion: reduce) {
       .ai-line { opacity: 1; transform: none; }
     }
+
+    .promo-player {
+      display: block; width: 100%; max-width: 980px; height: auto; aspect-ratio: 16 / 9;
+      margin: 0 auto; border-radius: 16px; background: #0a0e14;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+    }
+    .phones-shot { display: block; width: 100%; max-width: 520px; height: auto; margin: 0 auto; }
+    .soon-note { margin-top: 18px; font-size: 13.5px; color: var(--muted); }
   </style>
   <meta name="theme-color" content="#0a0e14">
   <meta property="og:type" content="website">
@@ -99,7 +108,7 @@
     "name": "Ripplebug",
     "url": "https://coderippletech.com/ripplebug/",
     "image": "https://coderippletech.com/assets/og-ripplebug.png",
-    "description": "Chrome and Edge extension that captures the screenshot, screen recording, console and network in one click, then files a complete bug ticket to Azure DevOps, GitHub, Jira, Linear, GitLab, Trello or a live triage board with AI summaries, severity suggestions and repro-step drafts.",
+    "description": "Chrome and Edge extension, and an iPhone and Android app, that capture the screenshot, screen recording, console and network, then file a complete bug ticket to Azure DevOps, GitHub, Jira, Linear, GitLab, Trello or a live triage board with AI summaries, severity suggestions and repro-step drafts.",
     "applicationCategory": "DeveloperApplication",
     "operatingSystem": "Chrome, Edge",
     "installUrl": "https://chromewebstore.google.com/detail/ripplebug/hgbejokcghdecljpjgbniplicahlfaan",
@@ -146,6 +155,7 @@
       <a href="#capture">Capture</a>
       <a href="#board">Board</a>
       <a href="#guests">Guest reports</a>
+      <a href="#phone">Phone app</a>
       <a href="#ai">AI triage</a>
       <a href="#pricing">Pricing</a>
       <a class="btn btn-teal" href="https://chromewebstore.google.com/detail/ripplebug/hgbejokcghdecljpjgbniplicahlfaan">Add to Chrome</a>
@@ -155,11 +165,12 @@
   <header class="hero">
     <div class="orb orb-teal"></div>
     <div class="orb orb-purple"></div>
-    <span class="eyebrow">Chrome &amp; Edge extension + live board</span>
+    <span class="eyebrow">Chrome &amp; Edge · iPhone &amp; Android · live board</span>
     <h1 class="display">Every bug,<br><span class="grad-teal">captured whole.</span></h1>
     <p class="lede">Stop writing bug reports nobody can reproduce. One click captures the
     screenshot, the screen recording, the console and the network, then files a complete
-    ticket wherever your team tracks work. On Pro boards, AI triages every report the moment it lands.</p>
+    ticket wherever your team tracks work. Testers can report from their phones too.
+    On Pro boards, AI triages every report the moment it lands.</p>
     <div class="hero-ctas">
       <a class="btn btn-teal" href="https://chromewebstore.google.com/detail/ripplebug/hgbejokcghdecljpjgbniplicahlfaan">Add to Chrome — free</a>
       <a class="btn btn-ghost" href="https://board.coderippletech.com">Create a free board</a>
@@ -168,6 +179,14 @@
   </header>
 
   <main class="wrap">
+
+    <!-- one-minute promo (self-hosted; no third-party player or cookies) -->
+    <section class="section reveal" aria-label="Ripplebug in one minute" style="padding-top:8px;padding-bottom:28px;">
+      <video class="promo-player" controls playsinline muted preload="none" width="1920" height="1080"
+        poster="/assets/ripplebug-promo-poster.jpg" title="Ripplebug in one minute">
+        <source src="/assets/ripplebug-promo.mp4" type="video/mp4">
+      </video>
+    </section>
 
     <!-- trackers marquee -->
     <section class="section" style="padding-top:0;">
@@ -244,6 +263,11 @@
           <p>Turn any capture into a paste-ready debugging prompt for Claude, Cursor, or any AI tool. Steps, console, network and environment included.</p>
         </div>
         <div class="feature reveal">
+          <div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4"/><path d="m4.9 4.9 2.8 2.8"/><path d="M2 12h4"/><circle cx="12" cy="12" r="4"/><path d="m16.2 16.2 2.9 2.9"/><path d="M18 12h4"/><path d="M12 18v4"/></svg></div>
+          <h4>Hand it to your AI agent</h4>
+          <p>Connect Claude, Cursor or any MCP client to the board. The agent claims a card, reads the evidence, opens the fix and moves the card to Fixed.</p>
+        </div>
+        <div class="feature reveal">
           <div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
           <h4>Your tokens stay yours</h4>
           <p>Tracker credentials live in your browser, not on our servers. No analytics, no middleman.</p>
@@ -289,6 +313,32 @@
         <div class="browser reveal">
           <div class="browser-bar"><span></span><span></span><span></span><div class="url">board.coderippletech.com/r/…</div></div>
           <img src="/assets/shot-intake.png" alt="Ripplebug guest report page with screen recording">
+        </div>
+      </div>
+    </section>
+
+    <!-- phone app -->
+    <section class="section" id="phone">
+      <div class="split">
+        <div class="split-copy reveal">
+          <h3>Testers report from<br>their phones.</h3>
+          <p>The Ripplebug app for iPhone and Android <strong>records any app</strong> while
+          you reproduce the bug, or takes the screenshot you already have. It files to the
+          same board, with the phone's model and OS attached.</p>
+          <ul>
+            <li>Trim the recording and mark the moment it broke</li>
+            <li>Arrows, boxes and blur, right on the screenshot</li>
+            <li>Spots matching cards, so nobody files the same bug twice</li>
+            <li>No signal? Reports wait in an outbox and send when you're back</li>
+            <li>A notification when your report moves or gets a reply</li>
+          </ul>
+          <p class="soon-note">Coming soon to the App Store and Google Play. Your own
+          website can carry the report button too: <code>embed.js</code> captures the
+          console, network and steps in any phone browser.</p>
+        </div>
+        <div class="reveal">
+          <img class="phones-shot" src="/assets/shot-ripplebug-phones.webp" width="1620" height="1695" loading="lazy"
+            alt="The Ripplebug iPhone app: marking up a screenshot, and a report moved to Fixed with the team's replies">
         </div>
       </div>
     </section>

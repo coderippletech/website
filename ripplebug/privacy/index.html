@@ -33,16 +33,17 @@
 
   <main class="legal">
     <h1>Ripplebug Privacy Policy</h1>
-    <p class="date">Last updated: November 7, 2026 · Applies to the Ripplebug browser
-    extension, the Ripplebug Board service at board.coderippletech.com, and the
-    RippleBug for Jira app.</p>
+    <p class="date">Last updated: November 9, 2026 · Applies to the Ripplebug browser
+    extension, the Ripplebug app for iPhone and Android, the Ripplebug Board service at
+    board.coderippletech.com, and the RippleBug for Jira app.</p>
 
     <h2>The short version</h2>
     <p>Ripplebug exists to move bug reports from your browser to the places you
     choose — and nowhere else. The extension has no analytics and no tracking. It
     talks to our servers only to sign you in to Jira (see below) and, if you connect
-    a Ripplebug Board, to save reports to it. The Board service stores only what you
-    put on it.</p>
+    a Ripplebug Board, to save reports to it. The phone app sends reports only to your
+    board. The Board service stores only what you put on it. None of it is used for
+    advertising or tracking, and you can delete your account at any time.</p>
 
     <h2>The extension</h2>
     <ul>
@@ -75,6 +76,30 @@
       trackers</strong>.</li>
     </ul>
 
+    <h2>The phone app (iPhone and Android)</h2>
+    <ul>
+      <li><strong>Sign-in:</strong> you sign in on the board's own page. The app keeps
+      the resulting sign-in token in the phone's secure storage (Keychain on iPhone,
+      Keystore on Android).</li>
+      <li><strong>Screenshots and recordings:</strong> the app only handles what you
+      pick, share to it, or record with its screen recorder. Nothing is uploaded until
+      you file the report; until then the draft stays on the phone. Recordings have no
+      audio. Markup and blur are applied on the phone before upload.</li>
+      <li><strong>Photos access</strong> (optional) lets the app show the screenshots
+      and recordings you took in the last 30 minutes, so you can report one in a tap.
+      It reads them on the phone and uploads only the ones you file.</li>
+      <li><strong>Device details:</strong> each report carries the phone's model,
+      operating system and version, the app version, screen size and language, so the
+      bug can be reproduced.</li>
+      <li><strong>Notifications</strong> (optional): if you turn them on, the app gives
+      the board a push token so it can tell you when your report moves or gets a reply.
+      Notifications are delivered through Expo's push service and Apple Push
+      Notification service or Firebase Cloud Messaging. Turning them off, or signing
+      out, removes the token.</li>
+      <li>The app contains <strong>no analytics, no ads, and no third-party
+      trackers</strong>.</li>
+    </ul>
+
     <h2>The Board service (board.coderippletech.com)</h2>
     <ul>
       <li><strong>Account data:</strong> your email address (or GitHub identity if you
@@ -92,6 +117,10 @@
       perform exports on your behalf, encrypted at rest. Disconnect at any time to
       remove them. Connecting Jira with Atlassian sign-in stores the sign-in tokens
       (encrypted) and the Jira site, but not your Atlassian account id or name.</li>
+      <li><strong>AI features</strong> (Pro boards: triage, and "Describe it for me" in
+      the phone app) send the report's text, logs and the images you chose to our AI
+      provider, Anthropic, to write the summary. Anthropic does not use it to train
+      models. Boards without AI send nothing.</li>
     </ul>
 
     <h2>RippleBug for Jira (the Atlassian app)</h2>
@@ -109,8 +138,13 @@
 
     <h2>Data deletion</h2>
     <p>Deleting a capture removes its media from storage. Deleting a board removes all
-    of its content. For full account deletion, email us and we will remove your account
-    and all associated data.</p>
+    of its content.</p>
+    <p>You can delete your account at any time, in <strong>Settings</strong> on the board
+    or with <strong>Delete account</strong> in the phone app. That removes your account,
+    your sign-ins, and every board you own with all its cards, files and comments, and
+    cancels any paid plan. Cards and comments you added to other people's boards stay on
+    those boards, shown as "Deleted user". You can also email us and we will do it for
+    you.</p>
 
     <h2>Permissions the extension requests</h2>
     <ul>
@@ -121,6 +155,15 @@
       <li><strong>Storage</strong> — for your settings and drafts, locally.</li>
       <li><strong>Identity</strong> — to open Atlassian's sign-in page for Sign in
       with Atlassian and receive the result.</li>
+    </ul>
+
+    <h2>Permissions the phone app requests</h2>
+    <ul>
+      <li><strong>Photos</strong>: to pick screenshots and recordings, and (if you allow
+      it) to show the ones you just took.</li>
+      <li><strong>Screen recording</strong>: asked by the phone each time you start a
+      recording; only while it runs.</li>
+      <li><strong>Notifications</strong>: optional, for updates on your reports.</li>
     </ul>
 
     <h2>Contact</h2>
