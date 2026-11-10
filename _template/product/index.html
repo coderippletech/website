@@ -12,7 +12,8 @@
   <title>{{PRODUCT}} — {{ONE_LINE_PROMISE}}</title>
   <meta name="description" content="{{META_DESCRIPTION_UNDER_160_CHARS}}">
   <link rel="icon" href="/assets/{{PRODUCT_SLUG}}-logo.png">
-  <link rel="stylesheet" href="/site.css?v=19">
+  <link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/site.css?v=29">
   <style>
     /* Product accent — the only styling a new product needs.
        Ripplebug uses teal, Ripple Import purple. Pick something distinct:
@@ -22,19 +23,35 @@
       --accent-soft: rgba(245, 166, 35, 0.14);
     }
   </style>
+  <script src="/site.js?v=1" defer></script>
 </head>
 <body>
-
-  <nav class="snav">
+  <a class="skip" href="#main">Skip to content</a>
+  <nav class="snav" aria-label="Main">
     <div class="snav-brand">
+      <a class="snav-by" href="/">CodeRipple Tech</a>
+      <span class="snav-sep" aria-hidden="true">/</span>
       <a class="snav-brand-main" href="/{{PRODUCT_SLUG}}/">
-        <img src="/assets/{{PRODUCT_SLUG}}-logo.png" alt="">
+        <img src="/assets/{{PRODUCT_SLUG}}-logo.png" alt="" width="26" height="26">
         {{PRODUCT}}
       </a>
-      <a class="snav-by" href="/">by CodeRipple Tech</a>
     </div>
     <div class="snav-links">
       <a href="#features">Features</a>
+      <details class="nav-drop">
+        <summary class="nav-drop-btn"><span class="nav-drop-label">Products</span><svg class="nav-drop-grid" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><circle cx="3" cy="3" r="1.6"/><circle cx="8" cy="3" r="1.6"/><circle cx="13" cy="3" r="1.6"/><circle cx="3" cy="8" r="1.6"/><circle cx="8" cy="8" r="1.6"/><circle cx="13" cy="8" r="1.6"/><circle cx="3" cy="13" r="1.6"/><circle cx="8" cy="13" r="1.6"/><circle cx="13" cy="13" r="1.6"/></svg><svg class="nav-drop-caret" width="10" height="7" viewBox="0 0 10 7" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></summary>
+        <div class="nav-drop-menu">
+          <a href="/ripplebug/"><img src="/assets/ripplebug-logo.png" alt="" width="28" height="28"><span>Ripplebug<small>Bug reports with the evidence attached</small></span></a>
+          <a href="/ripplereach/"><img src="/assets/ripplereach-logo.png" alt="" width="28" height="28"><span>RippleReach<small>Remote desktop in tabs, Windows and Mac</small></span></a>
+          <a href="/ripplesnap/"><img src="/assets/ripplesnap-logo.png" alt="" width="28" height="28"><span>RippleSnap<small>Window manager for macOS</small></span></a>
+          <a href="/ripple-import/"><img src="/assets/logo.svg" alt="" width="28" height="28"><span>Ripple Import<small>CSV and Excel into monday.com</small></span></a>
+          <a href="/ripple-merge/"><img src="/assets/ripple-merge-mark.svg" alt="" width="28" height="28"><span>Ripple Merge<small>Mail merge for monday.com emails</small></span></a>
+          <a href="/rippleroot/"><img src="/assets/rippleroot-logo.png" alt="" width="28" height="28"><span>RippleRoot<small>Your dev workspace on every machine</small></span></a>
+          <a href="/rippleclip/"><img src="/assets/rippleclip-logo.png" alt="" width="28" height="28"><span>RippleClip<small>The capture inbox for iPhone</small></span></a>
+          <a href="/ripple-preview/"><img src="/assets/ripple-preview-logo.svg" alt="" width="28" height="28"><span>Ripple Preview<small>Real block previews for Umbraco</small></span></a>
+          <div class="nav-drop-foot"><a href="/">All products</a><a href="/blog/">Blog</a><a href="/contact/">Contact</a></div>
+        </div>
+      </details>
       <a class="btn btn-teal" href="{{PRIMARY_CTA_URL}}">{{PRIMARY_CTA}}</a>
     </div>
   </nav>
@@ -52,7 +69,7 @@
     <div class="hero-note">{{TRUST_LINE — free plan, no card, data stays yours…}}</div>
   </header>
 
-  <main class="wrap">
+  <main id="main" class="wrap">
 
     <section class="section" style="padding-top:12px;">
       <div class="browser reveal">

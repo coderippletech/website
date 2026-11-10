@@ -27,34 +27,33 @@
 <meta name="author" content="Dan Negoescu">
 <link rel="author" href="https://github.com/negoescg">
 <link rel="alternate" type="application/rss+xml" title="CodeRipple Tech — Blog" href="https://coderippletech.com/blog/feed.xml">
-<link rel="icon" href="/assets/logo.svg">
-<link rel="stylesheet" href="/site.css?v=18">
+<link rel="icon" type="image/svg+xml" href="/assets/coderipple-icon.svg">
+<link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/site.css?v=29">
 <link rel="stylesheet" href="/blog/blog.css?v=7">
-<script type="application/ld+json">[{"@context":"https://schema.org","@type":"BlogPosting","headline":"The bug with no spinner","description":"A video kept stopping and starting with no buffering circle. That missing circle ruled out half the system before I'd opened a single graph, and I checked the graphs anyway.","abstract":"A video kept stopping and starting with no buffering circle. That missing circle ruled out half the system before I'd opened a single graph, and I checked the graphs anyway.","datePublished":"2026-08-02T09:00:00Z","dateModified":"2026-08-02T09:00:00Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://coderippletech.com/blog/the-bug-with-no-spinner/"},"url":"https://coderippletech.com/blog/the-bug-with-no-spinner/","inLanguage":"en-GB","wordCount":504,"timeRequired":"PT2M","articleSection":"Tech","keywords":"debugging, hls, jellyfin, streaming, self-hosting","image":"https://coderippletech.com/assets/og/blog-the-bug-with-no-spinner.png","author":{"@type":"Person","name":"Dan Negoescu","jobTitle":"Software engineer · founder, CodeRipple Tech","description":"I build small developer tools and self-host almost everything that runs them. Most of what I write here started as something that broke on a Tuesday.","url":"https://coderippletech.com/blog/","sameAs":["https://github.com/negoescg","https://github.com/coderippletech","https://app.daily.dev/squads/rippleeffect"]},"publisher":{"@type":"Organization","name":"CodeRipple Tech","url":"https://coderippletech.com","logo":{"@type":"ImageObject","url":"https://coderippletech.com/assets/logo.svg"}}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"CodeRipple Tech","item":"https://coderippletech.com/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://coderippletech.com/blog/"},{"@type":"ListItem","position":3,"name":"The bug with no spinner","item":"https://coderippletech.com/blog/the-bug-with-no-spinner/"}]}]</script>
+<script type="application/ld+json">[{"@context":"https://schema.org","@type":"BlogPosting","headline":"The bug with no spinner","description":"A video kept stopping and starting with no buffering circle. That missing circle ruled out half the system before I'd opened a single graph, and I checked the graphs anyway.","abstract":"A video kept stopping and starting with no buffering circle. That missing circle ruled out half the system before I'd opened a single graph, and I checked the graphs anyway.","datePublished":"2026-08-02T09:00:00Z","dateModified":"2026-08-02T09:00:00Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://coderippletech.com/blog/the-bug-with-no-spinner/"},"url":"https://coderippletech.com/blog/the-bug-with-no-spinner/","inLanguage":"en-GB","wordCount":504,"timeRequired":"PT2M","articleSection":"Tech","keywords":"debugging, hls, jellyfin, streaming, self-hosting","image":"https://coderippletech.com/assets/og/blog-the-bug-with-no-spinner.png","author":{"@type":"Person","name":"Dan Negoescu","jobTitle":"Software engineer · founder, CodeRipple Tech","description":"I build small developer tools and self-host almost everything that runs them. Most of what I write here started as something that broke on a Tuesday.","url":"https://coderippletech.com/blog/","sameAs":["https://github.com/negoescg","https://github.com/coderippletech","https://app.daily.dev/squads/rippleeffect"]},"publisher":{"@type":"Organization","name":"CodeRipple Tech","url":"https://coderippletech.com","logo":{"@type":"ImageObject","url":"https://coderippletech.com/assets/coderipple-icon.svg"}}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"CodeRipple Tech","item":"https://coderippletech.com/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://coderippletech.com/blog/"},{"@type":"ListItem","position":3,"name":"The bug with no spinner","item":"https://coderippletech.com/blog/the-bug-with-no-spinner/"}]}]</script>
 </head>
 <body class="bp-post-body" data-accent="sky">
-  <nav class="snav">
+  <nav class="snav" aria-label="Main">
     <a href="/" class="snav-brand">
-      <img src="/assets/logo.svg" alt="">
+      <img src="/assets/coderipple-mark.svg" alt="" width="30" height="30">
       CodeRipple Tech
     </a>
     <div class="snav-links">
-      <div class="nav-drop">
-        <button class="nav-drop-btn" type="button" aria-haspopup="true" aria-expanded="false">
-          Products
-          <svg width="10" height="7" viewBox="0 0 10 7" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-        </button>
+      <details class="nav-drop">
+        <summary class="nav-drop-btn"><span class="nav-drop-label">Products</span><svg class="nav-drop-grid" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><circle cx="3" cy="3" r="1.6"/><circle cx="8" cy="3" r="1.6"/><circle cx="13" cy="3" r="1.6"/><circle cx="3" cy="8" r="1.6"/><circle cx="8" cy="8" r="1.6"/><circle cx="13" cy="8" r="1.6"/><circle cx="3" cy="13" r="1.6"/><circle cx="8" cy="13" r="1.6"/><circle cx="13" cy="13" r="1.6"/></svg><svg class="nav-drop-caret" width="10" height="7" viewBox="0 0 10 7" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></summary>
         <div class="nav-drop-menu">
-          <a href="/rippleroot/"><img src="/assets/rippleroot-logo.png" alt=""><div>RippleRoot<small>Local-first dev workspace platform</small></div></a>
-          <a href="/ripplesnap/"><img src="/assets/ripplesnap-logo.png" alt=""><div>RippleSnap<small>macOS window manager</small></div></a>
-          <a href="/ripplereach/"><img src="/assets/ripplereach-logo.png" alt=""><div>RippleReach<small>Remote desktop, in tabs</small></div></a>
-          <a href="/rippleclip/"><img src="/assets/rippleclip-logo.png" alt=""><div>RippleClip<small>The capture inbox for iPhone</small></div></a>
-          <a href="/ripplebug/"><img src="/assets/ripplebug-logo.png" alt=""><div>Ripplebug<small>Bug reporting, captured whole</small></div></a>
-          <a href="/ripple-import/"><img src="/assets/logo.svg" alt=""><div>Ripple Import<small>CSV &amp; Excel → monday.com</small></div></a>
-          <a href="/ripple-merge/"><img src="/assets/ripple-merge-mark.svg" alt=""><div>Ripple Merge<small>Mail merge for monday.com emails</small></div></a>
-          <a href="/ripple-preview/"><img src="/assets/ripple-preview-logo.svg" alt=""><div>Ripple Preview<small>Real block previews for Umbraco</small></div></a>
+          <a href="/ripplebug/"><img src="/assets/ripplebug-logo.png" alt="" width="28" height="28"><span>Ripplebug<small>Bug reports with the evidence attached</small></span></a>
+          <a href="/ripplereach/"><img src="/assets/ripplereach-logo.png" alt="" width="28" height="28"><span>RippleReach<small>Remote desktop in tabs, Windows and Mac</small></span></a>
+          <a href="/ripplesnap/"><img src="/assets/ripplesnap-logo.png" alt="" width="28" height="28"><span>RippleSnap<small>Window manager for macOS</small></span></a>
+          <a href="/ripple-import/"><img src="/assets/logo.svg" alt="" width="28" height="28"><span>Ripple Import<small>CSV and Excel into monday.com</small></span></a>
+          <a href="/ripple-merge/"><img src="/assets/ripple-merge-mark.svg" alt="" width="28" height="28"><span>Ripple Merge<small>Mail merge for monday.com emails</small></span></a>
+          <a href="/rippleroot/"><img src="/assets/rippleroot-logo.png" alt="" width="28" height="28"><span>RippleRoot<small>Your dev workspace on every machine</small></span></a>
+          <a href="/rippleclip/"><img src="/assets/rippleclip-logo.png" alt="" width="28" height="28"><span>RippleClip<small>The capture inbox for iPhone</small></span></a>
+          <a href="/ripple-preview/"><img src="/assets/ripple-preview-logo.svg" alt="" width="28" height="28"><span>Ripple Preview<small>Real block previews for Umbraco</small></span></a>
+          <div class="nav-drop-foot"><a href="/">All products</a><a href="/blog/">Blog</a><a href="/contact/">Contact</a></div>
         </div>
-      </div>
+      </details>
       <a href="/blog/">Blog</a>
       <a class="btn btn-ghost" href="/contact/">Contact</a>
     </div>
@@ -248,7 +247,7 @@ diagnosis.</figcaption>
   <footer class="sfooter">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a class="footer-brand-link" href="/"><img src="/assets/logo.svg" alt="">CodeRipple Tech</a>
+        <a class="footer-brand-link" href="/"><img src="/assets/coderipple-mark.svg" alt="" width="30" height="30" loading="lazy" decoding="async">CodeRipple Tech</a>
         <p>Small tools. Big ripples. Focused products that remove the friction from everyday software work.</p>
       </div>
       <div class="footer-col">
@@ -283,19 +282,6 @@ diagnosis.</figcaption>
       <a href="https://github.com/coderippletech" rel="noopener">GitHub</a>
     </div>
   </footer>
-  <script>
-    (() => {
-      const drop = document.querySelector(".nav-drop");
-      if (!drop) return;
-      const btn = drop.querySelector(".nav-drop-btn");
-      const close = () => { drop.classList.remove("open"); btn.setAttribute("aria-expanded", "false"); };
-      btn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        btn.setAttribute("aria-expanded", String(drop.classList.toggle("open")));
-      });
-      document.addEventListener("click", (e) => { if (!drop.contains(e.target)) close(); });
-      document.addEventListener("keydown", (e) => { if (e.key === "Escape") close(); });
-    })();
-  </script>
+  <script src="/site.js?v=1" defer></script>
 </body>
 </html>

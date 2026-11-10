@@ -3,23 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RippleSnap — Snap windows. Save whole workspaces.</title>
-  <meta name="description" content="The macOS window manager that goes further than snapping: save named profiles that launch your apps and place every window across all your monitors. Free snapping forever, Pro $9 one-time.">
+  <title>RippleSnap — Mac window manager that rebuilds your desk</title>
+  <meta name="description" content="The macOS window manager that remembers your desk. One key launches your apps and puts every window back, on every monitor. Free snapping, Pro $9 one-time.">
   <link rel="icon" type="image/png" href="/assets/ripplesnap-logo.png">
-  <link rel="stylesheet" href="/site.css?v=19">
+  <link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/site.css?v=29">
   <link rel="canonical" href="https://coderippletech.com/ripplesnap/">
   <meta name="theme-color" content="#0a0e14">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="CodeRipple Tech">
   <meta property="og:url" content="https://coderippletech.com/ripplesnap/">
-  <meta property="og:title" content="RippleSnap — Snap windows. Save whole workspaces.">
-  <meta property="og:description" content="Drag-snap with a layout palette, then save profiles that launch your apps and rebuild your desk with one key. Free snapping forever, Pro $9 one-time.">
+  <meta property="og:title" content="RippleSnap — Mac window manager that rebuilds your desk">
+  <meta property="og:description" content="Stop re-arranging windows every time you dock. A macOS window manager that saves your desk and rebuilds it with one key. Free snapping, Pro $9 one-time.">
   <meta property="og:image" content="https://coderippletech.com/assets/og-ripplesnap.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="RippleSnap — Snap windows. Save whole workspaces.">
-  <meta name="twitter:description" content="Drag-snap with a layout palette, then save profiles that launch your apps and rebuild your desk with one key. Free snapping forever, Pro $9 one-time.">
+  <meta name="twitter:title" content="RippleSnap — Mac window manager that rebuilds your desk">
+  <meta name="twitter:description" content="Stop re-arranging windows every time you dock. A macOS window manager that saves your desk and rebuilds it with one key. Free snapping, Pro $9 one-time.">
   <meta name="twitter:image" content="https://coderippletech.com/assets/og-ripplesnap.png">
   <script type="application/ld+json">
   {
@@ -223,33 +224,50 @@
       .demo-palette { opacity: 1; }
     }
   </style>
+  <script src="/site.js?v=1" defer></script>
 </head>
 <body>
-
-  <nav class="snav">
+  <a class="skip" href="#main">Skip to content</a>
+  <nav class="snav" aria-label="Main">
     <div class="snav-brand">
+      <a class="snav-by" href="/">CodeRipple Tech</a>
+      <span class="snav-sep" aria-hidden="true">/</span>
       <a class="snav-brand-main" href="/ripplesnap/">
-        <img src="/assets/ripplesnap-logo.png" alt="">
+        <img src="/assets/ripplesnap-logo.png" alt="" width="26" height="26">
         RippleSnap
       </a>
-      <a class="snav-by" href="/">by CodeRipple Tech</a>
     </div>
     <div class="snav-links">
       <a href="#features">Features</a>
       <a href="#profiles">Profiles</a>
       <a href="#pricing">Pricing</a>
+      <details class="nav-drop">
+        <summary class="nav-drop-btn"><span class="nav-drop-label">Products</span><svg class="nav-drop-grid" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><circle cx="3" cy="3" r="1.6"/><circle cx="8" cy="3" r="1.6"/><circle cx="13" cy="3" r="1.6"/><circle cx="3" cy="8" r="1.6"/><circle cx="8" cy="8" r="1.6"/><circle cx="13" cy="8" r="1.6"/><circle cx="3" cy="13" r="1.6"/><circle cx="8" cy="13" r="1.6"/><circle cx="13" cy="13" r="1.6"/></svg><svg class="nav-drop-caret" width="10" height="7" viewBox="0 0 10 7" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></summary>
+        <div class="nav-drop-menu">
+          <a href="/ripplebug/"><img src="/assets/ripplebug-logo.png" alt="" width="28" height="28"><span>Ripplebug<small>Bug reports with the evidence attached</small></span></a>
+          <a href="/ripplereach/"><img src="/assets/ripplereach-logo.png" alt="" width="28" height="28"><span>RippleReach<small>Remote desktop in tabs, Windows and Mac</small></span></a>
+          <a href="/ripplesnap/" aria-current="page"><img src="/assets/ripplesnap-logo.png" alt="" width="28" height="28"><span>RippleSnap<small>Window manager for macOS</small></span></a>
+          <a href="/ripple-import/"><img src="/assets/logo.svg" alt="" width="28" height="28"><span>Ripple Import<small>CSV and Excel into monday.com</small></span></a>
+          <a href="/ripple-merge/"><img src="/assets/ripple-merge-mark.svg" alt="" width="28" height="28"><span>Ripple Merge<small>Mail merge for monday.com emails</small></span></a>
+          <a href="/rippleroot/"><img src="/assets/rippleroot-logo.png" alt="" width="28" height="28"><span>RippleRoot<small>Your dev workspace on every machine</small></span></a>
+          <a href="/rippleclip/"><img src="/assets/rippleclip-logo.png" alt="" width="28" height="28"><span>RippleClip<small>The capture inbox for iPhone</small></span></a>
+          <a href="/ripple-preview/"><img src="/assets/ripple-preview-logo.svg" alt="" width="28" height="28"><span>Ripple Preview<small>Real block previews for Umbraco</small></span></a>
+          <div class="nav-drop-foot"><a href="/">All products</a><a href="/blog/">Blog</a><a href="/contact/">Contact</a></div>
+        </div>
+      </details>
       <a class="btn btn-blue" href="https://github.com/coderippletech/ripplesnap-releases/releases/latest/download/RippleSnap.dmg"><span class="cta-full">Download for macOS</span><span class="cta-short">Download</span></a>
     </div>
   </nav>
 
   <header class="hero">
+    <div class="ripples" aria-hidden="true"><i></i><i></i><i></i></div>
     <div class="orb orb-teal" style="background: var(--accent);"></div>
     <div class="orb orb-purple" style="background: var(--cyan);"></div>
     <span class="eyebrow">macOS Window Manager</span>
-    <h1 class="display">Snap windows.<br><span class="grad-blue">Save whole workspaces.</span></h1>
-    <p class="lede">Every window manager can snap. RippleSnap also remembers your entire desk —
-    which apps, which windows, where — and rebuilds it with one key. Dock your laptop and
-    your desk restores itself.</p>
+    <h1 class="display">Arrange your desk once.<br><span class="grad-blue">Restore it with one key.</span></h1>
+    <p class="lede">Re-arranging windows every time you dock gets old. RippleSnap snaps like
+    any window manager, then remembers your whole desk: which apps, which windows, where.
+    Dock your laptop and it rebuilds itself.</p>
     <div class="hero-ctas">
       <a class="btn btn-blue" href="https://github.com/coderippletech/ripplesnap-releases/releases/latest/download/RippleSnap.dmg">Download for macOS</a>
       <a class="btn btn-ghost" href="#profiles">See profiles →</a>
@@ -276,33 +294,33 @@
     </div>
   </header>
 
-  <main class="wrap">
+  <main id="main" class="wrap">
 
     <section class="section" id="features">
       <div class="section-head reveal">
-        <h2>Snapping that goes further</h2>
-        <p>Six ways to place a window, and an engine that handles the parts other apps ignore.</p>
+        <h2>Snapping that handles the awkward cases</h2>
+        <p>Six ways to place a window. An engine for the parts other apps ignore.</p>
       </div>
       <div class="features">
         <div class="feature reveal">
           <div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="12" y1="4" x2="12" y2="20"/></svg></div>
           <h4>Drag-snap with a layout palette</h4>
-          <p>Edges give halves, corners quarters. Drag to the top and a palette of layouts drops down — thirds, priority center, four columns, yours.</p>
+          <p>Edges give halves, corners quarters. Drag to the top and a palette drops down: thirds, priority center, four columns, or your own.</p>
         </div>
         <div class="feature reveal">
           <div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/><circle cx="12" cy="12" r="3"/></svg></div>
           <h4>Snap assist</h4>
-          <p>Placed one window in a layout? The remaining slots offer your other windows as one-click chips. Esc dismisses, or just keep working.</p>
+          <p>Place one window in a layout and the remaining slots offer your other windows as one-click chips. Esc dismisses, or keep working.</p>
         </div>
         <div class="feature reveal">
           <div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-6.2-8.6"/><path d="M21 3v6h-6"/></svg></div>
           <h4>Layouts that adapt</h4>
-          <p>Apps enforce minimum sizes — Xcode won't be a narrow column. RippleSnap learns each app's limits, warns before the drop, and re-balances the layout instead of overlapping.</p>
+          <p>Apps enforce minimum sizes: Xcode won't be a narrow column. RippleSnap learns each app's limits, warns before the drop, and re-balances the layout instead of overlapping.</p>
         </div>
         <div class="feature reveal">
           <div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="14" rx="2"/><path d="M8 22h8M12 18v4"/></svg></div>
           <h4>Multi-monitor brains</h4>
-          <p>Profiles remember each display setup separately. Unplug the monitor and layouts adapt; plug it back in and they restore automatically.</p>
+          <p>Unplug the monitor and layouts adapt; plug it back in and they restore automatically. Profiles remember each display setup separately.</p>
         </div>
         <div class="feature reveal">
           <div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
@@ -312,7 +330,7 @@
         <div class="feature reveal">
           <div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg></div>
           <h4>Undo for your desktop</h4>
-          <p>Every apply snapshots your windows first. One key rewinds; a timeline holds the last ten states. Off-screen windows get a rescue button.</p>
+          <p>One key rewinds, because every apply snapshots your windows first. A timeline holds the last ten states, and off-screen windows get a rescue button.</p>
         </div>
       </div>
     </section>
@@ -320,14 +338,14 @@
     <section class="section" id="profiles">
       <div class="split">
         <div class="split-copy reveal">
-          <h3>Profiles: your desk, on a key</h3>
+          <h3>Profiles: the whole desk, apps included</h3>
           <p>Save your arrangement as “Dev”, “Focus”, “Game”. Applying one launches the apps
-          that are closed, restores the minimized, and places every window — even the
-          stacking order comes back the way you saved it.</p>
+          that are closed, restores the minimized, and places every window. Even the
+          stacking order comes back.</p>
           <ul>
             <li>⌃⌥Space opens a switcher with live layout miniatures</li>
             <li>Each profile can hold one arrangement per display setup</li>
-            <li>Hide or quit everything else when you switch — a true fresh start</li>
+            <li>Start clean: hide or quit everything else when you switch</li>
             <li><span>Scriptable: <code>ripplesnap://apply/Dev</code> from Shortcuts or Raycast</span></li>
           </ul>
         </div>
@@ -352,10 +370,10 @@
           <div class="designer-note">Click to split · ⌥-click to stack · drag the lines</div>
         </div>
         <div class="split-copy reveal">
-          <h3>Design your own layouts</h3>
-          <p>The built-in palette is just the start. Open the designer, click cells to split
-          them, drag the boundaries, and save any arrangement — half columns, stacks, grids.
-          Custom layouts get snap assist and adaptive re-balancing too.</p>
+          <h3>Design the layout the palette doesn't have</h3>
+          <p>Open the designer, click cells to split them, drag the boundaries, and save
+          any arrangement: half columns, stacks, grids. Custom layouts get snap assist
+          and adaptive re-balancing too.</p>
           <ul>
             <li>Boundaries snap to quarters, thirds and halves</li>
             <li>Hide built-ins you never use, reorder the palette</li>
@@ -367,8 +385,8 @@
 
     <section class="section" id="pricing">
       <div class="section-head reveal">
-        <h2>Free forever. Pro when you're ready.</h2>
-        <p>Everything works free for 14 days. After that, snapping stays free — Pro keeps the superpowers.</p>
+        <h2>Snapping is free forever. Pro is $9, once.</h2>
+        <p>Everything works free for 14 days. After that, snapping stays free and Pro unlocks the rest.</p>
       </div>
       <div class="plans">
         <div class="plan reveal">
@@ -387,14 +405,14 @@
           <h3>Pro</h3>
           <div class="price">$9 <small>one-time · pay more if you love it</small></div>
           <ul>
-            <li>Profiles — save &amp; restore whole workspaces</li>
-            <li>Workspaces — instant app-set switching</li>
+            <li>Profiles: save &amp; restore whole workspaces</li>
+            <li>Workspaces: instant app-set switching</li>
             <li>Auto-apply when displays connect</li>
             <li>Rules, schedules &amp; app triggers</li>
             <li>Custom layout designer &amp; automation</li>
           </ul>
-          <a class="btn btn-blue" href="https://ripplesnap.lemonsqueezy.com/checkout/buy/2c029fea-cec4-4a28-8d09-d04409877bf8">Get Pro — $9</a>
-          <p class="plan-trial">Or <a href="https://github.com/coderippletech/ripplesnap-releases/releases/latest/download/RippleSnap.dmg">try free for 14 days</a> — no account needed.</p>
+          <a class="btn btn-blue" href="https://ripplesnap.lemonsqueezy.com/checkout/buy/2c029fea-cec4-4a28-8d09-d04409877bf8">Get Pro for $9</a>
+          <p class="plan-trial">Or <a href="https://github.com/coderippletech/ripplesnap-releases/releases/latest/download/RippleSnap.dmg">try free for 14 days</a>. No account needed.</p>
         </div>
       </div>
     </section>
@@ -408,10 +426,26 @@
     </section>
   </main>
 
+  <section class="more-tools" aria-labelledby="more-tools-h">
+    <div class="wrap">
+      <h2 id="more-tools-h">More from CodeRipple Tech</h2>
+      <p>Small tools from the same developer. Each one does a single job.</p>
+      <ul class="mt-list">
+        <li><a href="/ripplebug/" style="--c:#22d3ce"><img src="/assets/ripplebug-logo.png" alt="" width="34" height="34" loading="lazy" decoding="async"><span><b>Ripplebug</b><small>Bug reports with the evidence attached</small></span></a></li>
+        <li><a href="/ripplereach/" style="--c:#6574ff"><img src="/assets/ripplereach-logo.png" alt="" width="34" height="34" loading="lazy" decoding="async"><span><b>RippleReach</b><small>Remote desktop in tabs, Windows and Mac</small></span></a></li>
+        <li><a href="/ripple-import/" style="--c:#7d66fd"><img src="/assets/logo.svg" alt="" width="34" height="34" loading="lazy" decoding="async"><span><b>Ripple Import</b><small>CSV and Excel into monday.com</small></span></a></li>
+        <li><a href="/ripple-merge/" style="--c:#10b981"><img src="/assets/ripple-merge-mark.svg" alt="" width="34" height="34" loading="lazy" decoding="async"><span><b>Ripple Merge</b><small>Mail merge for monday.com emails</small></span></a></li>
+        <li><a href="/rippleroot/" style="--c:#34d399"><img src="/assets/rippleroot-logo.png" alt="" width="34" height="34" loading="lazy" decoding="async"><span><b>RippleRoot</b><small>Your dev workspace on every machine</small></span></a></li>
+        <li><a href="/rippleclip/" style="--c:#3ecfc0"><img src="/assets/rippleclip-logo.png" alt="" width="34" height="34" loading="lazy" decoding="async"><span><b>RippleClip</b><small>The capture inbox for iPhone</small></span></a></li>
+        <li><a href="/ripple-preview/" style="--c:#38bdf8"><img src="/assets/ripple-preview-logo.svg" alt="" width="34" height="34" loading="lazy" decoding="async"><span><b>Ripple Preview</b><small>Real block previews for Umbraco</small></span></a></li>
+      </ul>
+    </div>
+  </section>
+
   <footer class="sfooter">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a class="footer-brand-link" href="/"><img src="/assets/logo.svg" alt="">CodeRipple Tech</a>
+        <a class="footer-brand-link" href="/"><img src="/assets/coderipple-mark.svg" alt="" width="30" height="30" loading="lazy" decoding="async">CodeRipple Tech</a>
         <p>Small tools. Big ripples. Focused products that remove the friction from everyday software work.</p>
       </div>
       <div class="footer-col">

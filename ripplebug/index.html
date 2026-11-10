@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ripplebug — Every bug, captured whole.</title>
-  <meta name="description" content="One click captures the screenshot, screen recording, console and network — then files the bug to your tracker or a live board where AI summarizes it, rates severity and drafts repro steps.">
+  <title>Ripplebug — Bug reports with the evidence attached</title>
+  <meta name="description" content="Bug reports anyone can reproduce. One click captures the screenshot, recording, console and network, then files it to your tracker or an AI-triaged live board.">
   <link rel="icon" type="image/png" href="/assets/ripplebug-logo.png">
-  <link rel="stylesheet" href="/site.css?v=19">
+  <link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/site.css?v=29">
   <link rel="canonical" href="https://coderippletech.com/ripplebug/">
   <style>
     /* ripplebug-page-only polish (feature-card life now lives in site.css) */
@@ -43,7 +44,8 @@
       border: 1px solid var(--card-border); border-radius: 8px;
       font-size: 11px; font-weight: 600; letter-spacing: 0; color: var(--muted);
     }
-    .ai-line { opacity: 0; transform: translateY(10px); }
+    /* hidden only when a script is there to bring the lines in */
+    @media (scripting: enabled) { .ai-line { opacity: 0; transform: translateY(10px); } }
     .ai-summary { font-size: 15.5px; margin-bottom: 14px; }
     .ai-sevrow { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--muted); margin-bottom: 14px; flex-wrap: wrap; }
     .sev-chip {
@@ -92,14 +94,14 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="CodeRipple Tech">
   <meta property="og:url" content="https://coderippletech.com/ripplebug/">
-  <meta property="og:title" content="Ripplebug — Every bug, captured whole.">
-  <meta property="og:description" content="One click captures the screenshot, recording, console and network — filed to your tracker or an AI-triaged live board.">
+  <meta property="og:title" content="Ripplebug — Bug reports with the evidence attached">
+  <meta property="og:description" content="Stop writing bug reports nobody can reproduce. One click captures the screenshot, recording, console and network, filed to your tracker or an AI-triaged board.">
   <meta property="og:image" content="https://coderippletech.com/assets/og-ripplebug.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Ripplebug — Every bug, captured whole.">
-  <meta name="twitter:description" content="One click captures the screenshot, recording, console and network — filed to your tracker or an AI-triaged live board.">
+  <meta name="twitter:title" content="Ripplebug — Bug reports with the evidence attached">
+  <meta name="twitter:description" content="Stop writing bug reports nobody can reproduce. One click captures the screenshot, recording, console and network, filed to your tracker or an AI-triaged board.">
   <meta name="twitter:image" content="https://coderippletech.com/assets/og-ripplebug.png">
   <script type="application/ld+json">
   {
@@ -140,16 +142,18 @@
     }
   }
   </script>
+  <script src="/site.js?v=1" defer></script>
 </head>
 <body>
-
-  <nav class="snav">
+  <a class="skip" href="#main">Skip to content</a>
+  <nav class="snav" aria-label="Main">
     <div class="snav-brand">
+      <a class="snav-by" href="/">CodeRipple Tech</a>
+      <span class="snav-sep" aria-hidden="true">/</span>
       <a class="snav-brand-main" href="/ripplebug/">
-        <img src="/assets/ripplebug-logo.png" alt="">
+        <img src="/assets/ripplebug-logo.png" alt="" width="26" height="26">
         Ripplebug
       </a>
-      <a class="snav-by" href="/">by CodeRipple Tech</a>
     </div>
     <div class="snav-links">
       <a href="#capture">Capture</a>
@@ -158,27 +162,42 @@
       <a href="#phone">Phone app</a>
       <a href="#ai">AI triage</a>
       <a href="#pricing">Pricing</a>
+      <details class="nav-drop">
+        <summary class="nav-drop-btn"><span class="nav-drop-label">Products</span><svg class="nav-drop-grid" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><circle cx="3" cy="3" r="1.6"/><circle cx="8" cy="3" r="1.6"/><circle cx="13" cy="3" r="1.6"/><circle cx="3" cy="8" r="1.6"/><circle cx="8" cy="8" r="1.6"/><circle cx="13" cy="8" r="1.6"/><circle cx="3" cy="13" r="1.6"/><circle cx="8" cy="13" r="1.6"/><circle cx="13" cy="13" r="1.6"/></svg><svg class="nav-drop-caret" width="10" height="7" viewBox="0 0 10 7" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></summary>
+        <div class="nav-drop-menu">
+          <a href="/ripplebug/" aria-current="page"><img src="/assets/ripplebug-logo.png" alt="" width="28" height="28"><span>Ripplebug<small>Bug reports with the evidence attached</small></span></a>
+          <a href="/ripplereach/"><img src="/assets/ripplereach-logo.png" alt="" width="28" height="28"><span>RippleReach<small>Remote desktop in tabs, Windows and Mac</small></span></a>
+          <a href="/ripplesnap/"><img src="/assets/ripplesnap-logo.png" alt="" width="28" height="28"><span>RippleSnap<small>Window manager for macOS</small></span></a>
+          <a href="/ripple-import/"><img src="/assets/logo.svg" alt="" width="28" height="28"><span>Ripple Import<small>CSV and Excel into monday.com</small></span></a>
+          <a href="/ripple-merge/"><img src="/assets/ripple-merge-mark.svg" alt="" width="28" height="28"><span>Ripple Merge<small>Mail merge for monday.com emails</small></span></a>
+          <a href="/rippleroot/"><img src="/assets/rippleroot-logo.png" alt="" width="28" height="28"><span>RippleRoot<small>Your dev workspace on every machine</small></span></a>
+          <a href="/rippleclip/"><img src="/assets/rippleclip-logo.png" alt="" width="28" height="28"><span>RippleClip<small>The capture inbox for iPhone</small></span></a>
+          <a href="/ripple-preview/"><img src="/assets/ripple-preview-logo.svg" alt="" width="28" height="28"><span>Ripple Preview<small>Real block previews for Umbraco</small></span></a>
+          <div class="nav-drop-foot"><a href="/">All products</a><a href="/blog/">Blog</a><a href="/contact/">Contact</a></div>
+        </div>
+      </details>
       <a class="btn btn-teal" href="https://chromewebstore.google.com/detail/ripplebug/hgbejokcghdecljpjgbniplicahlfaan">Add to Chrome</a>
     </div>
   </nav>
 
   <header class="hero">
+    <div class="ripples" aria-hidden="true"><i></i><i></i><i></i></div>
     <div class="orb orb-teal"></div>
     <div class="orb orb-purple"></div>
     <span class="eyebrow">Chrome &amp; Edge · iPhone &amp; Android · live board</span>
-    <h1 class="display">Every bug,<br><span class="grad-teal">captured whole.</span></h1>
-    <p class="lede">Stop writing bug reports nobody can reproduce. One click captures the
-    screenshot, the screen recording, the console and the network, then files a complete
-    ticket wherever your team tracks work. Testers can report from their phones too.
-    On Pro boards, AI triages every report the moment it lands.</p>
+    <h1 class="display">Bug reports<br><span class="grad-teal">anyone can reproduce.</span></h1>
+    <p class="lede">Most bug reports are a sentence and a shrug. One click captures the
+    screenshot, screen recording, console and network, then files a complete
+    ticket wherever your team tracks work. Testers can report from their phones.
+    On Pro boards, AI triages every report as it lands.</p>
     <div class="hero-ctas">
-      <a class="btn btn-teal" href="https://chromewebstore.google.com/detail/ripplebug/hgbejokcghdecljpjgbniplicahlfaan">Add to Chrome — free</a>
+      <a class="btn btn-teal" href="https://chromewebstore.google.com/detail/ripplebug/hgbejokcghdecljpjgbniplicahlfaan">Add to Chrome for free</a>
       <a class="btn btn-ghost" href="https://board.coderippletech.com">Create a free board</a>
     </div>
     <div class="hero-note">Free to install. Your tracker tokens never leave your browser.</div>
   </header>
 
-  <main class="wrap">
+  <main id="main" class="wrap">
 
     <!-- one-minute promo (self-hosted; no third-party player or cookies) -->
     <section class="section reveal" aria-label="Ripplebug in one minute" style="padding-top:8px;padding-bottom:28px;">
@@ -221,15 +240,15 @@
     <section class="section" id="board" style="padding-top:12px;">
       <div class="browser reveal">
         <div class="browser-bar"><span></span><span></span><span></span><div class="url">board.coderippletech.com</div></div>
-        <img src="/assets/shot-board.png" alt="The Ripplebug board — live kanban triage of captured bugs">
+        <img width="1440" height="860" src="/assets/shot-board.png" alt="The Ripplebug board — live kanban triage of captured bugs">
       </div>
     </section>
 
     <!-- features -->
     <section class="section" id="capture">
       <div class="section-head reveal">
-        <h2>The whole story, attached automatically</h2>
-        <p>Every report carries what an engineer needs in order to fix it.</p>
+        <h2>The evidence is attached before anyone asks.</h2>
+        <p>Every report carries what an engineer needs to fix it.</p>
       </div>
       <div class="features">
         <div class="feature reveal">
@@ -240,7 +259,7 @@
         <div class="feature reveal">
           <div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg></div>
           <h4>Console + network, always</h4>
-          <p>The last 200 console messages and 100 requests ride along as a tidy Markdown file. No DevTools digging, no debugger banner.</p>
+          <p>The last 200 console messages and 100 requests ride along as a Markdown file. No DevTools digging, no debugger banner.</p>
         </div>
         <div class="feature reveal">
           <div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4z"/><path d="M22 2 11 13"/></svg></div>
@@ -255,7 +274,7 @@
         <div class="feature reveal">
           <div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg></div>
           <h4>AI triage on arrival</h4>
-          <p>New reports get a summary, a suggested severity, draft repro steps and duplicate flags — before you even open the board. Pro boards, automatic.</p>
+          <p>New reports get a summary, a suggested severity, draft repro steps and duplicate flags before you open the board. Automatic on Pro boards.</p>
         </div>
         <div class="feature reveal">
           <div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg></div>
@@ -279,10 +298,10 @@
     <section class="section">
       <div class="split">
         <div class="split-copy reveal">
-          <h3>Open a card, see everything.</h3>
-          <p>The evidence, the repro steps, the console, plus a comment thread where
+          <h3>The whole bug lives on one card.</h3>
+          <p>Evidence, repro steps, console, and a comment thread where
           <strong>guests on a share link can reply</strong>. Ask for a retest and the
-          answer lands on the ticket instead of in a DM.</p>
+          answer lands on the ticket, not in a DM.</p>
           <ul>
             <li>Edit descriptions inline, paste images straight onto the card</li>
             <li>Export to a tracker with one click, and the link badges back onto the card</li>
@@ -291,7 +310,7 @@
         </div>
         <div class="browser reveal">
           <div class="browser-bar"><span></span><span></span><span></span><div class="url">board.coderippletech.com</div></div>
-          <img src="/assets/shot-drawer.png" alt="Ripplebug card drawer with evidence, console capture and comments">
+          <img loading="lazy" decoding="async" width="1440" height="860" src="/assets/shot-drawer.png" alt="Ripplebug card drawer with evidence, console capture and comments">
         </div>
       </div>
     </section>
@@ -302,17 +321,17 @@
         <div class="split-copy reveal">
           <h3>Testers report through a link.<br>No install. No account.</h3>
           <p>Send anyone your guest link. They describe the bug, paste screenshots with a
-          full annotation editor, and can even <strong>record their screen right in the
+          full annotation editor, and can <strong>record their screen in the
           browser</strong>. Their browser and viewport details attach automatically.</p>
           <ul>
             <li>Reports land in your inbox in real time, tagged with who sent them</li>
             <li>Rate limited and revocable, with one-click regeneration</li>
-            <li>Great for clients, QA rounds and beta testers</li>
+            <li>Built for clients, QA rounds and beta testers</li>
           </ul>
         </div>
         <div class="browser reveal">
           <div class="browser-bar"><span></span><span></span><span></span><div class="url">board.coderippletech.com/r/…</div></div>
-          <img src="/assets/shot-intake.png" alt="Ripplebug guest report page with screen recording">
+          <img loading="lazy" decoding="async" width="1280" height="920" src="/assets/shot-intake.png" alt="Ripplebug guest report page with screen recording">
         </div>
       </div>
     </section>
@@ -321,7 +340,7 @@
     <section class="section" id="phone">
       <div class="split">
         <div class="split-copy reveal">
-          <h3>Testers report from<br>their phones.</h3>
+          <h3>Record the bug on<br>the phone it happened on.</h3>
           <p>The Ripplebug app for iPhone and Android <strong>records any app</strong> while
           you reproduce the bug, or takes the screenshot you already have. It files to the
           same board, with the phone's model and OS attached.</p>
@@ -348,15 +367,15 @@
       <div class="split">
         <div class="split-copy reveal">
           <h3>Triage happens before you<br>open the board.<span class="pro-chip">PRO</span></h3>
-          <p>The moment a report lands — from the extension or a guest link —
-          AI reads the description, the console and the network capture, and
-          leaves its notes on the card. You arrive to a board that's already
+          <p>The moment a report lands, from the extension or a guest link,
+          AI reads the description, the console and the network capture and
+          leaves its notes on the card. You arrive at a board that's already
           sorted.</p>
           <ul>
             <li>Plain-language summary and a suggested severity, one click to apply</li>
             <li>Repro steps drafted from the captured console and network context</li>
             <li>"Possible duplicate of…" flags before two people fix the same bug</li>
-            <li>Re-run any time from the card — 200 triages per board, per month</li>
+            <li>Re-run any time from the card. 200 triages per board, per month</li>
           </ul>
         </div>
         <div class="ai-panel reveal">
@@ -420,14 +439,14 @@
             <li>50 GB media storage</li>
             <li>Archive kept forever</li>
             <li>Everything in Free</li>
-            <li>AI triage — summaries, severity, repro drafts, dedup</li>
+            <li>AI triage: summaries, severity, repro drafts, dedup</li>
             <li>Priority email support</li>
           </ul>
           <a class="btn btn-teal" href="https://board.coderippletech.com/settings" style="margin-top:18px;">Go Pro</a>
         </div>
       </div>
       <p class="reveal" style="text-align:center;font-size:12.5px;margin-top:22px;color:var(--muted,#8a94a6);">
-        Upgrade or cancel any time from board Settings — billing is handled by Stripe.
+        Upgrade or cancel any time from board Settings. Billing is handled by Stripe.
       </p>
     </section>
 
@@ -444,10 +463,26 @@
     </section>
   </main>
 
+  <section class="more-tools" aria-labelledby="more-tools-h">
+    <div class="wrap">
+      <h2 id="more-tools-h">More from CodeRipple Tech</h2>
+      <p>Small tools from the same developer. Each one does a single job.</p>
+      <ul class="mt-list">
+        <li><a href="/ripplereach/" style="--c:#6574ff"><img src="/assets/ripplereach-logo.png" alt="" width="34" height="34" loading="lazy" decoding="async"><span><b>RippleReach</b><small>Remote desktop in tabs, Windows and Mac</small></span></a></li>
+        <li><a href="/ripplesnap/" style="--c:#298cff"><img src="/assets/ripplesnap-logo.png" alt="" width="34" height="34" loading="lazy" decoding="async"><span><b>RippleSnap</b><small>Window manager for macOS</small></span></a></li>
+        <li><a href="/ripple-import/" style="--c:#7d66fd"><img src="/assets/logo.svg" alt="" width="34" height="34" loading="lazy" decoding="async"><span><b>Ripple Import</b><small>CSV and Excel into monday.com</small></span></a></li>
+        <li><a href="/ripple-merge/" style="--c:#10b981"><img src="/assets/ripple-merge-mark.svg" alt="" width="34" height="34" loading="lazy" decoding="async"><span><b>Ripple Merge</b><small>Mail merge for monday.com emails</small></span></a></li>
+        <li><a href="/rippleroot/" style="--c:#34d399"><img src="/assets/rippleroot-logo.png" alt="" width="34" height="34" loading="lazy" decoding="async"><span><b>RippleRoot</b><small>Your dev workspace on every machine</small></span></a></li>
+        <li><a href="/rippleclip/" style="--c:#3ecfc0"><img src="/assets/rippleclip-logo.png" alt="" width="34" height="34" loading="lazy" decoding="async"><span><b>RippleClip</b><small>The capture inbox for iPhone</small></span></a></li>
+        <li><a href="/ripple-preview/" style="--c:#38bdf8"><img src="/assets/ripple-preview-logo.svg" alt="" width="34" height="34" loading="lazy" decoding="async"><span><b>Ripple Preview</b><small>Real block previews for Umbraco</small></span></a></li>
+      </ul>
+    </div>
+  </section>
+
   <footer class="sfooter">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a class="footer-brand-link" href="/"><img src="/assets/logo.svg" alt="">CodeRipple Tech</a>
+        <a class="footer-brand-link" href="/"><img src="/assets/coderipple-mark.svg" alt="" width="30" height="30" loading="lazy" decoding="async">CodeRipple Tech</a>
         <p>Small tools. Big ripples. Focused products that remove the friction from everyday software work.</p>
       </div>
       <div class="footer-col">

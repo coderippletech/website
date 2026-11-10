@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <title>CodeRipple Tech</title>
+  <defs>
+    <linearGradient id="cr" gradientUnits="userSpaceOnUse" x1="6" y1="6" x2="58" y2="58"><stop offset="0" stop-color="#22d3ce"/><stop offset="0.55" stop-color="#4c93f2"/><stop offset="1" stop-color="#7d66fd"/></linearGradient>
+  </defs>
+  <g fill="none" stroke="url(#cr)" stroke-linecap="round" stroke-linejoin="round"><path stroke-width="5" d="M26.7 40V24M26.7 30.8A6.8 6.8 0 0 1 37.4 25.23"/><path stroke-width="5" d="M45.41 43.25A17.5 17.5 0 1 1 45.41 20.75"/><path stroke-width="3.4" d="M48.2 12.7A25.2 25.2 0 0 1 53.82 44.6M7.18 27.62A25.2 25.2 0 0 1 37.24 7.35M43.83 54.25A25.2 25.2 0 0 1 7.66 38.52"/></g>
+</svg>

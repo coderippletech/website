@@ -6,7 +6,8 @@
   <title>RippleBug for Jira — private beta</title>
   <meta name="robots" content="noindex">
   <link rel="icon" type="image/png" href="/assets/ripplebug-logo.png">
-  <link rel="stylesheet" href="/site.css?v=19">
+  <link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/site.css?v=29">
   <link rel="canonical" href="https://coderippletech.com/ripplebug/jira/">
   <meta name="theme-color" content="#0a0e14">
   <meta property="og:type" content="website">
@@ -21,17 +22,36 @@
   <meta name="twitter:title" content="RippleBug for Jira — private beta">
   <meta name="twitter:description" content="File Jira bugs with the screenshot, recording and logs in one click, linked to the failed test.">
   <meta name="twitter:image" content="https://coderippletech.com/assets/og-ripplebug.png">
+  <script src="/site.js?v=1" defer></script>
 </head>
 <body>
-  <nav class="snav">
-    <a href="/ripplebug/" class="snav-brand">
-      <img src="/assets/ripplebug-logo.png" alt="">
-      Ripplebug
+  <a class="skip" href="#main">Skip to content</a>
+  <nav class="snav" aria-label="Main">
+    <a href="/" class="snav-brand">
+      <img src="/assets/coderipple-mark.svg" alt="" width="30" height="30">
+      CodeRipple Tech
     </a>
-    <div class="snav-links"><a href="/">CodeRipple Tech</a></div>
+    <div class="snav-links">
+      <details class="nav-drop">
+        <summary class="nav-drop-btn"><span class="nav-drop-label">Products</span><svg class="nav-drop-grid" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><circle cx="3" cy="3" r="1.6"/><circle cx="8" cy="3" r="1.6"/><circle cx="13" cy="3" r="1.6"/><circle cx="3" cy="8" r="1.6"/><circle cx="8" cy="8" r="1.6"/><circle cx="13" cy="8" r="1.6"/><circle cx="3" cy="13" r="1.6"/><circle cx="8" cy="13" r="1.6"/><circle cx="13" cy="13" r="1.6"/></svg><svg class="nav-drop-caret" width="10" height="7" viewBox="0 0 10 7" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></summary>
+        <div class="nav-drop-menu">
+          <a href="/ripplebug/"><img src="/assets/ripplebug-logo.png" alt="" width="28" height="28"><span>Ripplebug<small>Bug reports with the evidence attached</small></span></a>
+          <a href="/ripplereach/"><img src="/assets/ripplereach-logo.png" alt="" width="28" height="28"><span>RippleReach<small>Remote desktop in tabs, Windows and Mac</small></span></a>
+          <a href="/ripplesnap/"><img src="/assets/ripplesnap-logo.png" alt="" width="28" height="28"><span>RippleSnap<small>Window manager for macOS</small></span></a>
+          <a href="/ripple-import/"><img src="/assets/logo.svg" alt="" width="28" height="28"><span>Ripple Import<small>CSV and Excel into monday.com</small></span></a>
+          <a href="/ripple-merge/"><img src="/assets/ripple-merge-mark.svg" alt="" width="28" height="28"><span>Ripple Merge<small>Mail merge for monday.com emails</small></span></a>
+          <a href="/rippleroot/"><img src="/assets/rippleroot-logo.png" alt="" width="28" height="28"><span>RippleRoot<small>Your dev workspace on every machine</small></span></a>
+          <a href="/rippleclip/"><img src="/assets/rippleclip-logo.png" alt="" width="28" height="28"><span>RippleClip<small>The capture inbox for iPhone</small></span></a>
+          <a href="/ripple-preview/"><img src="/assets/ripple-preview-logo.svg" alt="" width="28" height="28"><span>Ripple Preview<small>Real block previews for Umbraco</small></span></a>
+          <div class="nav-drop-foot"><a href="/">All products</a><a href="/blog/">Blog</a><a href="/contact/">Contact</a></div>
+        </div>
+      </details>
+      <a href="/blog/">Blog</a>
+      <a class="btn btn-ghost" href="/contact/">Contact</a>
+    </div>
   </nav>
 
-  <main class="legal">
+  <main id="main" class="legal">
     <h1>RippleBug for Jira — private beta</h1>
     <p class="date">Thanks for trying it. Setup takes about five minutes.</p>
 
@@ -103,7 +123,7 @@
   <footer class="sfooter">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a class="footer-brand-link" href="/"><img src="/assets/logo.svg" alt="">CodeRipple Tech</a>
+        <a class="footer-brand-link" href="/"><img src="/assets/coderipple-mark.svg" alt="" width="30" height="30" loading="lazy" decoding="async">CodeRipple Tech</a>
         <p>Small tools. Big ripples. Focused products that remove the friction from everyday software work.</p>
       </div>
       <div class="footer-col">

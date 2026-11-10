@@ -4,9 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CodeRipple Tech — Small tools. Big ripples.</title>
-  <meta name="description" content="CodeRipple Tech builds sharp, focused products that remove friction from everyday dev and ops work: Ripplebug for bug reporting, Ripple Import for monday.com, Ripple Preview for Umbraco.">
-  <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
-  <link rel="stylesheet" href="site.css?v=19">
+  <meta name="description" content="CodeRipple Tech makes small, focused tools for developers and ops teams: bug reporting, remote desktop, window management, and CSV import and mail merge for monday.com.">
+  <link rel="icon" type="image/svg+xml" href="/assets/coderipple-icon.svg">
+  <link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="site.css?v=29">
   <link rel="canonical" href="https://coderippletech.com/">
   <style>
     /* home-page-only: next-gen product cards (site.css untouched) */
@@ -293,13 +294,13 @@
   <meta property="og:site_name" content="CodeRipple Tech">
   <meta property="og:url" content="https://coderippletech.com/">
   <meta property="og:title" content="CodeRipple Tech — Small tools. Big ripples.">
-  <meta property="og:description" content="Focused tools for the annoying parts of software work: Ripplebug for bug reporting, Ripple Import for monday.com, Ripple Preview for Umbraco.">
+  <meta property="og:description" content="Eight small tools, each built for one job: Ripplebug, RippleReach, RippleSnap, Ripple Import, Ripple Merge and more. Made by one developer.">
   <meta property="og:image" content="https://coderippletech.com/assets/og-home.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="CodeRipple Tech — Small tools. Big ripples.">
-  <meta name="twitter:description" content="Focused tools for the annoying parts of software work: Ripplebug for bug reporting, Ripple Import for monday.com, Ripple Preview for Umbraco.">
+  <meta name="twitter:description" content="Eight small tools, each built for one job: Ripplebug, RippleReach, RippleSnap, Ripple Import, Ripple Merge and more. Made by one developer.">
   <meta name="twitter:image" content="https://coderippletech.com/assets/og-home.png">
   <script type="application/ld+json">
   {
@@ -307,7 +308,7 @@
     "@type": "Organization",
     "name": "CodeRipple Tech",
     "url": "https://coderippletech.com/",
-    "logo": "https://coderippletech.com/assets/logo.svg",
+    "logo": "https://coderippletech.com/assets/coderipple-icon.svg",
     "email": "support@coderippletech.com",
     "founder": {
       "@type": "Person",
@@ -315,6 +316,23 @@
     },
     "sameAs": [
       "https://github.com/coderippletech"
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "CodeRipple Tech products",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Ripplebug", "url": "https://coderippletech.com/ripplebug/" },
+      { "@type": "ListItem", "position": 2, "name": "RippleReach", "url": "https://coderippletech.com/ripplereach/" },
+      { "@type": "ListItem", "position": 3, "name": "RippleSnap", "url": "https://coderippletech.com/ripplesnap/" },
+      { "@type": "ListItem", "position": 4, "name": "Ripple Import", "url": "https://coderippletech.com/ripple-import/" },
+      { "@type": "ListItem", "position": 5, "name": "Ripple Merge", "url": "https://coderippletech.com/ripple-merge/" },
+      { "@type": "ListItem", "position": 6, "name": "RippleRoot", "url": "https://coderippletech.com/rippleroot/" },
+      { "@type": "ListItem", "position": 7, "name": "RippleClip", "url": "https://coderippletech.com/rippleclip/" },
+      { "@type": "ListItem", "position": 8, "name": "Ripple Preview", "url": "https://coderippletech.com/ripple-preview/" }
     ]
   }
   </script>
@@ -706,31 +724,30 @@
     /* card scenes off screen don't need to keep looping */
     .pscene.is-away .stage *, .pscene.is-away .stage *::before { animation-play-state: paused; }
   </style>
+  <script src="/site.js?v=1" defer></script>
 </head>
 <body>
-
-  <nav class="snav">
-    <a href="./" class="snav-brand">
-      <img src="assets/logo.svg" alt="">
+  <a class="skip" href="#main">Skip to content</a>
+  <nav class="snav" aria-label="Main">
+    <a href="/" class="snav-brand">
+      <img src="/assets/coderipple-mark.svg" alt="" width="30" height="30">
       CodeRipple Tech
     </a>
     <div class="snav-links">
-      <div class="nav-drop">
-        <button class="nav-drop-btn" type="button" aria-haspopup="true" aria-expanded="false">
-          Products
-          <svg width="10" height="7" viewBox="0 0 10 7" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-        </button>
+      <details class="nav-drop">
+        <summary class="nav-drop-btn"><span class="nav-drop-label">Products</span><svg class="nav-drop-grid" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><circle cx="3" cy="3" r="1.6"/><circle cx="8" cy="3" r="1.6"/><circle cx="13" cy="3" r="1.6"/><circle cx="3" cy="8" r="1.6"/><circle cx="8" cy="8" r="1.6"/><circle cx="13" cy="8" r="1.6"/><circle cx="3" cy="13" r="1.6"/><circle cx="8" cy="13" r="1.6"/><circle cx="13" cy="13" r="1.6"/></svg><svg class="nav-drop-caret" width="10" height="7" viewBox="0 0 10 7" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></summary>
         <div class="nav-drop-menu">
-          <a href="/rippleroot/"><img src="/assets/rippleroot-logo.png" alt=""><div>RippleRoot<small>Local-first dev workspace platform</small></div></a>
-          <a href="/ripplesnap/"><img src="/assets/ripplesnap-logo.png" alt=""><div>RippleSnap<small>macOS window manager</small></div></a>
-          <a href="/ripplereach/"><img src="/assets/ripplereach-logo.png" alt=""><div>RippleReach<small>Remote desktop, in tabs</small></div></a>
-          <a href="/rippleclip/"><img src="/assets/rippleclip-logo.png" alt=""><div>RippleClip<small>The capture inbox for iPhone</small></div></a>
-          <a href="/ripplebug/"><img src="/assets/ripplebug-logo.png" alt=""><div>Ripplebug<small>Bug reporting, captured whole</small></div></a>
-          <a href="/ripple-import/"><img src="/assets/logo.svg" alt=""><div>Ripple Import<small>CSV &amp; Excel → monday.com</small></div></a>
-          <a href="/ripple-merge/"><img src="/assets/ripple-merge-mark.svg" alt=""><div>Ripple Merge<small>Mail merge for monday.com emails</small></div></a>
-          <a href="/ripple-preview/"><img src="/assets/ripple-preview-logo.svg" alt=""><div>Ripple Preview<small>Real block previews for Umbraco</small></div></a>
+          <a href="/ripplebug/"><img src="/assets/ripplebug-logo.png" alt="" width="28" height="28"><span>Ripplebug<small>Bug reports with the evidence attached</small></span></a>
+          <a href="/ripplereach/"><img src="/assets/ripplereach-logo.png" alt="" width="28" height="28"><span>RippleReach<small>Remote desktop in tabs, Windows and Mac</small></span></a>
+          <a href="/ripplesnap/"><img src="/assets/ripplesnap-logo.png" alt="" width="28" height="28"><span>RippleSnap<small>Window manager for macOS</small></span></a>
+          <a href="/ripple-import/"><img src="/assets/logo.svg" alt="" width="28" height="28"><span>Ripple Import<small>CSV and Excel into monday.com</small></span></a>
+          <a href="/ripple-merge/"><img src="/assets/ripple-merge-mark.svg" alt="" width="28" height="28"><span>Ripple Merge<small>Mail merge for monday.com emails</small></span></a>
+          <a href="/rippleroot/"><img src="/assets/rippleroot-logo.png" alt="" width="28" height="28"><span>RippleRoot<small>Your dev workspace on every machine</small></span></a>
+          <a href="/rippleclip/"><img src="/assets/rippleclip-logo.png" alt="" width="28" height="28"><span>RippleClip<small>The capture inbox for iPhone</small></span></a>
+          <a href="/ripple-preview/"><img src="/assets/ripple-preview-logo.svg" alt="" width="28" height="28"><span>Ripple Preview<small>Real block previews for Umbraco</small></span></a>
+          <div class="nav-drop-foot"><a href="/">All products</a><a href="/blog/">Blog</a><a href="/contact/">Contact</a></div>
         </div>
-      </div>
+      </details>
       <a href="/blog/">Blog</a>
       <a class="btn btn-ghost" href="/contact/">Contact</a>
     </div>
@@ -741,10 +758,10 @@
     <div class="orb orb-purple"></div>
     <div class="hero-core">
       <div class="hero-rings" aria-hidden="true"><i></i><i></i><i></i></div>
-      <span class="eyebrow">CodeRipple Tech</span>
+      <span class="eyebrow">Eight tools · one developer</span>
       <h1 class="display">Small tools.<br><span class="grad-teal grad-anim">Big ripples.</span></h1>
-      <p class="lede">We make focused tools for the annoying parts of software work.
-      Each one does a single job well, so the tedious stuff takes seconds instead of afternoons.</p>
+      <p class="lede">Filing a bug properly. Importing a spreadsheet. Getting twenty servers into one window.
+      We build one small tool for each job like that, so it takes seconds instead of an afternoon.</p>
       <!-- Products float on the ripple. --x/--y place a tile around the
            headline (desktop); the ripple timing is derived from them. -->
       <nav class="hero-orbit" aria-label="Products">
@@ -784,105 +801,20 @@
     </div>
   </header>
 
-  <main class="wrap">
+  <main id="main" class="wrap">
     <section class="section" id="products">
       <div class="section-head reveal">
-        <h2>What we build</h2>
-        <p>Practical tools that disappear into your workflow. More on the way.</p>
+        <h2>Eight tools. One job each.</h2>
+        <p>Pick the job that's slowing you down. Most are free to start, and none of them need a sales call.</p>
       </div>
 
       <div class="products">
-        <a class="product green reveal" href="/rippleroot/">
-          <img class="product-logo" src="assets/rippleroot-logo.png" alt="RippleRoot logo">
-          <h3>RippleRoot</h3>
-          <div class="tag">Local-first dev workspace platform</div>
-          <p>Your projects, env contracts, and encrypted secrets on every machine.
-          One command onboards a new laptop, VM, or teammate: repos arrive, env files
-          land, secrets stay sealed until a device you approve needs them. Works
-          offline, self-host or cloud.</p>
-          <div class="plinks">
-            <span class="btn btn-green">See how it works &rarr;</span>
-          </div>
-          <div class="pscene ps-root" aria-hidden="true"><span class="stage">
-            <span class="tbar"></span>
-            <span class="ln cmd"><b>rr up</b><u></u></span>
-            <span class="ln l2">repos <i>&#10003;</i></span>
-            <span class="ln l3">env files <i>&#10003;</i></span>
-            <span class="ln l4">secrets sealed <i>&#10003;</i></span>
-          </span></div>
-        </a>
-
-        <a class="product blue reveal" href="/ripplesnap/">
-          <img class="product-logo" src="assets/ripplesnap-logo.png" alt="RippleSnap logo">
-          <h3>RippleSnap</h3>
-          <div class="tag">macOS window manager</div>
-          <p>Snap windows like it's native, then go further: save your whole desk as a
-          profile and bring it back with one key. Apps launch, windows land in place,
-          across every monitor. Dock your laptop and your desk restores itself.</p>
-          <div class="plinks">
-            <span class="btn btn-blue">See how it works →</span>
-          </div>
-          <div class="pscene ps-snap" aria-hidden="true"><span class="stage">
-            <span class="mbar"></span>
-            <span class="slot s1"></span><span class="slot s2"></span><span class="slot s3"></span>
-            <span class="win w1"><b></b></span>
-            <span class="win w2"><b></b></span>
-            <span class="win w3"><b></b></span>
-            <span class="kchip">&#8997; + &#8594;</span>
-          </span></div>
-        </a>
-
-        <a class="product indigo reveal" href="/ripplereach/">
-          <img class="product-logo" src="assets/ripplereach-logo.png" alt="RippleReach logo">
-          <h3>RippleReach</h3>
-          <div class="tag">Remote desktop for Windows and Mac</div>
-          <p>Every RDP connection in one library, with folders, tags and settings that
-          inherit. Sessions open in tabs at your screen's full resolution, passwords stay in
-          your OS vault, and RippleReach Host lets you control your Macs too.</p>
-          <div class="plinks">
-            <span class="btn btn-indigo">See how it works &rarr;</span>
-          </div>
-          <div class="pscene ps-reach" aria-hidden="true"><span class="stage">
-            <span class="rtabs">
-              <span class="rtab rt1">dc01</span>
-              <span class="rtab rt2">Studio Mac</span>
-              <span class="rtab rt3">sql-prod-01</span>
-            </span>
-            <span class="rscreen rs1"><b class="rwin"></b><i class="rbar"></i></span>
-            <span class="rscreen rs2"><b class="rwin"></b><i class="rmenu"></i><i class="rdock"></i></span>
-            <span class="rscreen rs3"><b class="rwin"></b><i class="rbar"></i><em class="rprod">PROD</em></span>
-          </span></div>
-        </a>
-
-        <a class="product mint reveal" href="/rippleclip/">
-          <img class="product-logo" src="assets/rippleclip-logo.png" alt="RippleClip logo">
-          <h3>RippleClip</h3>
-          <div class="tag">The capture inbox for iPhone</div>
-          <p>Copies, screenshots, and shape-grabbed snips in one searchable inbox.
-          Capture in one gesture from the Action Button or Control Center, lift text
-          out of any screenshot, and keep sensitive clips behind Face ID. Everything
-          stays on your device.</p>
-          <div class="plinks">
-            <span class="btn btn-mint">See how it works &rarr;</span>
-          </div>
-          <div class="pscene ps-clip" aria-hidden="true"><span class="stage">
-            <span class="phone">
-              <span class="cliprow cr1"><i></i></span>
-              <span class="cliprow cr2"><i></i></span>
-              <span class="cliprow cr3"><i></i></span>
-            </span>
-            <span class="capchip">&#10003; Captured</span>
-          </span></div>
-        </a>
-
         <a class="product teal reveal" href="/ripplebug/">
-          <img class="product-logo" src="assets/ripplebug-logo.png" alt="Ripplebug logo">
+          <img width="128" height="128" class="product-logo" src="assets/ripplebug-logo.png" alt="Ripplebug logo">
           <h3>Ripplebug</h3>
           <div class="tag">Bug reporting, captured whole</div>
-          <p>Capture a bug once and it lands everywhere it needs to go. One click grabs the
-          screenshot, the recording, the console and the network log, then files a complete
-          ticket in your tracker or on your live triage board. Testers can report through a
-          simple link, no account needed.</p>
+          <p>“It's broken” isn't a bug report. One click grabs the screenshot, the recording, the console and the network log, then files a complete ticket in your tracker or on a live triage board. Testers report through a link, no account needed.</p>
+          <div class="pmeta"><span>Chrome &amp; Edge</span><span class="pm-price">Free · Pro $8/mo</span></div>
           <div class="plinks">
             <span class="btn btn-teal">See how it works →</span>
           </div>
@@ -900,13 +832,53 @@
           </span></div>
         </a>
 
+        <a class="product indigo reveal" href="/ripplereach/">
+          <img width="256" height="256" class="product-logo" src="assets/ripplereach-logo.png" alt="RippleReach logo">
+          <h3>RippleReach</h3>
+          <div class="tag">Remote desktop for Windows and Mac</div>
+          <p>Twenty servers shouldn't mean twenty windows. Keep every RDP connection in one library, open sessions in tabs at your screen's full resolution, and leave passwords in your OS vault. RippleReach Host brings your Macs in too.</p>
+          <div class="pmeta"><span>Windows &amp; macOS</span><span class="pm-price">14-day trial · $29 once</span></div>
+          <div class="plinks">
+            <span class="btn btn-indigo">See how it works &rarr;</span>
+          </div>
+          <div class="pscene ps-reach" aria-hidden="true"><span class="stage">
+            <span class="rtabs">
+              <span class="rtab rt1">dc01</span>
+              <span class="rtab rt2">Studio Mac</span>
+              <span class="rtab rt3">sql-prod-01</span>
+            </span>
+            <span class="rscreen rs1"><b class="rwin"></b><i class="rbar"></i></span>
+            <span class="rscreen rs2"><b class="rwin"></b><i class="rmenu"></i><i class="rdock"></i></span>
+            <span class="rscreen rs3"><b class="rwin"></b><i class="rbar"></i><em class="rprod">PROD</em></span>
+          </span></div>
+        </a>
+
+        <a class="product blue reveal" href="/ripplesnap/">
+          <img width="256" height="256" class="product-logo" src="assets/ripplesnap-logo.png" alt="RippleSnap logo">
+          <h3>RippleSnap</h3>
+          <div class="tag">macOS window manager</div>
+          <p>Snapping is the easy part. RippleSnap also saves your whole desk as a profile: which apps, which windows, where. One key brings it back, and docking your laptop restores it on its own.</p>
+          <div class="pmeta"><span>macOS 14+</span><span class="pm-price">Free · Pro $9 once</span></div>
+          <div class="plinks">
+            <span class="btn btn-blue">See how it works →</span>
+          </div>
+          <div class="pscene ps-snap" aria-hidden="true"><span class="stage">
+            <span class="mbar"></span>
+            <span class="slot s1"></span><span class="slot s2"></span><span class="slot s3"></span>
+            <span class="win w1"><b></b></span>
+            <span class="win w2"><b></b></span>
+            <span class="win w3"><b></b></span>
+            <span class="kchip">&#8997; + &#8594;</span>
+          </span></div>
+        </a>
+
         <a class="product purple reveal" href="/ripple-import/">
           <img class="product-logo" src="assets/logo.svg" alt="Ripple Import logo">
           <h3>Ripple Import</h3>
           <div class="tag">CSV &amp; Excel → monday.com</div>
-          <p>Drag a spreadsheet in and watch it become a monday.com board. Columns map
-          themselves, hierarchy is read straight from your data, and multi-level boards
-          simply work. Hours of copy-paste, gone.</p>
+          <p>Drag a spreadsheet in and it becomes a monday.com board. Columns map themselves, hierarchy is read straight from your data, and multi-level boards work. Hours of copy-paste, gone.</p>
+          <div class="pmeta"><span>monday.com app</span><span class="pm-price">Free · from 
+          0/mo</span></div>
           <div class="plinks">
             <span class="btn btn-purple">See how it works →</span>
           </div>
@@ -928,10 +900,9 @@
           <img class="product-logo" src="assets/ripple-merge-mark.svg" alt="Ripple Merge logo">
           <h3>Ripple Merge</h3>
           <div class="tag">Mail merge for monday.com emails</div>
-          <p>monday's email automations can't see subitem data. Ripple Merge can: build an
-          email template once, loop over subitem rows, add totals and formatted dates, then
-          hand the finished email to monday's own Send Email step. New: describe the email
-          and AI writes the template for you.</p>
+          <p>monday's email automations can't see subitem data. Ripple Merge can. Build a template once, loop over subitem rows, add totals and dates, and hand the finished email to monday's own Send Email step. Or describe the email and let AI draft the template.</p>
+          <div class="pmeta"><span>monday.com app</span><span class="pm-price">Free · from 
+          5/mo</span></div>
           <div class="plinks">
             <span class="btn btn-emerald">See how it works →</span>
           </div>
@@ -954,6 +925,49 @@
           </span></div>
         </a>
 
+        <a class="product green reveal" href="/rippleroot/">
+          <img width="256" height="256" class="product-logo" src="assets/rippleroot-logo.png" alt="RippleRoot logo">
+          <h3>RippleRoot</h3>
+          <div class="tag">Local-first dev workspace platform</div>
+          <p>Your projects, env contracts, and encrypted secrets on every machine.
+          One command onboards a new laptop, VM, or teammate: repos arrive, env files
+          land, secrets stay sealed until a device you approve needs them. Works
+          offline, self-host or cloud.</p>
+          <div class="pmeta"><span>macOS, Windows, Linux</span><span class="pm-price">Free for 3 seats</span></div>
+          <div class="plinks">
+            <span class="btn btn-green">See how it works &rarr;</span>
+          </div>
+          <div class="pscene ps-root" aria-hidden="true"><span class="stage">
+            <span class="tbar"></span>
+            <span class="ln cmd"><b>rr up</b><u></u></span>
+            <span class="ln l2">repos <i>&#10003;</i></span>
+            <span class="ln l3">env files <i>&#10003;</i></span>
+            <span class="ln l4">secrets sealed <i>&#10003;</i></span>
+          </span></div>
+        </a>
+
+        <a class="product mint reveal" href="/rippleclip/">
+          <img width="256" height="256" class="product-logo" src="assets/rippleclip-logo.png" alt="RippleClip logo">
+          <h3>RippleClip</h3>
+          <div class="tag">The capture inbox for iPhone</div>
+          <p>Copies, screenshots, and shape-grabbed snips in one searchable inbox.
+          Capture in one gesture from the Action Button or Control Center, lift text
+          out of any screenshot, and keep sensitive clips behind Face ID. Everything
+          stays on your device.</p>
+          <div class="pmeta"><span>iPhone</span><span class="pm-price">Coming soon</span></div>
+          <div class="plinks">
+            <span class="btn btn-mint">See how it works &rarr;</span>
+          </div>
+          <div class="pscene ps-clip" aria-hidden="true"><span class="stage">
+            <span class="phone">
+              <span class="cliprow cr1"><i></i></span>
+              <span class="cliprow cr2"><i></i></span>
+              <span class="cliprow cr3"><i></i></span>
+            </span>
+            <span class="capchip">&#10003; Captured</span>
+          </span></div>
+        </a>
+
         <a class="product sky reveal" href="/ripple-preview/">
           <img class="product-logo" src="assets/ripple-preview-logo.svg" alt="Ripple Preview logo">
           <h3>Ripple Preview</h3>
@@ -961,6 +975,7 @@
           <p>Umbraco's block editors show gray cards where the page should be. Ripple Preview
           renders every block through your site's own views, styles and scripts, so editors
           see the real page while they edit it. Free and open source.</p>
+          <div class="pmeta"><span>Umbraco 17.3+</span><span class="pm-price">Free · open source</span></div>
           <div class="plinks">
             <span class="btn btn-sky">See how it works →</span>
           </div>
@@ -977,10 +992,70 @@
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" id="news">
+      <div class="section-head reveal">
+        <h2>What's new</h2>
+        <p>Recent changes across the tools, and notes from building them.</p>
+      </div>
+      <div class="news">
+        <div class="panel reveal">
+          <h3>Latest updates</h3>
+          <p class="panel-sub">Newest first.</p>
+          <ul class="ledger">
+            <li><div class="row"><time datetime="2026-11-09">9 Nov 2026</time><b><i class="dot" style="--c:#22d3ce"></i>Ripplebug gets a phone app</b><span>Testers record any app on iPhone or Android and file to the same board. Coming to the stores soon.</span></div></li>
+            <li><div class="row"><time datetime="2026-11-07">7 Nov 2026</time><b><i class="dot" style="--c:#22d3ce"></i>Ripplebug for Jira, in private beta</b><span>Sign in with Jira and file captures straight into your projects.</span></div></li>
+            <li><div class="row"><time datetime="2026-11-06">6 Nov 2026</time><b><i class="dot" style="--c:#10b981"></i>Ripple Merge: new plans with AI allowances</b><span>Free covers 50 merged emails a month. Pro is $15, Business $30.</span></div></li>
+            <li><div class="row"><time datetime="2026-10-27">27 Oct 2026</time><b><i class="dot" style="--c:#6574ff"></i>RippleReach released</b><span>Remote desktop for Windows and Mac, in tabs. $29 once, with a 14-day trial.</span></div></li>
+            <li><div class="row"><time datetime="2026-08-14">14 Aug 2026</time><b><i class="dot" style="--c:#10b981"></i>Ripple Merge drafts templates with AI</b><span>Describe the email you want and it writes the template.</span></div></li>
+            <li><div class="row"><time datetime="2026-08-12">12 Aug 2026</time><b><i class="dot" style="--c:#7d66fd"></i>Ripple Import runs on a schedule</b><span>Point it at a link and it updates your board daily, without you.</span></div></li>
+          </ul>
+        </div>
+        <div class="panel reveal">
+          <h3>From the blog</h3>
+          <p class="panel-sub">What shipped, what broke, and what the numbers said.</p>
+          <ul class="ledger">
+          <!-- blog:latest:start -->
+          <li><a href="/blog/self-hosting-convex-on-one-vps/"><time datetime="2026-08-03">3 Aug 2026</time><b>Self-hosting Convex: the 16 variables an export leaves behind</b><span><i class="dot" style="--c:#7d66fd"></i>Engineering · 2 min read</span></a></li>
+          <li><a href="/blog/the-bug-with-no-spinner/"><time datetime="2026-08-02">2 Aug 2026</time><b>The bug with no spinner</b><span><i class="dot" style="--c:#38bdf8"></i>Tech · 2 min read</span></a></li>
+          <li><a href="/blog/writing-a-post/"><time datetime="2026-08-01">1 Aug 2026</time><b>How this blog works</b><span><i class="dot" style="--c:#22d3ce"></i>Product · 2 min read</span></a></li>
+          <!-- blog:latest:end -->
+          </ul>
+          <a class="panel-more" href="/blog/">All posts &rarr;</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="made-by" style="padding-top:0;">
+      <div class="maker reveal">
+        <div class="maker-mark" aria-hidden="true">DN</div>
+        <div>
+          <h2>Built by one developer, start to finish.</h2>
+          <p>I'm Dan Negoescu, the developer behind CodeRipple Tech. I design, build and support every tool
+          here myself. That's why each one stays small, does one job properly, and keeps getting updates.</p>
+          <p>When you email, you reach me directly. Bugs and requests go straight to the person who can fix them.</p>
+          <dl class="maker-facts">
+            <div><dt>Tools</dt><dd>Eight so far</dd></div>
+            <div><dt>Runs on</dt><dd>macOS, Windows, iPhone, Chrome, monday.com, Umbraco</dd></div>
+            <div><dt>Company</dt><dd>CodeRipple Tech Ltd</dd></div>
+          </dl>
+          <a class="maker-also" href="https://inletdesk.com/" rel="noopener">
+            <span class="maker-also-label">Also from CodeRipple Tech</span>
+            <b>Inlet, the helpdesk for Shopify stores</b>
+            <span>A shared inbox that sorts customer emails, matches each one to its order, and drafts replies for you to check and send. In early access at inletdesk.com.</span>
+          </a>
+          <div class="maker-links">
+            <a class="btn btn-teal" href="mailto:support@coderippletech.com">Email me</a>
+            <a class="btn btn-ghost" href="https://github.com/negoescg" rel="noopener">GitHub</a>
+            <a class="btn btn-ghost" href="https://app.daily.dev/squads/rippleeffect" rel="noopener">Ripple Effect on daily.dev</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top:0;">
       <div class="cta-band reveal">
-        <h2>Have an idea for the next tool?</h2>
-        <p>Tell us what slows you down. We read every message.</p>
+        <h2>What job keeps eating your afternoon?</h2>
+        <p>Tell us what slows you down. Every message is read by the person who'd build the fix.</p>
         <a class="btn btn-teal" href="/contact/">Get in touch</a>
       </div>
     </section>
@@ -989,7 +1064,7 @@
   <footer class="sfooter">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a class="footer-brand-link" href="/"><img src="/assets/logo.svg" alt="">CodeRipple Tech</a>
+        <a class="footer-brand-link" href="/"><img src="/assets/coderipple-mark.svg" alt="" width="30" height="30" loading="lazy" decoding="async">CodeRipple Tech</a>
         <p>Small tools. Big ripples. Focused products that remove the friction from everyday software work.</p>
       </div>
       <div class="footer-col">
@@ -1072,19 +1147,6 @@
       });
     }
 
-    const drop = document.querySelector(".nav-drop");
-    const dropBtn = drop.querySelector(".nav-drop-btn");
-    dropBtn.addEventListener("click", (e) => {
-      e.stopPropagation();
-      const open = drop.classList.toggle("open");
-      dropBtn.setAttribute("aria-expanded", String(open));
-    });
-    document.addEventListener("click", (e) => {
-      if (!drop.contains(e.target)) { drop.classList.remove("open"); dropBtn.setAttribute("aria-expanded", "false"); }
-    });
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") { drop.classList.remove("open"); dropBtn.setAttribute("aria-expanded", "false"); }
-    });
   </script>
 </body>
 </html>

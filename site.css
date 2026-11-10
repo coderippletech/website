@@ -1,5 +1,16 @@
-/* CodeRipple Tech — company + product pages design system */
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+/* CodeRipple Tech — company + product pages design system.
+   Inter is served from this domain. Each page preloads the latin file in its
+   <head>, so the font request starts with the HTML. */
+@font-face {
+  font-family: "Inter"; font-style: normal; font-weight: 400 800; font-display: swap;
+  src: url("/assets/fonts/inter-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Inter"; font-style: normal; font-weight: 400 800; font-display: swap;
+  src: url("/assets/fonts/inter-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
 
 :root {
   --bg: #0a0e14;
@@ -27,7 +38,8 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 /* overflow-x on body alone doesn't stop horizontal panning on iOS Safari;
    the root element needs it too. clip > hidden (no scroll container). */
-html { scroll-behavior: smooth; overflow-x: hidden; overflow-x: clip; }
+html { overflow-x: hidden; overflow-x: clip; scroll-padding-top: 84px; }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
 body {
   font-family: var(--font);
   background: var(--bg);
@@ -51,8 +63,12 @@ img { max-width: 100%; display: block; }
 }
 .snav-brand { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: -0.02em; }
 .snav-brand img { width: 26px; height: 26px; border-radius: 7px; }
+/* The company mark is a drawing with no tile behind it: a little larger, and not clipped. */
+a.snav-brand > img { width: 30px; height: 30px; border-radius: 0; }
+.footer-brand-link img { border-radius: 0; }
 .snav-brand-main { display: flex; align-items: center; gap: 10px; }
-.snav-by { font-size: 11px; color: var(--muted); font-weight: 500; white-space: nowrap; }
+.snav-by { font-size: 14px; color: var(--muted); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; min-height: 24px; transition: color 0.2s ease; }
+.snav-sep { color: rgba(255, 255, 255, 0.22); font-weight: 400; }
 .snav-by:hover { color: var(--text); }
 .snav-brand, .snav-brand-main { white-space: nowrap; }
 .snav-links { display: flex; align-items: center; gap: clamp(12px, 2.5vw, 28px); font-size: 14px; color: var(--muted); }
@@ -61,19 +77,20 @@ img { max-width: 100%; display: block; }
 .snav-links a { white-space: nowrap; display: inline-flex; align-items: center; min-height: 24px; }
 .snav-links a:hover { color: var(--text); }
 @media (max-width: 1060px) {
-  .snav-by { display: none; }
   .snav-links { gap: clamp(10px, 1.8vw, 20px); font-size: 13.5px; }
+}
+@media (max-width: 900px) {
+  .snav-by, .snav-sep { display: none; }
 }
 @media (max-width: 720px) {
   /* keep brand + CTA on small screens; section anchors are reachable by scrolling */
-  .snav-links a:not(.btn) { display: none; }
-  .snav-by { display: none; }
+  .snav-links > a:not(.btn) { display: none; }
   /* Writing is a destination rather than a section anchor, so it survives the
      cull — down to the width where the row genuinely stops fitting. */
-  .snav-links a[href="/blog/"] { display: inline-block; }
+  .snav-links > a[href="/blog/"] { display: inline-flex; }
 }
 @media (max-width: 480px) {
-  .snav-links a[href="/blog/"] { display: none; }
+  .snav-links > a[href="/blog/"] { display: none; }
 }
 @media (max-width: 420px) {
   .snav { padding: 12px 14px; gap: 10px; }
@@ -158,14 +175,13 @@ h1.display {
 .hero-note { margin-top: 16px; font-size: 13px; color: var(--muted); }
 @media (prefers-reduced-motion: no-preference) {
   .hero .eyebrow, .hero h1.display, .hero .lede, .hero .hero-ctas, .hero .hero-note {
-    opacity: 0; transform: translateY(16px);
-    animation: heroIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation: heroIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
   .hero h1.display { animation-delay: 0.08s; }
   .hero .lede { animation-delay: 0.16s; }
   .hero .hero-ctas { animation-delay: 0.24s; }
   .hero .hero-note { animation-delay: 0.32s; }
-  @keyframes heroIn { to { opacity: 1; transform: none; } }
+  @keyframes heroIn { from { opacity: 0; transform: translateY(18px); filter: blur(6px); } }
 }
 
 /* ---- sections ---- */
@@ -176,8 +192,10 @@ h1.display {
 .section-head p { color: var(--muted); }
 
 /* reveal on scroll */
-.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
-.reveal.in { opacity: 1; transform: none; }
+@media (scripting: enabled) {
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+  .reveal.in { opacity: 1; transform: none; }
+}
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1; transform: none; transition: none; }
   .orb { animation: none; }
@@ -257,8 +275,10 @@ h1.display {
 .split-copy h3 { font-size: clamp(22px, 3vw, 30px); letter-spacing: -0.02em; margin-bottom: 12px; }
 .split-copy p { color: var(--muted); margin-bottom: 14px; }
 .split-copy ul { list-style: none; }
-.split-copy li { display: flex; gap: 10px; align-items: baseline; color: var(--muted); font-size: 14.5px; padding: 4px 0; }
-.split-copy li::before { content: "→"; color: var(--accent); font-weight: 700; }
+/* Not a flex row: a link or bold phrase inside the sentence would become its
+   own column and split the line in three. */
+.split-copy li { position: relative; color: var(--muted); font-size: 14.5px; padding: 4px 0 4px 24px; }
+.split-copy li::before { content: "→"; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
 @media (max-width: 860px) { .split, .split.flip { grid-template-columns: 1fr; } .split.flip > .split-copy { order: 0; } }
 
 /* ---- logo marquee ---- */
@@ -455,46 +475,51 @@ h1.display {
   z-index: -1; pointer-events: none;
 }
 
-/* ---- nav products dropdown: nav stays compact no matter how many products ---- */
+/* ---- nav products menu ----------------------------------------------------
+   A <details> element, so it opens without JavaScript; site.js only adds
+   close-on-outside-click and Escape. The same menu sits in every page's nav. */
 .nav-drop { position: relative; }
 .nav-drop-btn {
-  display: inline-flex; align-items: center; gap: 6px;
-  background: none; border: 0; cursor: pointer; padding: 8px 10px;
-  font: inherit; font-size: 14.5px; color: var(--muted);
-  transition: color 0.2s ease;
+  display: inline-flex; align-items: center; gap: 6px; list-style: none;
+  cursor: pointer; padding: 8px 10px; min-height: 24px; border-radius: 8px;
+  font-size: 14.5px; color: var(--muted); user-select: none;
+  transition: color 0.2s ease, background 0.2s ease;
 }
+.nav-drop-btn::-webkit-details-marker { display: none; }
 .nav-drop-btn:hover { color: var(--text); }
-.nav-drop-btn svg { transition: transform 0.2s ease; }
-.nav-drop.open .nav-drop-btn { color: var(--text); }
-.nav-drop.open .nav-drop-btn svg { transform: rotate(180deg); }
+.nav-drop-caret { transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1); }
+.nav-drop-grid { display: none; }
+.nav-drop[open] .nav-drop-btn { color: var(--text); background: rgba(255, 255, 255, 0.06); }
+.nav-drop[open] .nav-drop-caret { transform: rotate(180deg); }
 .nav-drop-menu {
-  position: absolute; top: calc(100% + 10px); right: 0; width: 264px;
-  padding: 8px; border-radius: 14px;
-  background: rgba(14, 19, 28, 0.94); border: 1px solid var(--card-border);
-  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
-  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.5);
-  opacity: 0; transform: translateY(-6px); pointer-events: none;
-  transition: opacity 0.18s ease, transform 0.18s ease;
+  position: absolute; top: calc(100% + 12px); right: 0; width: 304px;
+  padding: 8px; border-radius: 16px;
+  background: rgba(14, 19, 28, 0.97); border: 1px solid var(--card-border);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.55);
 }
-.nav-drop.open .nav-drop-menu { opacity: 1; transform: none; pointer-events: auto; }
-.nav-drop-menu a {
-  display: flex; align-items: center; gap: 11px;
-  padding: 9px 10px; border-radius: 9px;
-  color: var(--text); font-size: 14px; font-weight: 600;
+@media (prefers-reduced-motion: no-preference) {
+  .nav-drop[open] .nav-drop-menu { animation: menuIn 0.28s cubic-bezier(0.16, 1, 0.3, 1); transform-origin: top right; }
+  @keyframes menuIn { from { opacity: 0; transform: translateY(-8px) scale(0.97); } }
+}
+.snav-links .nav-drop-menu a {
+  display: flex; align-items: center; gap: 12px; min-height: 0; white-space: normal;
+  padding: 8px 10px; border-radius: 10px;
+  color: var(--text); font-size: 14px; font-weight: 600; line-height: 1.3;
   transition: background 0.15s ease;
 }
-.nav-drop-menu a:hover { background: rgba(255, 255, 255, 0.06); }
-.nav-drop-menu a img { width: 26px; height: 26px; border-radius: 7px; }
-.nav-drop-menu a small { display: block; font-size: 11.5px; color: var(--muted); font-weight: 500; }
-@media (max-width: 720px) {
-  .snav .nav-drop-menu a { display: flex; }
-}
+.snav-links .nav-drop-menu a:hover { background: rgba(255, 255, 255, 0.06); }
+.nav-drop-menu a img { width: 28px; height: 28px; border-radius: 8px; flex: none; }
+.nav-drop-menu a small { display: block; font-size: 12px; color: var(--muted); font-weight: 500; }
+.nav-drop-menu a[aria-current="page"] { background: var(--accent-soft); }
+.nav-drop-foot { display: flex; gap: 4px; margin-top: 6px; padding-top: 6px; border-top: 1px solid var(--card-border); }
+.snav-links .nav-drop-foot a { flex: 1; justify-content: center; padding: 9px 6px; font-size: 13px; color: var(--muted); }
+.snav-links .nav-drop-foot a:hover { color: var(--text); }
 
 /* ---- structured footer ---- */
 .sfooter { display: block; padding: 56px clamp(16px, 4vw, 48px) 30px; }
 .footer-grid { max-width: 1080px; margin: 0 auto; display: grid; grid-template-columns: 1.7fr 1fr 1fr 1fr; gap: 40px; }
 .footer-brand-link { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; font-size: 16px; color: var(--text); }
-.footer-brand-link img { width: 30px; height: 30px; border-radius: 8px; }
+.footer-brand-link img { width: 30px; height: 30px; }
 .footer-brand p { color: var(--muted); font-size: 13.5px; line-height: 1.6; margin-top: 12px; max-width: 280px; }
 .footer-col { display: flex; flex-direction: column; gap: 11px; }
 .footer-col h4 { font-size: 12px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: var(--muted); margin-bottom: 3px; }
@@ -516,6 +541,234 @@ h1.display {
   .footer-grid { grid-template-columns: 1fr; gap: 28px; }
 }
 
+/* ==== 2026-11 upgrade =======================================================
+   Same dark look, tightened: keyboard focus, balanced headings, a nav that
+   knows where you are, and motion that follows the pointer and the scroll. */
+
+/* ---- keyboard and screen-reader basics ---- */
+:focus-visible { outline: 2px solid color-mix(in srgb, var(--accent) 70%, white); outline-offset: 3px; border-radius: 6px; }
+.skip {
+  position: absolute; left: 12px; top: -80px; z-index: 100;
+  background: var(--text); color: var(--bg); font-weight: 700; font-size: 14px;
+  padding: 10px 16px; border-radius: 10px;
+}
+.skip:focus { top: 12px; }
+img { height: auto; }
+
+/* ---- type: no orphaned last words ---- */
+h1.display, .section-head h2, .cta-band h2, .split-copy h3, .product h3, .feature h4, .step h4 { text-wrap: balance; }
+.hero p.lede, .section-head p, .feature p, .split-copy p, .product p, .cta-band p { text-wrap: pretty; }
+h1.display { letter-spacing: -0.035em; }
+.section-head h2 { letter-spacing: -0.03em; line-height: 1.12; }
+
+/* ---- nav: clear at the top of the page, glass once you scroll ---- */
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .snav { animation: navSettle linear both; animation-timeline: scroll(root); animation-range: 0 96px; }
+    @keyframes navSettle { from { background-color: rgba(10, 14, 20, 0); border-bottom-color: transparent; } }
+  }
+}
+/* the section you are reading is marked in the nav (site.js sets aria-current) */
+.snav-links > a { position: relative; transition: color 0.2s ease; }
+.snav-links > a:not(.btn)::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: -7px; height: 2px; border-radius: 2px;
+  background: var(--accent); transform: scaleX(0); transform-origin: left;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.snav-links > a[aria-current] { color: var(--text); }
+.snav-links > a[aria-current]::after { transform: scaleX(1); }
+
+/* ---- buttons: a press you can feel ---- */
+.btn:active { transform: translateY(0) scale(0.975); transition-duration: 0.06s; }
+@media (prefers-reduced-motion: no-preference) {
+  /* the hero's main action sends out one slow ring, the ripple at button scale */
+  .hero .hero-ctas > .btn:first-child::after {
+    content: ""; position: absolute; inset: -1px; border-radius: inherit; pointer-events: none;
+    border: 1.5px solid var(--accent); opacity: 0;
+    animation: ctaRing 5s cubic-bezier(0.16, 1, 0.3, 1) 1.6s infinite;
+  }
+  .hero .hero-ctas > .btn:first-child { position: relative; }
+  @keyframes ctaRing {
+    0% { opacity: 0.6; transform: scale(1); }
+    30%, 100% { opacity: 0; transform: scale(1.16, 1.5); }
+  }
+}
+
+/* ---- cards: a soft light that follows the pointer (site.js sets --mx/--my) ---- */
+.step, .price-card { position: relative; }
+.feature::before, .step::before, .price-card::before {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  opacity: 0; transition: opacity 0.4s ease;
+  background: radial-gradient(280px circle at var(--mx, 50%) var(--my, 0%), color-mix(in srgb, var(--accent) 13%, transparent), transparent 68%);
+}
+.feature:hover::before, .step:hover::before, .price-card:hover::before { opacity: 1; }
+.step, .price-card { transition: border-color 0.25s ease, transform 0.25s ease; }
+.step:hover { border-color: color-mix(in srgb, var(--accent) 30%, transparent); }
+
+/* ---- screens settle into place as they scroll into view ---- */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .browser, .appshot, .promo-player {
+      animation: settle linear both; animation-timeline: view(); animation-range: entry 0% entry 60%;
+    }
+    @keyframes settle { from { opacity: 0.3; transform: perspective(1400px) rotateX(6deg) scale(0.955); } }
+    .reveal:is(.browser, .appshot, .promo-player) { opacity: 1; transform: none; transition: none; }
+  }
+}
+
+/* ---- closing band: rings rising from below, the ripple once more ---- */
+.cta-band { position: relative; overflow: hidden; isolation: isolate; }
+.cta-band::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: repeating-radial-gradient(circle at 50% 135%, transparent 0 40px, color-mix(in srgb, var(--accent) 20%, transparent) 40px 41px);
+  -webkit-mask-image: radial-gradient(ellipse 75% 95% at 50% 125%, #000 20%, transparent 78%);
+  mask-image: radial-gradient(ellipse 75% 95% at 50% 125%, #000 20%, transparent 78%);
+}
+.cta-band h2 { letter-spacing: -0.03em; line-height: 1.12; }
+
+/* ---- product cards (home): where it runs and what it costs ---- */
+.pmeta { display: flex; flex-wrap: wrap; gap: 6px; margin: -6px 0 20px; }
+.pmeta span {
+  font-size: 12px; font-weight: 600; color: var(--muted); white-space: nowrap;
+  padding: 4px 10px; border-radius: 999px; border: 1px solid var(--card-border); background: rgba(255, 255, 255, 0.03);
+}
+.pmeta .pm-price { color: var(--text); border-color: color-mix(in srgb, var(--pc, var(--accent)) 38%, transparent); }
+
+/* ---- dated lists (home: updates and writing) ---- */
+.news { display: grid; grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr); gap: 22px; align-items: start; }
+.panel { border: 1px solid var(--card-border); border-radius: var(--radius); background: var(--card); padding: clamp(22px, 3vw, 30px); }
+.panel > h3 { font-size: 20px; letter-spacing: -0.02em; margin-bottom: 4px; }
+.panel > .panel-sub { color: var(--muted); font-size: 14px; margin-bottom: 14px; }
+.ledger { list-style: none; }
+.ledger li + li { border-top: 1px solid var(--card-border); }
+.ledger a, .ledger .row { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 2px 16px; align-items: baseline; padding: 13px 0; }
+.ledger time { font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.ledger b { font-weight: 600; font-size: 15px; line-height: 1.4; transition: color 0.2s ease; }
+.ledger span { grid-column: 2; font-size: 13.5px; color: var(--muted); }
+.ledger .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--c, var(--accent)); margin-right: 9px; box-shadow: 0 0 0 3px color-mix(in srgb, var(--c, var(--accent)) 18%, transparent); }
+.ledger a:hover b { color: var(--teal); }
+.panel-more { display: inline-flex; align-items: center; gap: 6px; min-height: 24px; margin-top: 12px; font-size: 13.5px; font-weight: 600; color: var(--teal); }
+.panel-more:hover { text-decoration: underline; text-underline-offset: 4px; }
+@media (max-width: 860px) { .news { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 480px) { .ledger a, .ledger .row { grid-template-columns: minmax(0, 1fr); } .ledger span { grid-column: 1; } }
+
+/* ---- who makes this (home) ---- */
+.maker {
+  position: relative; overflow: hidden; isolation: isolate;
+  display: grid; grid-template-columns: auto minmax(0, 1fr); gap: clamp(20px, 4vw, 44px); align-items: start;
+  border: 1px solid var(--card-border); border-radius: 20px; padding: clamp(26px, 5vw, 48px);
+  background:
+    radial-gradient(ellipse 55% 120% at 0% 0%, var(--teal-soft), transparent 62%),
+    radial-gradient(ellipse 50% 110% at 100% 100%, var(--purple-soft), transparent 62%),
+    var(--card);
+}
+.maker-mark {
+  width: 84px; height: 84px; border-radius: 50%; display: grid; place-items: center;
+  font-size: 28px; font-weight: 800; letter-spacing: -0.02em; color: var(--teal);
+  background: var(--teal-soft); border: 1px solid color-mix(in srgb, var(--teal) 40%, transparent);
+}
+.maker h2 { font-size: clamp(24px, 3.6vw, 36px); letter-spacing: -0.03em; line-height: 1.12; margin-bottom: 12px; text-wrap: balance; }
+.maker p { color: var(--muted); font-size: 16px; max-width: 60ch; text-wrap: pretty; }
+.maker p + p { margin-top: 10px; }
+.maker-facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 24px; }
+.maker-facts div { border-top: 1px solid var(--card-border); padding-top: 12px; }
+.maker-facts dt { font-size: 12.5px; color: var(--muted); }
+.maker-facts dd { font-size: 15px; font-weight: 600; margin-top: 2px; }
+.maker-also {
+  display: grid; gap: 4px; margin-top: 22px; padding: 16px 18px; border-radius: 14px;
+  border: 1px solid var(--card-border); background: rgba(255, 255, 255, 0.035);
+  transition: border-color 0.25s ease, background 0.25s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.maker-also:hover { border-color: color-mix(in srgb, var(--teal) 50%, transparent); background: rgba(255, 255, 255, 0.055); transform: translateY(-2px); }
+.maker-also-label { font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--teal); }
+.maker-also b { font-size: 16.5px; font-weight: 700; letter-spacing: -0.01em; }
+.maker-also span:last-child { font-size: 14px; color: var(--muted); max-width: 62ch; }
+.maker-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+@media (max-width: 700px) {
+  .maker { grid-template-columns: minmax(0, 1fr); }
+  .maker-mark { width: 64px; height: 64px; font-size: 22px; }
+  .maker-facts { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ---- the rest of the family, at the foot of every product page ---- */
+.more-tools { padding: clamp(40px, 7vh, 80px) 0 clamp(48px, 8vh, 96px); }
+.more-tools h2 { font-size: clamp(20px, 2.6vw, 26px); letter-spacing: -0.02em; margin-bottom: 6px; }
+.more-tools > .wrap > p { color: var(--muted); font-size: 14.5px; margin-bottom: 22px; }
+.mt-list { list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(228px, 1fr)); gap: 10px; }
+.mt-list a {
+  display: flex; align-items: center; gap: 12px; height: 100%;
+  padding: 12px 14px; border-radius: 12px;
+  border: 1px solid var(--card-border); background: var(--card);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, background 0.25s ease;
+}
+.mt-list a:hover { transform: translateY(-3px); border-color: color-mix(in srgb, var(--c) 55%, transparent); background: color-mix(in srgb, var(--c) 7%, transparent); }
+.mt-list img { width: 34px; height: 34px; border-radius: 9px; flex: none; }
+.mt-list b { display: block; font-size: 14.5px; font-weight: 600; line-height: 1.3; }
+.mt-list small { display: block; font-size: 12.5px; color: var(--muted); line-height: 1.35; }
+
+/* ==== product pages: layout and flow ======================================= */
+
+/* Above a full-width grid, the section heading reads left to right: the claim
+   on the left, the supporting line beside it. Headings above centred content
+   (pricing, a single panel) stay centred so the two line up. */
+@media (min-width: 861px) {
+  .section-head:has(> h2):has(> p):is(:has(+ .features), :has(+ .steps), :has(+ .products), :has(+ .news)) {
+    display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    gap: 10px clamp(28px, 5vw, 72px); align-items: end;
+    text-align: left; max-width: none; margin-left: 0; margin-right: 0;
+  }
+  .section-head:is(:has(+ .features), :has(+ .steps), :has(+ .products), :has(+ .news)) h2 { margin-bottom: 0; }
+  .section-head:is(:has(+ .features), :has(+ .steps), :has(+ .products), :has(+ .news)) p { padding-bottom: 5px; }
+}
+
+/* The feature grid sits on its own full-width band, so the page has a clear
+   middle instead of one long run of the same background. */
+.section:has(> .features) { position: relative; isolation: isolate; }
+.section:has(> .features)::before {
+  content: ""; position: absolute; inset: 0 -100vw; z-index: -1;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.012));
+  border-block: 1px solid var(--card-border);
+}
+.section:has(> .features)::after {
+  content: ""; position: absolute; top: 0; left: 50%; width: min(560px, 72%); height: 1px;
+  transform: translateX(-50%); pointer-events: none;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent); opacity: 0.75;
+}
+
+/* Three, six or nine features sit three to a row, so the last row is never
+   left with one or two stragglers. */
+@media (min-width: 900px) {
+  .features:has(> :nth-child(3):last-child),
+  .features:has(> :nth-child(6):last-child),
+  .features:has(> :nth-child(9):last-child) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+/* Feature cards: icon and title share a line, so a card is a headline with a
+   sentence under it rather than three stacked blocks. */
+.feature { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 13px; align-content: start; }
+.feature .fi { margin-bottom: 0; }
+.feature h4 { align-self: center; margin-bottom: 0; }
+.feature p { grid-column: 1 / -1; margin-top: 13px; }
+
+/* Screenshot rows: the screenshot gets the wider column. */
+@media (min-width: 861px) {
+  .split { grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr); }
+  .split.flip { grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr); }
+}
+
+/* The ripple behind a product headline, in that product's colour. */
+.hero > .ripples { z-index: -1; }
+.hero > .ripples i { width: min(680px, 130vw); height: min(680px, 130vw); border-color: color-mix(in srgb, var(--accent) 30%, transparent); animation-duration: 10s; }
+.hero > .ripples i:nth-child(2) { border-color: color-mix(in srgb, var(--accent) 18%, transparent); animation-delay: 3.33s; }
+.hero > .ripples i:nth-child(3) { animation-delay: 6.66s; }
+
+/* ---- moving between pages: a short cross-fade, the nav stays put ---- */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+  .snav { view-transition-name: site-nav; }
+  ::view-transition-old(root), ::view-transition-new(root) { animation-duration: 0.28s; }
+}
+
 /* ---- small-screen nav menu ------------------------------------------------
    Placed at the end of the file on purpose: it overrides .nav-drop-menu, which
    is defined further up, and equal-specificity rules are won by whichever comes
@@ -527,6 +780,8 @@ h1.display {
   .nav-drop { position: static; }
   .snav { position: sticky; }
   .nav-drop-menu { left: 12px; right: 12px; width: auto; top: calc(100% + 8px); }
+  .nav-drop-label { display: none; }
+  .nav-drop-grid { display: block; }
 }
 
 /* At 320px the brand wordmark, the Products control and the CTA no longer fit

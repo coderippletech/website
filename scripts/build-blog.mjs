@@ -264,7 +264,7 @@ function siteChrome() {
       .replace(/(href|src)="\.\/"/g, '$1="/"')
       .replace(/(href|src)="(?!\/|https?:|mailto:|tel:|#|data:)/g, '$1="/');
 
-  let nav = absolute(grab(/<nav class="snav">[\s\S]*?<\/nav>/, "<nav class=\"snav\">"));
+  let nav = absolute(grab(/<nav class="snav"[^>]*>[\s\S]*?<\/nav>/, "<nav class=\"snav\">"));
   let footer = absolute(grab(/<footer class="sfooter">[\s\S]*?<\/footer>/, "<footer class=\"sfooter\">"));
 
   // The blog is a top-level destination, so it sits beside the CTA rather than
@@ -288,22 +288,9 @@ const NAV = (here = false) =>
        : CHROME.nav;
 const FOOTER = CHROME.footer;
 
-/* The products dropdown is behaviour that lives in each page's inline script on
-   this site; the blog carries the same handler so the nav is not decorative. */
-const NAV_JS = `<script>
-    (() => {
-      const drop = document.querySelector(".nav-drop");
-      if (!drop) return;
-      const btn = drop.querySelector(".nav-drop-btn");
-      const close = () => { drop.classList.remove("open"); btn.setAttribute("aria-expanded", "false"); };
-      btn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        btn.setAttribute("aria-expanded", String(drop.classList.toggle("open")));
-      });
-      document.addEventListener("click", (e) => { if (!drop.contains(e.target)) close(); });
-      document.addEventListener("keydown", (e) => { if (e.key === "Escape") close(); });
-    })();
-  </script>`;
+/* The products menu is a <details> element; /site.js closes it on an outside
+   click or Escape, the same file every other page loads. */
+const NAV_JS = `<script src="/site.js?v=1" defer></script>`;
 
 const head = ({ title, desc, url, og, article = null, extra = "" }) => `<!doctype html>
 <html lang="en">
@@ -330,8 +317,9 @@ const head = ({ title, desc, url, og, article = null, extra = "" }) => `<!doctyp
 <meta name="author" content="${esc(article.author)}">
 <link rel="author" href="${AUTHOR.sameAs[0]}">` : ""}
 <link rel="alternate" type="application/rss+xml" title="CodeRipple Tech — Blog" href="${SITE}/blog/feed.xml">
-<link rel="icon" href="/assets/logo.svg">
-<link rel="stylesheet" href="/site.css?v=18">
+<link rel="icon" type="image/svg+xml" href="/assets/coderipple-icon.svg">
+<link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/site.css?v=29">
 <link rel="stylesheet" href="/blog/blog.css?v=7">
 ${extra}
 </head>`;
@@ -473,7 +461,7 @@ function renderPost(post, prev, next) {
       description: AUTHOR.bio, url: `${SITE}/blog/`, sameAs: AUTHOR.sameAs,
     },
     publisher: { "@type": "Organization", name: "CodeRipple Tech", url: SITE,
-      logo: { "@type": "ImageObject", url: `${SITE}/assets/logo.svg` } },
+      logo: { "@type": "ImageObject", url: `${SITE}/assets/coderipple-icon.svg` } },
     ...(post.via_url ? { citation: { "@type": "CreativeWork", url: post.via_url,
       ...(post.via_name ? { name: post.via_name } : {}) } } : {}),
   }, {
@@ -636,6 +624,28 @@ function updateLlms(posts) {
   return `llms.txt — ${posts.length} posts listed`;
 }
 
+/* ------------------------------------------------------------ home page */
+
+// The home page lists the three newest posts. Same managed-block idea as the
+// sitemap: the build owns only what sits between the two markers.
+function updateHome(posts) {
+  const file = join(ROOT, "index.html");
+  if (!existsSync(file)) return "index.html not found — skipped";
+  let html = readFileSync(file, "utf8");
+  const marked = /<!-- blog:latest:start -->[\s\S]*?<!-- blog:latest:end -->/;
+  if (!marked.test(html)) return "index.html has no blog:latest block — skipped";
+  const accent = { teal: "#22d3ce", purple: "#7d66fd", sky: "#38bdf8" };
+  // "3 Aug 2026": the home page list sets dates in a narrow column
+  const shortDate = (iso) => new Date(iso + "T00:00:00Z")
+    .toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" });
+  const rows = posts.slice(0, 3).map((p) =>
+    `          <li><a href="/blog/${p.slug}/"><time datetime="${p.date}">${shortDate(p.date)}</time><b>${esc(p.title)}</b><span><i class="dot" style="--c:${accent[TOPICS[p.topic].accent]}"></i>${TOPICS[p.topic].label} · ${p.minutes} min read</span></a></li>`);
+  const block = ["<!-- blog:latest:start -->", ...rows, "          <!-- blog:latest:end -->"].join("\n");
+  html = html.replace(marked, () => block);
+  writeFileSync(file, html);
+  return `index.html — ${rows.length} latest posts`;
+}
+
 /* -------------------------------------------------------------------- main */
 
 try {
@@ -685,6 +695,7 @@ try {
   written.forEach((w) => console.log("  " + w));
   console.log("  " + updateSitemap(posts));
   console.log("  " + updateLlms(posts));
+  console.log("  " + updateHome(posts));
   console.log("  " + await buildOgCards(posts.map((p) => ({
     slug: p.slug, title: p.title, topicLabel: TOPICS[p.topic].label,
     accent: { teal: "#22d3ce", purple: "#7d66fd", sky: "#38bdf8" }[TOPICS[p.topic].accent],

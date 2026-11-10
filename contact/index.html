@@ -5,8 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact — CodeRipple Tech</title>
   <meta name="description" content="Questions, bug reports, or an idea for the next tool? Send us a message. We read every one.">
-  <link rel="icon" type="image/svg+xml" href="../assets/logo.svg">
-  <link rel="stylesheet" href="../site.css?v=19">
+  <link rel="icon" type="image/svg+xml" href="/assets/coderipple-icon.svg">
+  <link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../site.css?v=29">
   <link rel="canonical" href="https://coderippletech.com/contact/">
   <meta name="theme-color" content="#0a0e14">
   <meta property="og:type" content="website">
@@ -68,31 +69,30 @@
     .form-error { display: none; margin-top: 14px; font-size: 13.5px; color: #fca5a5; text-align: center; }
     .form-error a { color: #fecaca; }
   </style>
+  <script src="/site.js?v=1" defer></script>
 </head>
 <body>
-
-  <nav class="snav">
-    <a href="../" class="snav-brand">
-      <img src="../assets/logo.svg" alt="">
+  <a class="skip" href="#main">Skip to content</a>
+  <nav class="snav" aria-label="Main">
+    <a href="/" class="snav-brand">
+      <img src="/assets/coderipple-mark.svg" alt="" width="30" height="30">
       CodeRipple Tech
     </a>
     <div class="snav-links">
-      <div class="nav-drop">
-        <button class="nav-drop-btn" type="button" aria-haspopup="true" aria-expanded="false">
-          Products
-          <svg width="10" height="7" viewBox="0 0 10 7" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-        </button>
+      <details class="nav-drop">
+        <summary class="nav-drop-btn"><span class="nav-drop-label">Products</span><svg class="nav-drop-grid" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><circle cx="3" cy="3" r="1.6"/><circle cx="8" cy="3" r="1.6"/><circle cx="13" cy="3" r="1.6"/><circle cx="3" cy="8" r="1.6"/><circle cx="8" cy="8" r="1.6"/><circle cx="13" cy="8" r="1.6"/><circle cx="3" cy="13" r="1.6"/><circle cx="8" cy="13" r="1.6"/><circle cx="13" cy="13" r="1.6"/></svg><svg class="nav-drop-caret" width="10" height="7" viewBox="0 0 10 7" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></summary>
         <div class="nav-drop-menu">
-          <a href="/rippleroot/"><img src="/assets/rippleroot-logo.png" alt=""><div>RippleRoot<small>Local-first dev workspace platform</small></div></a>
-          <a href="/ripplesnap/"><img src="/assets/ripplesnap-logo.png" alt=""><div>RippleSnap<small>macOS window manager</small></div></a>
-          <a href="/ripplereach/"><img src="/assets/ripplereach-logo.png" alt=""><div>RippleReach<small>Remote desktop, in tabs</small></div></a>
-          <a href="/rippleclip/"><img src="/assets/rippleclip-logo.png" alt=""><div>RippleClip<small>The capture inbox for iPhone</small></div></a>
-          <a href="/ripplebug/"><img src="/assets/ripplebug-logo.png" alt=""><div>Ripplebug<small>Bug reporting, captured whole</small></div></a>
-          <a href="/ripple-import/"><img src="/assets/logo.svg" alt=""><div>Ripple Import<small>CSV &amp; Excel → monday.com</small></div></a>
-          <a href="/ripple-merge/"><img src="/assets/ripple-merge-mark.svg" alt=""><div>Ripple Merge<small>Mail merge for monday.com emails</small></div></a>
-          <a href="/ripple-preview/"><img src="/assets/ripple-preview-logo.svg" alt=""><div>Ripple Preview<small>Real block previews for Umbraco</small></div></a>
+          <a href="/ripplebug/"><img src="/assets/ripplebug-logo.png" alt="" width="28" height="28"><span>Ripplebug<small>Bug reports with the evidence attached</small></span></a>
+          <a href="/ripplereach/"><img src="/assets/ripplereach-logo.png" alt="" width="28" height="28"><span>RippleReach<small>Remote desktop in tabs, Windows and Mac</small></span></a>
+          <a href="/ripplesnap/"><img src="/assets/ripplesnap-logo.png" alt="" width="28" height="28"><span>RippleSnap<small>Window manager for macOS</small></span></a>
+          <a href="/ripple-import/"><img src="/assets/logo.svg" alt="" width="28" height="28"><span>Ripple Import<small>CSV and Excel into monday.com</small></span></a>
+          <a href="/ripple-merge/"><img src="/assets/ripple-merge-mark.svg" alt="" width="28" height="28"><span>Ripple Merge<small>Mail merge for monday.com emails</small></span></a>
+          <a href="/rippleroot/"><img src="/assets/rippleroot-logo.png" alt="" width="28" height="28"><span>RippleRoot<small>Your dev workspace on every machine</small></span></a>
+          <a href="/rippleclip/"><img src="/assets/rippleclip-logo.png" alt="" width="28" height="28"><span>RippleClip<small>The capture inbox for iPhone</small></span></a>
+          <a href="/ripple-preview/"><img src="/assets/ripple-preview-logo.svg" alt="" width="28" height="28"><span>Ripple Preview<small>Real block previews for Umbraco</small></span></a>
+          <div class="nav-drop-foot"><a href="/">All products</a><a href="/blog/">Blog</a><a href="/contact/">Contact</a></div>
         </div>
-      </div>
+      </details>
       <a href="/blog/">Blog</a>
       <a class="btn btn-ghost" href="/contact/">Contact</a>
     </div>
@@ -107,7 +107,7 @@
     Every message lands in front of a human. Usually the founder.</p>
   </header>
 
-  <main class="wrap">
+  <main id="main" class="wrap">
     <section class="section" style="padding-top: 10px;">
       <div class="contact-wrap reveal">
         <div class="contact-card">
@@ -161,7 +161,7 @@
   <footer class="sfooter">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a class="footer-brand-link" href="/"><img src="/assets/logo.svg" alt="">CodeRipple Tech</a>
+        <a class="footer-brand-link" href="/"><img src="/assets/coderipple-mark.svg" alt="" width="30" height="30" loading="lazy" decoding="async">CodeRipple Tech</a>
         <p>Small tools. Big ripples. Focused products that remove the friction from everyday software work.</p>
       </div>
       <div class="footer-col">
@@ -203,19 +203,6 @@
     }), { threshold: 0.12 });
     document.querySelectorAll(".reveal").forEach(el => io.observe(el));
 
-    const drop = document.querySelector(".nav-drop");
-    const dropBtn = drop.querySelector(".nav-drop-btn");
-    dropBtn.addEventListener("click", (e) => {
-      e.stopPropagation();
-      const open = drop.classList.toggle("open");
-      dropBtn.setAttribute("aria-expanded", String(open));
-    });
-    document.addEventListener("click", (e) => {
-      if (!drop.contains(e.target)) { drop.classList.remove("open"); dropBtn.setAttribute("aria-expanded", "false"); }
-    });
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") { drop.classList.remove("open"); dropBtn.setAttribute("aria-expanded", "false"); }
-    });
 
     const form = document.getElementById("contact-form");
     form.addEventListener("submit", async (e) => {

@@ -13,6 +13,8 @@ Static site, no build step. Served by Cloudflare Pages (project
 /ripple-preview/     product page (Umbraco package — CTAs go to NuGet/GitHub)
 /_template/product/  copy-me skeleton for the next product
 site.css             shared design system (dark, Inter, accent variables)
+site.js              shared behaviour: Products menu, nav section highlight, card light
+scripts/sync-chrome.mjs  writes the navbar and "more tools" strip into every page
 style.css            legacy stylesheet for the guide page only
 assets/              logos, screenshots (shot-<slug>*.png)
 ```
@@ -32,7 +34,11 @@ array in the association JSON.
    `assets/shot-<slug>*.png`. Real screenshots beat mockups.
 4. Add a product card to the grid in `index.html` (copy an existing one,
    swap the copy, logo, link, and give the card its own hover class if you
-   want a tinted glow).
+   want a tinted glow). The `.pmeta` row under the copy says where it runs
+   and what it costs.
+4b. Add one row to `PRODUCTS` in `scripts/sync-chrome.mjs` and run
+   `npm run sync`. That puts the product in the Products menu on every page
+   and in the "More from CodeRipple Tech" strip on every product page.
 5. If it needs a privacy page: copy `/ripplebug/privacy/index.html`.
 6. SEO: add the page to `sitemap.xml` and `llms.txt`; render an OG image
    (1200×630, match `assets/og-*.png` style) and add the canonical + OG +
@@ -47,9 +53,10 @@ Cloudflare when that contract fails.
 ## Editing site.css
 
 Cloudflare Pages caches CSS in browsers for 4 hours. Every page links
-the stylesheet as `site.css?v=N` — when you change site.css, bump the
-`?v=` number in all pages (grep for `site.css?v=`), or returning
-visitors get the old styles with the new markup.
+the stylesheet as `site.css?v=N` — when you change site.css, bump `CSS_V`
+in `scripts/sync-chrome.mjs` and run `npm run sync`, or returning
+visitors get the old styles with the new markup. `site.js` works the same
+way through `JS_V`.
 
 ## Writing style
 

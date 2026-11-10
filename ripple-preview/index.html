@@ -6,7 +6,8 @@
   <title>Ripple Preview — See your actual pages while you edit them</title>
   <meta name="description" content="Real block previews for the Umbraco backoffice. Every block renders through your site's own views, styles and scripts — and stays fully editable. Free and open source.">
   <link rel="icon" type="image/svg+xml" href="/assets/ripple-preview-logo.svg">
-  <link rel="stylesheet" href="/site.css?v=19">
+  <link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/site.css?v=29">
   <style>
     /* Ripple Preview accent: sky */
     :root {
@@ -52,26 +53,43 @@
     }
   }
   </script>
+  <script src="/site.js?v=1" defer></script>
 </head>
 <body>
-
-  <nav class="snav">
+  <a class="skip" href="#main">Skip to content</a>
+  <nav class="snav" aria-label="Main">
     <div class="snav-brand">
+      <a class="snav-by" href="/">CodeRipple Tech</a>
+      <span class="snav-sep" aria-hidden="true">/</span>
       <a class="snav-brand-main" href="/ripple-preview/">
-        <img src="/assets/ripple-preview-logo.svg" alt="">
+        <img src="/assets/ripple-preview-logo.svg" alt="" width="26" height="26">
         Ripple Preview
       </a>
-      <a class="snav-by" href="/">by CodeRipple Tech</a>
     </div>
     <div class="snav-links">
       <a href="#features">Features</a>
       <a href="#setup">Setup</a>
       <a href="https://github.com/coderippletech/RipplePreview">GitHub</a>
+      <details class="nav-drop">
+        <summary class="nav-drop-btn"><span class="nav-drop-label">Products</span><svg class="nav-drop-grid" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><circle cx="3" cy="3" r="1.6"/><circle cx="8" cy="3" r="1.6"/><circle cx="13" cy="3" r="1.6"/><circle cx="3" cy="8" r="1.6"/><circle cx="8" cy="8" r="1.6"/><circle cx="13" cy="8" r="1.6"/><circle cx="3" cy="13" r="1.6"/><circle cx="8" cy="13" r="1.6"/><circle cx="13" cy="13" r="1.6"/></svg><svg class="nav-drop-caret" width="10" height="7" viewBox="0 0 10 7" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></summary>
+        <div class="nav-drop-menu">
+          <a href="/ripplebug/"><img src="/assets/ripplebug-logo.png" alt="" width="28" height="28"><span>Ripplebug<small>Bug reports with the evidence attached</small></span></a>
+          <a href="/ripplereach/"><img src="/assets/ripplereach-logo.png" alt="" width="28" height="28"><span>RippleReach<small>Remote desktop in tabs, Windows and Mac</small></span></a>
+          <a href="/ripplesnap/"><img src="/assets/ripplesnap-logo.png" alt="" width="28" height="28"><span>RippleSnap<small>Window manager for macOS</small></span></a>
+          <a href="/ripple-import/"><img src="/assets/logo.svg" alt="" width="28" height="28"><span>Ripple Import<small>CSV and Excel into monday.com</small></span></a>
+          <a href="/ripple-merge/"><img src="/assets/ripple-merge-mark.svg" alt="" width="28" height="28"><span>Ripple Merge<small>Mail merge for monday.com emails</small></span></a>
+          <a href="/rippleroot/"><img src="/assets/rippleroot-logo.png" alt="" width="28" height="28"><span>RippleRoot<small>Your dev workspace on every machine</small></span></a>
+          <a href="/rippleclip/"><img src="/assets/rippleclip-logo.png" alt="" width="28" height="28"><span>RippleClip<small>The capture inbox for iPhone</small></span></a>
+          <a href="/ripple-preview/" aria-current="page"><img src="/assets/ripple-preview-logo.svg" alt="" width="28" height="28"><span>Ripple Preview<small>Real block previews for Umbraco</small></span></a>
+          <div class="nav-drop-foot"><a href="/">All products</a><a href="/blog/">Blog</a><a href="/contact/">Contact</a></div>
+        </div>
+      </details>
       <a class="btn btn-sky" href="https://www.nuget.org/packages/RipplePreview"><span class="cta-full">Install via NuGet</span><span class="cta-short">Install</span></a>
     </div>
   </nav>
 
   <header class="hero">
+    <div class="ripples" aria-hidden="true"><i></i><i></i><i></i></div>
     <div class="orb orb-teal"></div>
     <div class="orb orb-purple"></div>
     <span class="eyebrow">Umbraco backoffice package</span>
@@ -86,7 +104,7 @@
     <div class="hero-note">Free and open source, MIT licensed. Requires Umbraco 17.3+.</div>
   </header>
 
-  <main class="wrap">
+  <main id="main" class="wrap">
 
     <!-- features -->
     <section class="section" id="features" style="padding-top:24px;">
@@ -172,10 +190,26 @@
     </section>
   </main>
 
+  <section class="more-tools" aria-labelledby="more-tools-h">
+    <div class="wrap">
+      <h2 id="more-tools-h">More from CodeRipple Tech</h2>
+      <p>Small tools from the same developer. Each one does a single job.</p>
+      <ul class="mt-list">
+        <li><a href="/ripplebug/" style="--c:#22d3ce"><img src="/assets/ripplebug-logo.png" alt="" width="34" height="34" loading="lazy" decoding="async"><span><b>Ripplebug</b><small>Bug reports with the evidence attached</small></span></a></li>
+        <li><a href="/ripplereach/" style="--c:#6574ff"><img src="/assets/ripplereach-logo.png" alt="" width="34" height="34" loading="lazy" decoding="async"><span><b>RippleReach</b><small>Remote desktop in tabs, Windows and Mac</small></span></a></li>
+        <li><a href="/ripplesnap/" style="--c:#298cff"><img src="/assets/ripplesnap-logo.png" alt="" width="34" height="34" loading="lazy" decoding="async"><span><b>RippleSnap</b><small>Window manager for macOS</small></span></a></li>
+        <li><a href="/ripple-import/" style="--c:#7d66fd"><img src="/assets/logo.svg" alt="" width="34" height="34" loading="lazy" decoding="async"><span><b>Ripple Import</b><small>CSV and Excel into monday.com</small></span></a></li>
+        <li><a href="/ripple-merge/" style="--c:#10b981"><img src="/assets/ripple-merge-mark.svg" alt="" width="34" height="34" loading="lazy" decoding="async"><span><b>Ripple Merge</b><small>Mail merge for monday.com emails</small></span></a></li>
+        <li><a href="/rippleroot/" style="--c:#34d399"><img src="/assets/rippleroot-logo.png" alt="" width="34" height="34" loading="lazy" decoding="async"><span><b>RippleRoot</b><small>Your dev workspace on every machine</small></span></a></li>
+        <li><a href="/rippleclip/" style="--c:#3ecfc0"><img src="/assets/rippleclip-logo.png" alt="" width="34" height="34" loading="lazy" decoding="async"><span><b>RippleClip</b><small>The capture inbox for iPhone</small></span></a></li>
+      </ul>
+    </div>
+  </section>
+
   <footer class="sfooter">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a class="footer-brand-link" href="/"><img src="/assets/logo.svg" alt="">CodeRipple Tech</a>
+        <a class="footer-brand-link" href="/"><img src="/assets/coderipple-mark.svg" alt="" width="30" height="30" loading="lazy" decoding="async">CodeRipple Tech</a>
         <p>Small tools. Big ripples. Focused products that remove the friction from everyday software work.</p>
       </div>
       <div class="footer-col">

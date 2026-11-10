@@ -4,22 +4,23 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RippleReach — Remote desktop for Windows and Mac, in tabs</title>
-  <meta name="description" content="Remote connection manager for Windows and Mac. Every RDP connection in one library, sessions in tabs at full resolution, and your Macs too. 14-day free trial.">
+  <meta name="description" content="A remote desktop manager for Windows and Mac. Every RDP connection in one library, sessions in tabs at full resolution, and your Macs too. 14-day free trial.">
   <link rel="icon" type="image/png" href="/assets/ripplereach-logo.png">
-  <link rel="stylesheet" href="/site.css?v=19">
+  <link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/site.css?v=29">
   <link rel="canonical" href="https://coderippletech.com/ripplereach/">
   <meta name="theme-color" content="#0a0e14">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="CodeRipple Tech">
   <meta property="og:url" content="https://coderippletech.com/ripplereach/">
   <meta property="og:title" content="RippleReach — Remote desktop for Windows and Mac, in tabs">
-  <meta property="og:description" content="Every RDP connection in one library. Sessions open in tabs at your screen's full resolution, and RippleReach Host lets you control your Macs too. 14-day free trial.">
+  <meta property="og:description" content="Every RDP connection in one library. Every remote desktop in a tab, at your screen's full resolution. Your Macs too, with RippleReach Host. 14-day free trial.">
   <meta property="og:image" content="https://coderippletech.com/assets/og-ripplereach.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="RippleReach — Remote desktop for Windows and Mac, in tabs">
-  <meta name="twitter:description" content="Every RDP connection in one library. Sessions open in tabs at your screen's full resolution, and RippleReach Host lets you control your Macs too. 14-day free trial.">
+  <meta name="twitter:description" content="Every RDP connection in one library. Every remote desktop in a tab, at your screen's full resolution. Your Macs too, with RippleReach Host. 14-day free trial.">
   <meta name="twitter:image" content="https://coderippletech.com/assets/og-ripplereach.png">
   <script type="application/ld+json">
   {
@@ -153,33 +154,50 @@
     .trial .fine { max-width: 640px; margin: 18px auto 0; font-size: 12.5px; color: var(--muted); text-align: center; }
         .credits { max-width: 760px; margin: 0 auto; font-size: 12.5px; color: var(--muted); text-align: center; }
   </style>
+  <script src="/site.js?v=1" defer></script>
 </head>
 <body>
-
-  <nav class="snav">
+  <a class="skip" href="#main">Skip to content</a>
+  <nav class="snav" aria-label="Main">
     <div class="snav-brand">
+      <a class="snav-by" href="/">CodeRipple Tech</a>
+      <span class="snav-sep" aria-hidden="true">/</span>
       <a class="snav-brand-main" href="/ripplereach/">
-        <img src="/assets/ripplereach-logo.png" alt="">
+        <img src="/assets/ripplereach-logo.png" alt="" width="26" height="26">
         RippleReach
       </a>
-      <a class="snav-by" href="/">by CodeRipple Tech</a>
     </div>
     <div class="snav-links">
       <a href="#features">Features</a>
       <a href="#macs">Macs</a>
       <a href="#agents">AI agents</a>
       <a href="#pricing">Pricing</a>
+      <details class="nav-drop">
+        <summary class="nav-drop-btn"><span class="nav-drop-label">Products</span><svg class="nav-drop-grid" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><circle cx="3" cy="3" r="1.6"/><circle cx="8" cy="3" r="1.6"/><circle cx="13" cy="3" r="1.6"/><circle cx="3" cy="8" r="1.6"/><circle cx="8" cy="8" r="1.6"/><circle cx="13" cy="8" r="1.6"/><circle cx="3" cy="13" r="1.6"/><circle cx="8" cy="13" r="1.6"/><circle cx="13" cy="13" r="1.6"/></svg><svg class="nav-drop-caret" width="10" height="7" viewBox="0 0 10 7" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></summary>
+        <div class="nav-drop-menu">
+          <a href="/ripplebug/"><img src="/assets/ripplebug-logo.png" alt="" width="28" height="28"><span>Ripplebug<small>Bug reports with the evidence attached</small></span></a>
+          <a href="/ripplereach/" aria-current="page"><img src="/assets/ripplereach-logo.png" alt="" width="28" height="28"><span>RippleReach<small>Remote desktop in tabs, Windows and Mac</small></span></a>
+          <a href="/ripplesnap/"><img src="/assets/ripplesnap-logo.png" alt="" width="28" height="28"><span>RippleSnap<small>Window manager for macOS</small></span></a>
+          <a href="/ripple-import/"><img src="/assets/logo.svg" alt="" width="28" height="28"><span>Ripple Import<small>CSV and Excel into monday.com</small></span></a>
+          <a href="/ripple-merge/"><img src="/assets/ripple-merge-mark.svg" alt="" width="28" height="28"><span>Ripple Merge<small>Mail merge for monday.com emails</small></span></a>
+          <a href="/rippleroot/"><img src="/assets/rippleroot-logo.png" alt="" width="28" height="28"><span>RippleRoot<small>Your dev workspace on every machine</small></span></a>
+          <a href="/rippleclip/"><img src="/assets/rippleclip-logo.png" alt="" width="28" height="28"><span>RippleClip<small>The capture inbox for iPhone</small></span></a>
+          <a href="/ripple-preview/"><img src="/assets/ripple-preview-logo.svg" alt="" width="28" height="28"><span>Ripple Preview<small>Real block previews for Umbraco</small></span></a>
+          <div class="nav-drop-foot"><a href="/">All products</a><a href="/blog/">Blog</a><a href="/contact/">Contact</a></div>
+        </div>
+      </details>
       <a class="btn btn-reach" href="https://github.com/coderippletech/ripplereach-releases/releases/latest" rel="noopener"><span class="cta-full">Download free trial</span><span class="cta-short">Download</span></a>
     </div>
   </nav>
 
   <header class="hero">
+    <div class="ripples" aria-hidden="true"><i></i><i></i><i></i></div>
     <div class="orb orb-teal"></div>
     <div class="orb orb-purple"></div>
     <span class="eyebrow">Remote desktop for Windows and Mac</span>
     <h1 class="display">Every remote desktop.<br><span class="grad-reach">In tabs, at full resolution.</span></h1>
     <p class="lede">Twenty servers means twenty Remote Desktop windows and a folder of .rdp files.
-    RippleReach keeps every connection in one library and opens them in tabs, sized to your screen.
+    RippleReach keeps every connection in one library and opens every session in a tab, sized to your screen.
     Your Macs too.</p>
     <div class="hero-ctas">
       <a class="btn btn-reach" href="https://github.com/coderippletech/ripplereach-releases/releases/latest" rel="noopener">Download free trial</a>
@@ -188,7 +206,7 @@
     <div class="hero-note">Windows 10 and 11 · macOS 14 or later · 14-day trial with everything unlocked, no account</div>
   </header>
 
-  <main class="wrap">
+  <main id="main" class="wrap">
 
     <section class="section" style="padding-top:0;">
       <figure class="appshot hero-shot reveal in">
@@ -204,7 +222,7 @@
 
     <section class="section" id="features">
       <div class="section-head reveal">
-        <h2>Built for people with a lot of servers</h2>
+        <h2>Remote Desktop without the twenty windows</h2>
         <p>The parts of Remote Desktop you use all day, kept. The parts that slow you down, fixed.</p>
       </div>
       <div class="features">
@@ -216,7 +234,7 @@
         <div class="feature reveal">
           <div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M9 21H3v-6"/><path d="M21 3l-7 7"/><path d="M3 21l7-7"/></svg></div>
           <h4>Full resolution on any monitor</h4>
-          <p>Windows sessions follow the window size, so the remote desktop is always your screen's full resolution. Resize the window and the desktop resizes with it.</p>
+          <p>The remote desktop is always your screen's full resolution, because Windows sessions follow the window size. Resize the window and the desktop resizes with it.</p>
         </div>
         <div class="feature reveal">
           <div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M7 14h10"/></svg></div>
@@ -231,7 +249,7 @@
         <div class="feature reveal">
           <div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
           <h4>Its own RDP engine</h4>
-          <p>Built on IronRDP, in Rust. H.264 on Windows, bitmap codecs everywhere, dynamic resize and auto-reconnect. Shared clipboard, with files on Windows and plain text on Mac.</p>
+          <p>Dynamic resize, auto-reconnect and a shared clipboard, with files on Windows and plain text on Mac. Built on IronRDP, in Rust: H.264 on Windows, bitmap codecs everywhere.</p>
         </div>
         <div class="feature reveal">
           <div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></div>
@@ -247,7 +265,7 @@
           <h3>Set it on the folder. Every server inherits it.</h3>
           <p>Put the credential on "Acme Corp" and every connection inside uses it. Settings flow
           from app defaults to folders to the connection, and the inspector shows where each
-          value comes from, so nothing is a mystery.</p>
+          value comes from.</p>
           <ul>
             <li>Folders, tags, favorites and recents, with filtering</li>
             <li>Card and list views, and a folder tree you rearrange by dragging</li>
@@ -282,7 +300,7 @@
     <section class="section">
       <div class="split">
         <div class="split-copy reveal">
-          <h3>Bring the connections you already have</h3>
+          <h3>Your RDCMan and mRemoteNG files come with you</h3>
           <p>Moving to a new tool shouldn't mean retyping two hundred hostnames. RippleReach
           looks for RDCMan, mRemoteNG and .rdp files on your computer and imports them with
           their folders. The original files are left alone.</p>
@@ -301,7 +319,7 @@
 
     <section class="section" id="macs">
       <div class="section-head reveal">
-        <h2>Control your Macs, too</h2>
+        <h2>Your Macs, in the next tab</h2>
         <p>Macs don't speak RDP. RippleReach Host, which ships inside the Mac app, teaches them. Then any computer with RippleReach, or any other Remote Desktop app, can sign in.</p>
       </div>
       <div class="split">
@@ -402,7 +420,7 @@
       </div>
       <div class="trial reveal">
         <h3>Download, connect, decide later.</h3>
-        <p>Every feature is unlocked for 14 days. After that, a licence is needed to open sessions:
+        <p>Every feature is unlocked for 14 days. After that, you need a licence to open sessions:
         $29 once, for up to 5 of your computers, with free updates. Your library, folders and
         settings stay usable either way.</p>
         <div class="trial-points">
@@ -444,10 +462,26 @@
     </section>
   </main>
 
+  <section class="more-tools" aria-labelledby="more-tools-h">
+    <div class="wrap">
+      <h2 id="more-tools-h">More from CodeRipple Tech</h2>
+      <p>Small tools from the same developer. Each one does a single job.</p>
+      <ul class="mt-list">
+        <li><a href="/ripplebug/" style="--c:#22d3ce"><img src="/assets/ripplebug-logo.png" alt="" width="34" height="34" loading="lazy" decoding="async"><span><b>Ripplebug</b><small>Bug reports with the evidence attached</small></span></a></li>
+        <li><a href="/ripplesnap/" style="--c:#298cff"><img src="/assets/ripplesnap-logo.png" alt="" width="34" height="34" loading="lazy" decoding="async"><span><b>RippleSnap</b><small>Window manager for macOS</small></span></a></li>
+        <li><a href="/ripple-import/" style="--c:#7d66fd"><img src="/assets/logo.svg" alt="" width="34" height="34" loading="lazy" decoding="async"><span><b>Ripple Import</b><small>CSV and Excel into monday.com</small></span></a></li>
+        <li><a href="/ripple-merge/" style="--c:#10b981"><img src="/assets/ripple-merge-mark.svg" alt="" width="34" height="34" loading="lazy" decoding="async"><span><b>Ripple Merge</b><small>Mail merge for monday.com emails</small></span></a></li>
+        <li><a href="/rippleroot/" style="--c:#34d399"><img src="/assets/rippleroot-logo.png" alt="" width="34" height="34" loading="lazy" decoding="async"><span><b>RippleRoot</b><small>Your dev workspace on every machine</small></span></a></li>
+        <li><a href="/rippleclip/" style="--c:#3ecfc0"><img src="/assets/rippleclip-logo.png" alt="" width="34" height="34" loading="lazy" decoding="async"><span><b>RippleClip</b><small>The capture inbox for iPhone</small></span></a></li>
+        <li><a href="/ripple-preview/" style="--c:#38bdf8"><img src="/assets/ripple-preview-logo.svg" alt="" width="34" height="34" loading="lazy" decoding="async"><span><b>Ripple Preview</b><small>Real block previews for Umbraco</small></span></a></li>
+      </ul>
+    </div>
+  </section>
+
   <footer class="sfooter">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a class="footer-brand-link" href="/"><img src="/assets/logo.svg" alt="">CodeRipple Tech</a>
+        <a class="footer-brand-link" href="/"><img src="/assets/coderipple-mark.svg" alt="" width="30" height="30" loading="lazy" decoding="async">CodeRipple Tech</a>
         <p>Small tools. Big ripples. Focused products that remove the friction from everyday software work.</p>
       </div>
       <div class="footer-col">

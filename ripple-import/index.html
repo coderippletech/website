@@ -4,9 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ripple Import — CSV &amp; Excel imports for monday.com</title>
-  <meta name="description" content="The fastest way to import CSV and Excel data into monday.com. Smart column mapping, hierarchy detection, multi-level board support.">
+  <meta name="description" content="Import CSV and Excel files into monday.com in seconds. Columns map themselves, and subitems and multi-level hierarchy come straight from your data. Free plan.">
   <link rel="icon" type="image/svg+xml" href="/assets/logo.svg">
-  <link rel="stylesheet" href="/site.css?v=19">
+  <link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/site.css?v=29">
   <style>
     /* Ripple Import accent: purple */
     :root {
@@ -90,26 +91,43 @@
     }
   }
   </script>
+  <script src="/site.js?v=1" defer></script>
 </head>
 <body>
-
-  <nav class="snav">
+  <a class="skip" href="#main">Skip to content</a>
+  <nav class="snav" aria-label="Main">
     <div class="snav-brand">
+      <a class="snav-by" href="/">CodeRipple Tech</a>
+      <span class="snav-sep" aria-hidden="true">/</span>
       <a class="snav-brand-main" href="/ripple-import/">
-        <img src="/assets/logo.svg" alt="">
+        <img src="/assets/logo.svg" alt="" width="26" height="26">
         Ripple Import
       </a>
-      <a class="snav-by" href="/">by CodeRipple Tech</a>
     </div>
     <div class="snav-links">
       <a href="#features">Features</a>
       <a href="#pricing">Pricing</a>
       <a href="/guide.html">Guide</a>
+      <details class="nav-drop">
+        <summary class="nav-drop-btn"><span class="nav-drop-label">Products</span><svg class="nav-drop-grid" width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><circle cx="3" cy="3" r="1.6"/><circle cx="8" cy="3" r="1.6"/><circle cx="13" cy="3" r="1.6"/><circle cx="3" cy="8" r="1.6"/><circle cx="8" cy="8" r="1.6"/><circle cx="13" cy="8" r="1.6"/><circle cx="3" cy="13" r="1.6"/><circle cx="8" cy="13" r="1.6"/><circle cx="13" cy="13" r="1.6"/></svg><svg class="nav-drop-caret" width="10" height="7" viewBox="0 0 10 7" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></summary>
+        <div class="nav-drop-menu">
+          <a href="/ripplebug/"><img src="/assets/ripplebug-logo.png" alt="" width="28" height="28"><span>Ripplebug<small>Bug reports with the evidence attached</small></span></a>
+          <a href="/ripplereach/"><img src="/assets/ripplereach-logo.png" alt="" width="28" height="28"><span>RippleReach<small>Remote desktop in tabs, Windows and Mac</small></span></a>
+          <a href="/ripplesnap/"><img src="/assets/ripplesnap-logo.png" alt="" width="28" height="28"><span>RippleSnap<small>Window manager for macOS</small></span></a>
+          <a href="/ripple-import/" aria-current="page"><img src="/assets/logo.svg" alt="" width="28" height="28"><span>Ripple Import<small>CSV and Excel into monday.com</small></span></a>
+          <a href="/ripple-merge/"><img src="/assets/ripple-merge-mark.svg" alt="" width="28" height="28"><span>Ripple Merge<small>Mail merge for monday.com emails</small></span></a>
+          <a href="/rippleroot/"><img src="/assets/rippleroot-logo.png" alt="" width="28" height="28"><span>RippleRoot<small>Your dev workspace on every machine</small></span></a>
+          <a href="/rippleclip/"><img src="/assets/rippleclip-logo.png" alt="" width="28" height="28"><span>RippleClip<small>The capture inbox for iPhone</small></span></a>
+          <a href="/ripple-preview/"><img src="/assets/ripple-preview-logo.svg" alt="" width="28" height="28"><span>Ripple Preview<small>Real block previews for Umbraco</small></span></a>
+          <div class="nav-drop-foot"><a href="/">All products</a><a href="/blog/">Blog</a><a href="/contact/">Contact</a></div>
+        </div>
+      </details>
       <a class="btn btn-purple" href="https://auth.monday.com/oauth2/authorize?client_id=55af520d16873067cc0dfe40e8b70bd1&amp;response_type=install"><span class="cta-full">Install on monday.com</span><span class="cta-short">Install</span></a>
     </div>
   </nav>
 
   <header class="hero">
+    <div class="ripples" aria-hidden="true"><i></i><i></i><i></i></div>
     <div class="orb orb-teal"></div>
     <div class="orb orb-purple"></div>
     <span class="eyebrow">Built for monday.com</span>
@@ -126,10 +144,10 @@
     <div class="hero-note">Free plan includes 10 imports per month. No credit card required.</div>
   </header>
 
-  <main class="wrap">
+  <main id="main" class="wrap">
 
     <!-- one-minute promo (self-hosted; no third-party player or cookies) -->
-    <section class="section reveal" aria-label="Ripple Import in one minute" style="padding-top:8px;padding-bottom:0;">
+    <section class="section reveal" aria-label="Ripple Import in one minute" style="padding-top:8px;padding-bottom:clamp(40px,7vh,72px);">
       <video class="promo-player" controls playsinline muted preload="none" width="1920" height="1080"
         poster="/assets/ripple-import-promo-poster.jpg" title="Ripple Import in one minute">
         <source src="/assets/ripple-import-promo.mp4" type="video/mp4">
@@ -137,10 +155,10 @@
     </section>
 
     <!-- features -->
-    <section class="section" id="features" style="padding-top:24px;">
+    <section class="section" id="features">
       <div class="section-head reveal">
-        <h2>Everything you need to import data</h2>
-        <p>Built for speed, accuracy, and zero busywork.</p>
+        <h2>Stop retyping spreadsheets into monday.</h2>
+        <p>What happens between dropping the file and seeing the board.</p>
       </div>
       <div class="features">
         <div class="feature reveal">
@@ -151,12 +169,12 @@
         <div class="feature reveal">
           <div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 12 15 15"/></svg></div>
           <h4>CSV &amp; Excel</h4>
-          <p>Drag and drop CSV, XLSX, or multi-sheet workbooks. Your data is parsed instantly in the browser.</p>
+          <p>Drop in a CSV, an XLSX, or a workbook with several sheets. The file is parsed in your browser, instantly.</p>
         </div>
         <div class="feature reveal">
           <div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="10" y2="6"/><line x1="14" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="10" y2="12"/><line x1="14" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="10" y2="18"/><line x1="14" y1="18" x2="21" y2="18"/></svg></div>
           <h4>Smart column mapping</h4>
-          <p>Columns auto-match to your board by name and type. Adjust, skip, or create new columns on the fly.</p>
+          <p>Columns match your board by name and type before you touch anything. Adjust, skip, or create new columns as you go.</p>
         </div>
         <div class="feature reveal">
           <div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="5" rx="1.5"/><rect x="7" y="12" width="14" height="4" rx="1" stroke-width="1.5"/><rect x="7" y="18" width="14" height="4" rx="1" stroke-width="1.5"/><path d="M5.5 9 L5.5 14 L7 14" stroke-width="1.5"/><path d="M5.5 14 L5.5 20 L7 20" stroke-width="1.5"/></svg></div>
@@ -190,7 +208,7 @@
     <section class="section" id="how">
       <div class="section-head reveal">
         <h2>From file to board in three steps</h2>
-        <p>No tutorials. No setup. No learning curve.</p>
+        <p>No setup, and nothing to learn first.</p>
       </div>
       <div class="steps">
         <div class="step reveal">
@@ -214,8 +232,8 @@
     <!-- pricing -->
     <section class="section" id="pricing">
       <div class="section-head reveal">
-        <h2>Simple, transparent pricing</h2>
-        <p>Every plan has every feature. Only the import volume differs.</p>
+        <h2>Every plan has every feature.</h2>
+        <p>You only pay for how often you import.</p>
       </div>
       <div class="reveal" style="text-align:center;margin-bottom:34px;">
         <div class="billing-toggle" role="tablist" aria-label="Billing period">
@@ -275,10 +293,26 @@
     </section>
   </main>
 
+  <section class="more-tools" aria-labelledby="more-tools-h">
+    <div class="wrap">
+      <h2 id="more-tools-h">More from CodeRipple Tech</h2>
+      <p>Small tools from the same developer. Each one does a single job.</p>
+      <ul class="mt-list">
+        <li><a href="/ripplebug/" style="--c:#22d3ce"><img src="/assets/ripplebug-logo.png" alt="" width="34" height="34" loading="lazy" decoding="async"><span><b>Ripplebug</b><small>Bug reports with the evidence attached</small></span></a></li>
+        <li><a href="/ripplereach/" style="--c:#6574ff"><img src="/assets/ripplereach-logo.png" alt="" width="34" height="34" loading="lazy" decoding="async"><span><b>RippleReach</b><small>Remote desktop in tabs, Windows and Mac</small></span></a></li>
+        <li><a href="/ripplesnap/" style="--c:#298cff"><img src="/assets/ripplesnap-logo.png" alt="" width="34" height="34" loading="lazy" decoding="async"><span><b>RippleSnap</b><small>Window manager for macOS</small></span></a></li>
+        <li><a href="/ripple-merge/" style="--c:#10b981"><img src="/assets/ripple-merge-mark.svg" alt="" width="34" height="34" loading="lazy" decoding="async"><span><b>Ripple Merge</b><small>Mail merge for monday.com emails</small></span></a></li>
+        <li><a href="/rippleroot/" style="--c:#34d399"><img src="/assets/rippleroot-logo.png" alt="" width="34" height="34" loading="lazy" decoding="async"><span><b>RippleRoot</b><small>Your dev workspace on every machine</small></span></a></li>
+        <li><a href="/rippleclip/" style="--c:#3ecfc0"><img src="/assets/rippleclip-logo.png" alt="" width="34" height="34" loading="lazy" decoding="async"><span><b>RippleClip</b><small>The capture inbox for iPhone</small></span></a></li>
+        <li><a href="/ripple-preview/" style="--c:#38bdf8"><img src="/assets/ripple-preview-logo.svg" alt="" width="34" height="34" loading="lazy" decoding="async"><span><b>Ripple Preview</b><small>Real block previews for Umbraco</small></span></a></li>
+      </ul>
+    </div>
+  </section>
+
   <footer class="sfooter">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a class="footer-brand-link" href="/"><img src="/assets/logo.svg" alt="">CodeRipple Tech</a>
+        <a class="footer-brand-link" href="/"><img src="/assets/coderipple-mark.svg" alt="" width="30" height="30" loading="lazy" decoding="async">CodeRipple Tech</a>
         <p>Small tools. Big ripples. Focused products that remove the friction from everyday software work.</p>
       </div>
       <div class="footer-col">

@@ -4,6 +4,7 @@
   "type": "module",
   "description": "Static site. The only build step is the blog generator; nothing here ships to the browser.",
   "scripts": {
+    "sync": "node scripts/sync-chrome.mjs && node scripts/build-blog.mjs",
     "build": "node scripts/build-blog.mjs",
     "check": "node scripts/build-blog.mjs && node scripts/validate-site.mjs"
   },
